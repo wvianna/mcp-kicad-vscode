@@ -1,0 +1,1853 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "7547be0d-a913-4b2d-89fe-97f5cc7a5c36")
+	(paper "A4")
+	(title_block
+		(title "sensores ópticos")
+		(date "2026-06-02")
+		(rev "r01")
+	)
+	(lib_symbols
+		(symbol "Amylib:0805W8F1001T5E"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "0805W8F1001T5E"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "mylib:R0805"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_1KR-1001-1_C17513.html"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "1KΩ (1001) ±1%"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "UNI-ROYAL(厚声)"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" "0805W8F1001T5E"
+				(at 0 -15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C17513"
+				(at 0 -17.78 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Resistors"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "0805W8F1001T5E_0_1"
+				(rectangle
+					(start -2.54 1.02)
+					(end 2.54 -1.02)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Amylib:0805W8F680JT5E"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "0805W8F680JT5E"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "mylib:R0805"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_68R-68R0-1_C17802.html"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "68Ω (68R0) ±1%"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "UNI-ROYAL(厚声)"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" "0805W8F680JT5E"
+				(at 0 -15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C17802"
+				(at 0 -17.78 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Resistors"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "0805W8F680JT5E_0_1"
+				(rectangle
+					(start -2.54 1.02)
+					(end 2.54 -1.02)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Amylib:ITR8307_S18_TR8"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "ITR8307/S18/TR8"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "mylib:OPTO-SMD_ITR8307-S18-TR8-B"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://lcsc.com/product-detail/Photo-Interrupter_ITR8307-S18-TR8-B_C115037.html"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "EVERLIGHT(亿光)"
+				(at 0 -15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" "ITR8307/S18/TR8(B)"
+				(at 0 -17.78 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C115037"
+				(at 0 -20.32 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Reflective Optical Interrupters"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "ITR8307_S18_TR8_0_1"
+				(rectangle
+					(start -6.35 4.32)
+					(end 6.35 -4.32)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -6.35 2.54) (xy -3.05 2.54) (xy -3.05 -2.54) (xy -6.35 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -4.57 1.27) (xy -3.05 -1.27) (xy -1.27 1.27) (xy -4.57 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.02 -0.25) (xy 0.76 -2.03)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.02 -1.27) (xy -5.08 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.25 0.76) (xy 1.52 -1.02)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.76 -2.03) (xy 0.25 -1.02) (xy -0.25 -1.52) (xy 0.76 -2.03)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.52 -1.02) (xy 1.02 0) (xy 0.51 -0.51) (xy 1.52 -1.02)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.81 2.29) (xy 3.81 -2.29)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.81 -0.76) (xy 6.35 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 6.35 2.54) (xy 3.81 0.76)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 6.35 -2.54) (xy 5.59 -1.27) (xy 4.83 -2.29) (xy 6.35 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin unspecified line
+					(at -8.89 2.54 0)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -8.89 -2.54 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 8.89 2.54 180)
+					(length 2.54)
+					(name "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 8.89 -2.54 180)
+					(length 2.54)
+					(name "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "power:GND"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "GND"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "GND_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "GND_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(text "SENSORES ÓPTICOS REFLEXIVOS \nPARA IDENTIFICAR A LINHA A SER SEGUIDA"
+		(exclude_from_sim no)
+		(at 131.826 70.866 0)
+		(effects
+			(font
+				(size 2 2)
+			)
+			(justify left)
+		)
+		(uuid "4f0335b5-ffd3-4c60-b126-de241cb954de")
+	)
+	(text "SAÍDAS"
+		(exclude_from_sim no)
+		(at 72.136 31.496 0)
+		(effects
+			(font
+				(size 3 3)
+				(thickness 0.6)
+				(bold yes)
+			)
+		)
+		(uuid "6487c5bd-cb97-442e-bc1c-967f2641aecb")
+	)
+	(text "ENTRADAS"
+		(exclude_from_sim no)
+		(at 34.29 32.004 0)
+		(effects
+			(font
+				(size 3 3)
+				(thickness 0.6)
+				(bold yes)
+			)
+		)
+		(uuid "d14e156a-3e7f-41ef-9523-866f592b7395")
+	)
+	(wire
+		(pts
+			(xy 150.114 107.95) (xy 163.322 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1c317705-1026-4c00-a779-0b96cc1a86c1")
+	)
+	(polyline
+		(pts
+			(xy 54.61 12.446) (xy 54.61 72.136)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+		)
+		(uuid "2f7b6f22-aebc-448c-8862-7dd82fe2a327")
+	)
+	(wire
+		(pts
+			(xy 42.164 43.942) (xy 40.132 43.942)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "42c12502-03cd-439c-80e2-5bcfff1dc12f")
+	)
+	(wire
+		(pts
+			(xy 150.114 118.618) (xy 153.162 118.618)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "67f70ed5-40bc-4f08-9b66-3223c9cf3ac0")
+	)
+	(wire
+		(pts
+			(xy 150.114 123.698) (xy 168.402 123.698)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6b90f453-20e6-4297-8039-81d86189db2a")
+	)
+	(wire
+		(pts
+			(xy 132.334 123.698) (xy 132.334 125.222)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6bbaa971-22fc-4f43-9725-dfec3e60ac14")
+	)
+	(wire
+		(pts
+			(xy 150.114 102.87) (xy 153.416 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6c1423b6-0abf-40dd-8b3c-0d6ab853ff12")
+	)
+	(polyline
+		(pts
+			(xy 12.7 72.644) (xy 101.092 72.644)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+		)
+		(uuid "6d1e3ae0-4cfb-4285-ad61-53bd671ff820")
+	)
+	(wire
+		(pts
+			(xy 132.334 96.266) (xy 132.334 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6f7e04b6-b3a3-4670-b9d8-88d88bb4d9b6")
+	)
+	(wire
+		(pts
+			(xy 70.358 43.688) (xy 72.39 43.688)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7b27d7e0-1a80-4f8b-af57-7786dec32e7a")
+	)
+	(wire
+		(pts
+			(xy 132.334 107.95) (xy 132.334 118.618)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "80e4728c-1577-42d6-ad2d-44a6a90c223c")
+	)
+	(wire
+		(pts
+			(xy 70.358 49.276) (xy 72.39 49.276)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "984a56d8-c73c-49d4-bac8-6dfab3ab0423")
+	)
+	(wire
+		(pts
+			(xy 132.334 135.382) (xy 132.334 137.922)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ae3bed27-4b1c-4523-9d60-dad13415a5c3")
+	)
+	(wire
+		(pts
+			(xy 42.164 49.784) (xy 40.132 49.784)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b268520f-81c4-4578-b34d-eae2d30c70de")
+	)
+	(wire
+		(pts
+			(xy 40.132 56.388) (xy 44.704 56.388)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7f5149b-c326-4dc3-ae3b-f13a7f957821")
+	)
+	(polyline
+		(pts
+			(xy 101.092 12.954) (xy 101.092 72.644)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+		)
+		(uuid "cd229eca-6b67-4433-b201-47aa3c831a5d")
+	)
+	(label "sensor1"
+		(at 70.358 43.688 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "086e216a-ad1e-4e73-b14f-768e44f46102")
+	)
+	(label "5v0"
+		(at 132.334 96.266 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "11d81bca-a4a1-4997-bab4-13e70855fae8")
+	)
+	(label "sensor2"
+		(at 70.358 49.276 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "17a855d7-2298-4b6f-9ed5-f4ff4f8021ca")
+	)
+	(label "sensor1"
+		(at 163.322 107.95 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1b844831-f64c-4a90-a5af-71afb14d5201")
+	)
+	(label "3v3"
+		(at 42.164 49.784 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1ea1b387-f1c2-4e93-813b-d1fbdd92d4ef")
+	)
+	(label "3v3"
+		(at 153.416 102.87 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "23c99722-c64b-4f93-8557-258eb67e77c4")
+	)
+	(label "sensor2"
+		(at 168.148 123.698 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "42b7c81f-66c8-4973-983e-5c9cb7f7d129")
+	)
+	(label "3v3"
+		(at 153.162 118.618 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d2828350-497f-4a9b-a13b-e2d96d3dc757")
+	)
+	(label "5v0"
+		(at 42.164 43.942 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ed987328-5106-4766-a837-266d9ca78cd8")
+	)
+	(hierarchical_label "sensor1"
+		(shape output)
+		(at 72.39 43.688 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "07b13127-3847-406b-823e-eb7023bde8bf")
+	)
+	(hierarchical_label "3v3"
+		(shape input)
+		(at 40.132 49.784 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5d34ab46-14cf-4f93-b1f5-6349d7e8c4be")
+	)
+	(hierarchical_label "5v0"
+		(shape input)
+		(at 40.132 43.942 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "688df8e1-6ef6-4f8a-a41b-fe2f24bd925e")
+	)
+	(hierarchical_label "gnd"
+		(shape input)
+		(at 40.132 56.388 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "8cf5f443-3d59-4172-98e3-1e3fd4024b45")
+	)
+	(hierarchical_label "sensor2"
+		(shape output)
+		(at 72.39 49.276 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "b2d39eee-9c5c-4097-aabb-03245fa5f046")
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 163.322 118.11 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "17aa5f2b-f318-4d95-b219-68270b579153")
+		(property "Reference" "#PWR042"
+			(at 163.322 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 163.322 122.428 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 163.322 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 163.322 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 163.322 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "248429ff-fff9-4553-a4e4-b37960b3f98f")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/372a4bfd-1e01-487b-a344-a34417743b96"
+					(reference "#PWR042")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/4f564747-41ab-4cf1-889d-c39b4e19532a"
+					(reference "#PWR046")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/ef8ffe1e-22b4-43dc-9a0c-65fc18db4532"
+					(reference "#PWR050")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amylib:ITR8307_S18_TR8")
+		(at 141.224 121.158 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1b12ab6f-b802-4dba-9e2f-9d687ca7b0fb")
+		(property "Reference" "U3"
+			(at 141.224 111.506 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "ITR8307/S18/TR8"
+			(at 141.224 114.046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "mylib:OPTO-SMD_ITR8307-S18-TR8-B"
+			(at 141.224 131.318 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Photo-Interrupter_ITR8307-S18-TR8-B_C115037.html"
+			(at 141.224 133.858 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 141.224 121.158 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "EVERLIGHT(亿光)"
+			(at 141.224 136.398 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "ITR8307/S18/TR8(B)"
+			(at 141.224 138.938 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C115037"
+			(at 141.224 141.478 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "a6ebed85-f6ba-4c81-a302-3330a5568ff2")
+		)
+		(pin "3"
+			(uuid "c1f3b230-4f26-4987-b731-ed3d74ec1df6")
+		)
+		(pin "4"
+			(uuid "d531cb22-937d-4f1c-939e-b90577c18dfd")
+		)
+		(pin "1"
+			(uuid "1a91307f-da9f-423f-8ef9-44ddee5bbfb3")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/372a4bfd-1e01-487b-a344-a34417743b96"
+					(reference "U3")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/4f564747-41ab-4cf1-889d-c39b4e19532a"
+					(reference "U5")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/ef8ffe1e-22b4-43dc-9a0c-65fc18db4532"
+					(reference "U7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 44.704 56.388 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "21f6889a-0b41-4a8b-9f6f-77d5ecd3b5b9")
+		(property "Reference" "#PWR040"
+			(at 44.704 62.738 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 44.704 60.706 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 44.704 56.388 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 44.704 56.388 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 44.704 56.388 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b335cda4-aab6-47c0-ac03-6dfb00ed1d23")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/372a4bfd-1e01-487b-a344-a34417743b96"
+					(reference "#PWR040")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/4f564747-41ab-4cf1-889d-c39b4e19532a"
+					(reference "#PWR044")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/ef8ffe1e-22b4-43dc-9a0c-65fc18db4532"
+					(reference "#PWR048")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 168.402 133.858 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7f60b023-0fc1-4f3f-b6ba-aa7a27312c51")
+		(property "Reference" "#PWR043"
+			(at 168.402 140.208 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 168.402 138.176 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 168.402 133.858 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 168.402 133.858 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 168.402 133.858 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7606d887-ad2c-4b68-9d2d-ca6f6af2234a")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/372a4bfd-1e01-487b-a344-a34417743b96"
+					(reference "#PWR043")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/4f564747-41ab-4cf1-889d-c39b4e19532a"
+					(reference "#PWR047")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/ef8ffe1e-22b4-43dc-9a0c-65fc18db4532"
+					(reference "#PWR051")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amylib:0805W8F680JT5E")
+		(at 132.334 130.302 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b924d19c-17aa-45db-ae0a-18b9eb475789")
+		(property "Reference" "R13"
+			(at 134.366 129.0319 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "0805W8F680JT5E"
+			(at 134.366 131.5719 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "mylib:R0805"
+			(at 139.954 130.302 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_68R-68R0-1_C17802.html"
+			(at 142.494 130.302 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "68Ω (68R0) ±1%"
+			(at 132.334 130.302 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL(厚声)"
+			(at 145.034 130.302 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "0805W8F680JT5E"
+			(at 147.574 130.302 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C17802"
+			(at 150.114 130.302 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "c4a24407-5965-40c0-adbc-4cae42aedc67")
+		)
+		(pin "1"
+			(uuid "063b5f35-ec51-4488-95f4-b8c02009e2aa")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/372a4bfd-1e01-487b-a344-a34417743b96"
+					(reference "R13")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/4f564747-41ab-4cf1-889d-c39b4e19532a"
+					(reference "R16")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/ef8ffe1e-22b4-43dc-9a0c-65fc18db4532"
+					(reference "R19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 132.334 137.922 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d08cd3eb-079f-4109-8c7f-2dd094d15d98")
+		(property "Reference" "#PWR041"
+			(at 132.334 144.272 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 132.334 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 132.334 137.922 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 132.334 137.922 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 132.334 137.922 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "df3b1a89-6589-4750-94da-6b1038f7f0fd")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/372a4bfd-1e01-487b-a344-a34417743b96"
+					(reference "#PWR041")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/4f564747-41ab-4cf1-889d-c39b4e19532a"
+					(reference "#PWR045")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/ef8ffe1e-22b4-43dc-9a0c-65fc18db4532"
+					(reference "#PWR049")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amylib:ITR8307_S18_TR8")
+		(at 141.224 105.41 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ea758686-0244-4850-8e9e-35eee2c3aee8")
+		(property "Reference" "U2"
+			(at 141.224 95.758 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "ITR8307/S18/TR8"
+			(at 141.224 98.298 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "mylib:OPTO-SMD_ITR8307-S18-TR8-B"
+			(at 141.224 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Photo-Interrupter_ITR8307-S18-TR8-B_C115037.html"
+			(at 141.224 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 141.224 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "EVERLIGHT(亿光)"
+			(at 141.224 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "ITR8307/S18/TR8(B)"
+			(at 141.224 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C115037"
+			(at 141.224 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "73a5c3bf-cdeb-4827-994b-8f9e730ffc55")
+		)
+		(pin "3"
+			(uuid "7511ff05-6755-4282-8489-5c1fb52987c8")
+		)
+		(pin "4"
+			(uuid "0a98b1c5-a48d-4072-9034-567aaa6aeb9c")
+		)
+		(pin "1"
+			(uuid "57831a18-05e0-4faa-bb4f-15eabff9c9ff")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/372a4bfd-1e01-487b-a344-a34417743b96"
+					(reference "U2")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/4f564747-41ab-4cf1-889d-c39b4e19532a"
+					(reference "U4")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/ef8ffe1e-22b4-43dc-9a0c-65fc18db4532"
+					(reference "U6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amylib:0805W8F1001T5E")
+		(at 163.322 113.03 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f65eb400-79f1-41b3-a6d1-57e3fe7892c4")
+		(property "Reference" "R14"
+			(at 165.354 111.7599 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "0805W8F1001T5E"
+			(at 165.354 114.2999 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "mylib:R0805"
+			(at 170.942 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_1KR-1001-1_C17513.html"
+			(at 173.482 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "1KΩ (1001) ±1%"
+			(at 163.322 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL(厚声)"
+			(at 176.022 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "0805W8F1001T5E"
+			(at 178.562 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C17513"
+			(at 181.102 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "dcbb3f84-b43e-43ad-b0db-47a9f87c69c8")
+		)
+		(pin "1"
+			(uuid "e2c75073-d6a1-4c0b-9da2-e6d8f0b06d47")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/372a4bfd-1e01-487b-a344-a34417743b96"
+					(reference "R14")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/4f564747-41ab-4cf1-889d-c39b4e19532a"
+					(reference "R17")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/ef8ffe1e-22b4-43dc-9a0c-65fc18db4532"
+					(reference "R20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amylib:0805W8F1001T5E")
+		(at 168.402 128.778 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fe238963-16e6-4397-8b7c-81c1975856b8")
+		(property "Reference" "R15"
+			(at 170.434 127.5079 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "0805W8F1001T5E"
+			(at 170.434 130.0479 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "mylib:R0805"
+			(at 176.022 128.778 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_1KR-1001-1_C17513.html"
+			(at 178.562 128.778 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "1KΩ (1001) ±1%"
+			(at 168.402 128.778 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL(厚声)"
+			(at 181.102 128.778 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "0805W8F1001T5E"
+			(at 183.642 128.778 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C17513"
+			(at 186.182 128.778 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "a7372356-04c4-4853-b4c1-6892814b2a7b")
+		)
+		(pin "1"
+			(uuid "fcf98bd9-d8cd-406e-9ec7-06c9892bd516")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/372a4bfd-1e01-487b-a344-a34417743b96"
+					(reference "R15")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/4f564747-41ab-4cf1-889d-c39b4e19532a"
+					(reference "R18")
+					(unit 1)
+				)
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/ef8ffe1e-22b4-43dc-9a0c-65fc18db4532"
+					(reference "R21")
+					(unit 1)
+				)
+			)
+		)
+	)
+)

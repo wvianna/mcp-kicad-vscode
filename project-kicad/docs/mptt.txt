@@ -1,0 +1,25 @@
+Componente,Função no Circuito,Valor / Modelo Sugerido,Especificações Técnicas / Observações
+U1,CI Controlador MPPT,CN3722,Encapsulamento TSSOP-16
+M1,Chaveamento Buck (Alta),AO4407A ou IRF7404,"MOSFET Canal P (≥30V, ≥5A), Baixo RDS(on)​"
+D1,Bloqueio de Retorno,SS34 ou B340,"Diodo Schottky (40V, 3A)"
+D2,Diodo de Roda Livre,SS34 ou B340,"Diodo Schottky rápido (40V, 3A)"
+L,Filtro de Saída (Buck),33 μH ou 47 μH,"Indutor de potência, corrente de saturação ≥4A"
+RCS​,Sensor de Corrente,0.1 Ω (para 2A),"Potência ≥0.5W (Encapsulamento 1206 ou 2512), precisão 1%"
+R7,Divisor de Tensão (VBAT​),24.9 kΩ,"Resistor de Filme Fino, precisão de 1%"
+R6,Divisor de Tensão (VBAT​),10 kΩ,"Resistor de Filme Fino, precisão de 1%"
+R8,Divisor do MPPT,133 kΩ,Define VMPP​≈14.8V. Precisão de 1%
+R3,Divisor do MPPT,10 kΩ,"Resistor de Filme Fino, precisão de 1%"
+R4,Estabilização COM2,120 Ω,Resistor padrão SMD 0805
+"R1, R5",Limitador dos LEDs,1 kΩ a 2.2 kΩ,Ajustar conforme a tensão máxima do painel solar
+R2,Sensor de Temp. (TEMP),10 kΩ,"Termistor NTC (se não monitorar a temp., usar resistor fixo de 10 kΩ)"
+C1,Filtro de Entrada,10 μF,Capacitor Eletrolítico ou Cerâmico (≥35V ou 50V)
+C6,Filtro de Saída,10 μF,Capacitor Cerâmico Multicamada X7R (≥16V ou 25V)
+C5,Bootstrap / Driver,100 nF,Capacitor Cerâmico (≥25V)
+C2,Temporizador interna,100 nF,Capacitor Cerâmico (Pino COM3 para GND)
+C3,Filtro de Ruído COM1,470 pF,Capacitor Cerâmico
+C4,Compensação COM2,220 nF,Capacitor Cerâmico (em série com R4)
+C7,Filtro de Feedback,22 pF,Capacitor Cerâmico (em paralelo com R7)
+D3,Indicador de Carga,LED Vermelho,Conectado ao pino CHRG (Acende ao carregar)
+D4,Indicador de Concluído,LED Verde,Conectado ao pino DONE (Acende quando carregado)
+
+

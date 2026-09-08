@@ -1,0 +1,59 @@
+1 - instalar o kicad via snap. Versão 9 ou superior.
+
+2- clonar o respositório do mcp no github:
+```
+mkdir -p ~/mcp
+cd ~/mcp
+git clone https://github.com/mixelpixx/KiCAD-MCP-Server.git
+```
+
+3 -  instalar as dependências do projeto e compilar o projeto:
+
+```
+npm install 
+npm run build
+```
+
+4 - Verificar se o servidor está funcionando corretamente:
+```
+ls -lh ~/mcp/KiCAD-MCP-Server/dist/index.js
+```
+
+5 - Habilitar a api do kicad
+
+Em um novo projeto, vá em : Preferences → Plugins → Enable IPC API Server
+
+ver imagem em docs/imagens/habilitar-complemento-kicad9.png
+
+6 - No vscode crie a pasta .vscode com o arquivo mcp.json
+´´´
+{
+  "servers": {
+    "KiCAD-MCP-Server": {
+      "type": "stdio",
+      "command": "/home/william/git/mcp-kicad-vscode/KiCAD-MCP-Server/run-kicad-mcp.sh",
+      "args": [],
+      "env": {
+        "NODE_ENV": "production",
+        "LOG_LEVEL": "info",
+        "KICAD_AUTO_LAUNCH": "false",
+        "KICAD_MCP_DEV": "0",
+        "KICAD_BACKEND": "auto",
+        "KICAD_PYTHON": "/home/william/git/mcp-kicad-vscode/KiCAD-MCP-Server/.venv/bin/python",
+        "PYTHONPATH": "/snap/kicad/22/usr/lib/python3/dist-packages",
+        "LD_LIBRARY_PATH": "/snap/kicad/22/usr/lib/x86_64-linux-gnu:/snap/kicad/22/usr/lib/i386-linux-gnu:/snap/kicad/22/usr/lib:/snap/kicad/22/gnome-platform/usr/lib/x86_64-linux-gnu:/snap/kicad/22/gnome-platform/usr/lib:/snap/kicad/22/gnome-platform/lib",
+        "PATH": "/snap/kicad/22/usr/bin:/snap/kicad/22/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      }
+    }
+  }
+}
+´´´
+
+OSB.: devido a instalação via snap, o caminho do kicad é diferente do padrão. Ajuste o caminho do kicad no arquivo mcp.json de acordo com a sua instalação.
+
+7 - No vscode Crtl + Shift + P → MCP: Start Server
+
+Inicalize o servidor e verifique se o mesmo está funcionando corretamente.
+
+8 - No vscode Crtl + Shift + P → MCP: Open MCP Panel
+

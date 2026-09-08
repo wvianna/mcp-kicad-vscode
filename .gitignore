@@ -1,0 +1,103 @@
+# =============================================================================
+# mcp-kicad-vscode — .gitignore da raiz do workspace
+# Compatível com: KiCAD-MCP-Server (Node.js/TypeScript + Python) e
+# projetos KiCad (project-kicad/) gerados/analisados localmente.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Node.js / TypeScript (KiCAD-MCP-Server)
+# -----------------------------------------------------------------------------
+node_modules/
+dist/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache
+.prettiercache
+
+# -----------------------------------------------------------------------------
+# Python (KiCAD-MCP-Server)
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+eggs/
+.eggs/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+.hypothesis/
+*.cover
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# -----------------------------------------------------------------------------
+# VS Code (configurações locais/máquina-específicas)
+# -----------------------------------------------------------------------------
+.vscode/
+*.code-workspace
+*.swp
+*.swo
+*~
+
+# -----------------------------------------------------------------------------
+# Projetos KiCad (project-kicad/ e similares) — artefatos gerados
+# Importante: manter versionados .kicad_pro, .kicad_pcb, .kicad_sch e libs.
+# -----------------------------------------------------------------------------
+fp-info-cache
+*.kicad_prl
+*.lck
+~*
+*.kicad_pcb-bak
+*.kicad_pcb.bak
+*.kicad_sch-bak
+*.kicad_sch.bak
+*.kicad_pro-bak
+*.kicad_pro.bak
+*-backups/
+production/
+*_drc_violations.json
+temp-*.dsn
+datasheet.zip
+
+# -----------------------------------------------------------------------------
+# Logs e dados locais
+# -----------------------------------------------------------------------------
+logs/
+*.log
+data/
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# -----------------------------------------------------------------------------
+# Ambiente
+# -----------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*.pem
+
+# -----------------------------------------------------------------------------
+# Sistema operacional
+# -----------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+
+*.zip

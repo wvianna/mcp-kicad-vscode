@@ -1,0 +1,24 @@
+C5378 220nf 0805
+C1555 22pf 50v 0402
+C84256 led vermelho 0805
+C2286 led vermelho 0603
+C2297 led verde 0805
+C2296 led amarelo 0805
+C115037 SMD-4P Reflective Optical Interrupters
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

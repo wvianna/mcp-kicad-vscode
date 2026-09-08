@@ -1,0 +1,2043 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "eee73227-36f2-4211-8b50-27098cd82400")
+	(paper "A4")
+	(title_block
+		(date "2026-06-09")
+		(rev "r01")
+	)
+	(lib_symbols
+		(symbol "Amylib:AMS1117-3.3"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "AMS1117-3.3"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "mylib:SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://lcsc.com/product-detail/Low-Dropout-Regulators-LDO_AMS_AMS1117-3-3_AMS1117-3-3_C6186.html"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "AMS"
+				(at 0 -15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" "AMS1117-3.3"
+				(at 0 -17.78 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C6186"
+				(at 0 -20.32 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Linear Voltage Regulators (LDO)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "AMS1117-3.3_0_1"
+				(rectangle
+					(start -8.89 5.08)
+					(end 8.89 -5.08)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(circle
+					(center -7.62 3.81)
+					(radius 0.38)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin unspecified line
+					(at -11.43 2.54 0)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -11.43 0 0)
+					(length 2.54)
+					(name "VOUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -11.43 -2.54 0)
+					(length 2.54)
+					(name "VIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 11.43 0 180)
+					(length 2.54)
+					(name "VOUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Amylib:AMS1117-5.0"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "AMS1117-5.0"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "mylib:SOT-223_L6.5-W3.5-P2.30-LS7.0-BR"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://lcsc.com/product-detail/Low-Dropout-Regulators-LDO_AMS_AMS1117-5-0_AMS1117-5-0_C6187.html"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "AMS"
+				(at 0 -15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" "AMS1117-5.0"
+				(at 0 -17.78 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C6187"
+				(at 0 -20.32 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Linear Voltage Regulators (LDO)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "AMS1117-5.0_0_1"
+				(rectangle
+					(start -8.89 5.08)
+					(end 8.89 -5.08)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(circle
+					(center -7.62 3.81)
+					(radius 0.38)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin unspecified line
+					(at -11.43 2.54 0)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -11.43 0 0)
+					(length 2.54)
+					(name "VOUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -11.43 -2.54 0)
+					(length 2.54)
+					(name "VIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 11.43 0 180)
+					(length 2.54)
+					(name "VOUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Amylib:CL31A106KOHNNNE"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "CL31A106KOHNNNE"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "mylib:C1206"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_SAMSUNG_CL31A106KOHNNNE_10uF-106-10-16V_C1849.html"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "10uF (106) ±10% 16V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "SAMSUNG(三星)"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" "CL31A106KOHNNNE"
+				(at 0 -15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C1849"
+				(at 0 -17.78 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "CL31A106KOHNNNE_0_1"
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.51 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.51 2.03) (xy -0.51 -2.03)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.51 2.03) (xy 0.51 -2.03)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.51 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin input line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "power:GND"
+			(power)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "GND"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "power-flag"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "GND_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "GND_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(hide yes)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(text "BIDIRECIONAL"
+		(exclude_from_sim no)
+		(at 72.898 31.75 0)
+		(effects
+			(font
+				(size 3 3)
+				(thickness 0.6)
+				(bold yes)
+			)
+		)
+		(uuid "5f074edb-3323-4513-bfc1-338b04751d61")
+	)
+	(text "ENTRADAS"
+		(exclude_from_sim no)
+		(at 35.052 32.258 0)
+		(effects
+			(font
+				(size 3 3)
+				(thickness 0.6)
+				(bold yes)
+			)
+		)
+		(uuid "925c9c08-3d18-415a-b86f-3c18077a5b26")
+	)
+	(junction
+		(at 126.492 97.79)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1649434f-691a-426d-b6c7-4f2509b5820d")
+	)
+	(junction
+		(at 164.338 95.25)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "aae42f92-4f5c-49c3-8411-c6b32111769f")
+	)
+	(wire
+		(pts
+			(xy 123.952 97.79) (xy 126.492 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0931d45f-533d-4aa0-9f55-193d57457dbc")
+	)
+	(wire
+		(pts
+			(xy 42.926 50.038) (xy 40.894 50.038)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "14f32dd8-5dbf-452c-b925-d20834782d58")
+	)
+	(wire
+		(pts
+			(xy 126.492 97.79) (xy 134.112 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "253ed372-9e0c-49c5-9ac8-96f481cbb88b")
+	)
+	(wire
+		(pts
+			(xy 72.898 54.61) (xy 74.93 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3554b400-12e6-4910-aa92-503cbeb5d462")
+	)
+	(wire
+		(pts
+			(xy 197.866 84.074) (xy 197.866 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5713b304-4a2d-4bfa-9cc7-2906f7afe076")
+	)
+	(wire
+		(pts
+			(xy 164.338 86.614) (xy 164.338 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5d6626d5-bcc9-4e8d-98dd-f7068559d452")
+	)
+	(wire
+		(pts
+			(xy 164.338 86.614) (xy 170.688 86.614)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "62b0128e-e482-4b90-96b4-3d20fbc21152")
+	)
+	(polyline
+		(pts
+			(xy 55.372 12.7) (xy 55.372 72.39)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+		)
+		(uuid "7ebe26df-04ae-4121-a34a-89b342735e77")
+	)
+	(wire
+		(pts
+			(xy 156.972 95.25) (xy 164.338 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "877f40eb-a518-44c7-8596-25fd16c77e29")
+	)
+	(polyline
+		(pts
+			(xy 101.854 13.208) (xy 101.854 72.898)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+		)
+		(uuid "8e01aa0a-8afa-40c8-a298-139affce6402")
+	)
+	(wire
+		(pts
+			(xy 164.338 95.25) (xy 164.338 99.822)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8f8c0452-47e7-4ea7-ad5a-9f81fd74a776")
+	)
+	(polyline
+		(pts
+			(xy 13.462 72.898) (xy 101.854 72.898)
+		)
+		(stroke
+			(width 0)
+			(type dash)
+		)
+		(uuid "a376a041-e993-4643-809b-be5c51cac794")
+	)
+	(wire
+		(pts
+			(xy 40.894 56.642) (xy 45.466 56.642)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b290da21-663a-47ad-9bc9-643b5b8ebf2f")
+	)
+	(wire
+		(pts
+			(xy 72.898 59.69) (xy 74.93 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cab72c2e-7ce4-42e0-bbb3-b23a6fed909c")
+	)
+	(wire
+		(pts
+			(xy 72.898 49.022) (xy 74.93 49.022)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cb189c64-5b06-4c4c-9fba-4a7df1e24a6a")
+	)
+	(wire
+		(pts
+			(xy 126.492 105.41) (xy 126.492 106.934)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d80ef5c0-5f9e-4c99-bd38-c649a2afca72")
+	)
+	(wire
+		(pts
+			(xy 193.548 84.074) (xy 197.866 84.074)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e6b25a5e-8d2e-41e3-ba59-b69d76d444b8")
+	)
+	(wire
+		(pts
+			(xy 166.624 81.534) (xy 170.688 81.534)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e766807b-4295-4618-901c-94e0316eddfa")
+	)
+	(label "5V"
+		(at 165.1 86.614 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1384ba01-a07f-4613-9027-2663a802996c")
+	)
+	(label "VBAT"
+		(at 42.926 50.038 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "14aab8aa-faca-433a-a570-8cfde1bfb7be")
+	)
+	(label "VBAT"
+		(at 123.952 97.79 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "34bcfa16-280e-4ce7-b3ef-18fefc8ac151")
+	)
+	(label "5V"
+		(at 134.112 95.25 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "66f611c9-7690-4ce1-9f72-77d2ab65986f")
+	)
+	(label "3V3"
+		(at 72.898 54.61 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "69269567-02c3-4961-840e-348ee800db9d")
+	)
+	(label "5V"
+		(at 72.898 49.022 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "889b64c9-223c-41ce-bd86-e2832c420ad3")
+	)
+	(label "3V3"
+		(at 170.688 84.074 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "c38dc16a-96bd-4ddb-be93-e680eb714b81")
+	)
+	(label "3V3"
+		(at 197.358 84.074 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d38fcf6d-a60d-4372-8486-53eb218407e7")
+	)
+	(hierarchical_label "GND"
+		(shape output)
+		(at 74.93 59.69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "31a41c51-73c3-4c61-8199-ebe325665043")
+	)
+	(hierarchical_label "gnd"
+		(shape input)
+		(at 40.894 56.642 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5032d6d6-b2e1-4755-a478-ca2f2a2fbf6f")
+	)
+	(hierarchical_label "3V3"
+		(shape output)
+		(at 74.93 54.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "9300b226-4d50-458c-ab34-fac2ae752e02")
+	)
+	(hierarchical_label "VBAT"
+		(shape input)
+		(at 40.894 50.038 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "a02cba65-af80-4072-a1b6-10e9aca98008")
+	)
+	(hierarchical_label "5V"
+		(shape output)
+		(at 74.93 49.022 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "b7752e79-9975-4475-a4e9-cf34f0ca007c")
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 164.338 98.044 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "6280e345-6a36-4da5-b3b1-9643258d5416")
+		(property "Netclass" "POWER"
+			(at 166.878 97.3455 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at -83.947 15.494 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 197.866 84.836 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "85fb0264-bb77-4d67-8051-f5618217487e")
+		(property "Netclass" "POWER"
+			(at 200.406 84.1375 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at -50.419 2.286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 129.286 97.79 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b0fe5db8-0cd7-41b0-b262-9a548d449b02")
+		(property "Netclass" "POWER"
+			(at 129.9845 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at -118.999 15.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amylib:AMS1117-3.3")
+		(at 182.118 84.074 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0c8ed41e-fc7e-4029-bb92-5b53c5429cf3")
+		(property "Reference" "U12"
+			(at 182.118 74.422 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AMS1117-3.3"
+			(at 182.118 76.962 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "mylib:SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR"
+			(at 182.118 94.234 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Low-Dropout-Regulators-LDO_AMS_AMS1117-3-3_AMS1117-3-3_C6186.html"
+			(at 182.118 96.774 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 182.118 84.074 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "AMS"
+			(at 182.118 99.314 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "AMS1117-3.3"
+			(at 182.118 101.854 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C6186"
+			(at 182.118 104.394 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "4"
+			(uuid "0be75a36-4c6f-453b-8081-be4ed0b06e33")
+		)
+		(pin "3"
+			(uuid "0d128366-05a9-42b4-8216-a51b0ab4129e")
+		)
+		(pin "2"
+			(uuid "c4f581de-b086-4f44-b62a-a6fa09fde3bb")
+		)
+		(pin "1"
+			(uuid "f4e4a598-b835-44d6-9019-51e4a9ab1f84")
+		)
+		(instances
+			(project ""
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/78c5e6e4-bd4c-4a25-ba68-665fecb410a3"
+					(reference "U12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 45.466 56.642 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3fa0bdf1-b0b4-4d54-862b-8e654340fad3")
+		(property "Reference" "#PWR080"
+			(at 45.466 62.992 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 45.466 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 45.466 56.642 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 45.466 56.642 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 45.466 56.642 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "53a1a521-ebd8-44de-90bd-25889ea3c161")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/78c5e6e4-bd4c-4a25-ba68-665fecb410a3"
+					(reference "#PWR080")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 164.338 107.442 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "58efb5b5-3d83-4ccd-b0d3-6a11e45b1032")
+		(property "Reference" "#PWR084"
+			(at 164.338 113.792 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 164.465 111.8362 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 164.338 107.442 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 164.338 107.442 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 164.338 107.442 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "191d6580-69dc-4b77-852f-552a19a35ef5")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/78c5e6e4-bd4c-4a25-ba68-665fecb410a3"
+					(reference "#PWR084")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 126.492 106.934 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "69e1c934-5d94-47b7-9dd3-bfd19c2862d5")
+		(property "Reference" "#PWR082"
+			(at 126.492 113.284 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 126.619 111.3282 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 126.492 106.934 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 126.492 106.934 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 126.492 106.934 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8aab244f-0a92-448e-98ea-e81c174de348")
+		)
+		(instances
+			(project ""
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/78c5e6e4-bd4c-4a25-ba68-665fecb410a3"
+					(reference "#PWR082")
+					(unit 1)
+				)
+			)
+			(project "seguidor_de_linha_4camadas"
+				(path "/b2104c10-6316-430d-ba05-5808765dc9ec/5ed8413a-7694-4fdd-a25c-aae6e3b0d80c"
+					(reference "#PWR128")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amylib:CL31A106KOHNNNE")
+		(at 126.492 101.6 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6ce9b3c9-9171-4efe-9ea3-16e7faf19014")
+		(property "Reference" "C15"
+			(at 123.444 100.3299 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "CL31A106KOHNNNE"
+			(at 123.444 102.8699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "mylib:C1206"
+			(at 118.872 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_SAMSUNG_CL31A106KOHNNNE_10uF-106-10-16V_C1849.html"
+			(at 116.332 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "10uF (106) ±10% 16V"
+			(at 126.492 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "SAMSUNG(三星)"
+			(at 113.792 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL31A106KOHNNNE"
+			(at 111.252 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C1849"
+			(at 108.712 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a49ad2ef-8649-4b8b-abe4-55e508c56c53")
+		)
+		(pin "2"
+			(uuid "c8220be9-d0a4-4d7d-b01a-f80091a326e3")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/78c5e6e4-bd4c-4a25-ba68-665fecb410a3"
+					(reference "C15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amylib:CL31A106KOHNNNE")
+		(at 197.866 90.17 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "896ef508-97d1-464e-a9b2-9858f77de5d3")
+		(property "Reference" "C17"
+			(at 200.914 88.8999 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "CL31A106KOHNNNE"
+			(at 200.914 91.4399 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "mylib:C1206"
+			(at 205.486 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_SAMSUNG_CL31A106KOHNNNE_10uF-106-10-16V_C1849.html"
+			(at 208.026 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "10uF (106) ±10% 16V"
+			(at 197.866 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "SAMSUNG(三星)"
+			(at 210.566 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL31A106KOHNNNE"
+			(at 213.106 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C1849"
+			(at 215.646 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3c6df424-d5a5-42e9-8eff-a4806e720b53")
+		)
+		(pin "2"
+			(uuid "5e688633-1991-4fbf-bacf-aa563afc0696")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/78c5e6e4-bd4c-4a25-ba68-665fecb410a3"
+					(reference "C17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amylib:AMS1117-5.0")
+		(at 145.542 95.25 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a34bfc9d-afae-4f92-9d7d-d99a5b525aa2")
+		(property "Reference" "U11"
+			(at 145.542 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AMS1117-5.0"
+			(at 145.542 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "mylib:SOT-223_L6.5-W3.5-P2.30-LS7.0-BR"
+			(at 145.542 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Low-Dropout-Regulators-LDO_AMS_AMS1117-5-0_AMS1117-5-0_C6187.html"
+			(at 145.542 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 145.542 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "AMS"
+			(at 145.542 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "AMS1117-5.0"
+			(at 145.542 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C6187"
+			(at 145.542 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "e90bfe7b-1012-4a0c-9824-f43a765763e2")
+		)
+		(pin "2"
+			(uuid "f861dfbe-1164-4f60-9081-0b1a6486e596")
+		)
+		(pin "4"
+			(uuid "15244d0c-b8fa-4750-a9a3-d696778e7783")
+		)
+		(pin "1"
+			(uuid "dfd47392-5db1-4a5c-800c-2b7e381cfca4")
+		)
+		(instances
+			(project ""
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/78c5e6e4-bd4c-4a25-ba68-665fecb410a3"
+					(reference "U11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amylib:CL31A106KOHNNNE")
+		(at 164.338 103.632 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a7602e17-7adb-48fe-8476-276188334c03")
+		(property "Reference" "C16"
+			(at 161.29 102.3619 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "CL31A106KOHNNNE"
+			(at 161.29 104.9019 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "mylib:C1206"
+			(at 156.718 103.632 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_SAMSUNG_CL31A106KOHNNNE_10uF-106-10-16V_C1849.html"
+			(at 154.178 103.632 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "10uF (106) ±10% 16V"
+			(at 164.338 103.632 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "SAMSUNG(三星)"
+			(at 151.638 103.632 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL31A106KOHNNNE"
+			(at 149.098 103.632 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C1849"
+			(at 146.558 103.632 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d726908a-f770-4d06-a73a-0c53aeedda00")
+		)
+		(pin "2"
+			(uuid "30878472-9db8-436a-8262-4a180e627792")
+		)
+		(instances
+			(project ""
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/78c5e6e4-bd4c-4a25-ba68-665fecb410a3"
+					(reference "C16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 166.624 81.534 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "aea68e7b-2a33-4b29-a798-7914af4ddf61")
+		(property "Reference" "#PWR085"
+			(at 160.274 81.534 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 162.2298 81.661 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 166.624 81.534 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 166.624 81.534 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 166.624 81.534 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d4400545-f9af-41df-956a-4cc3ee3f8c0d")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/78c5e6e4-bd4c-4a25-ba68-665fecb410a3"
+					(reference "#PWR085")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 197.866 93.98 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "bcb17558-9a46-4ee0-a6f9-dfffa7550e7e")
+		(property "Reference" "#PWR086"
+			(at 197.866 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 197.993 98.3742 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 197.866 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 197.866 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 197.866 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5e0eb9a2-8e76-4300-8c9e-0d56817f0318")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/78c5e6e4-bd4c-4a25-ba68-665fecb410a3"
+					(reference "#PWR086")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 134.112 92.71 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d7281910-ef5e-4958-b25c-cee513332e60")
+		(property "Reference" "#PWR083"
+			(at 127.762 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 129.7178 92.837 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 134.112 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 134.112 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 134.112 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "43ec47c2-151a-444a-9740-50b26ff7f774")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/78c5e6e4-bd4c-4a25-ba68-665fecb410a3"
+					(reference "#PWR083")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 72.898 59.69 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f9e2d302-68e0-4d35-9577-1eee8f364a59")
+		(property "Reference" "#PWR081"
+			(at 72.898 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 72.898 64.008 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 72.898 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 72.898 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 72.898 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a0dde171-8591-40ba-ad6c-d70418ea9e1a")
+		)
+		(instances
+			(project "seguidor_de_linhas_4camada2-2026-1"
+				(path "/a0cd2c6e-f944-4767-8c84-d4e1f9956d04/78c5e6e4-bd4c-4a25-ba68-665fecb410a3"
+					(reference "#PWR081")
+					(unit 1)
+				)
+			)
+		)
+	)
+)
