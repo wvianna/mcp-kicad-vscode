@@ -1,0 +1,229 @@
+\chapter{Arquitetura do servidor MCP}\label{cap:arquitetura}
+
+Este capítulo descreve a organização interna do \texttt{mcp-kicad-vscode}: as
+duas camadas de implementação, o protocolo que as conecta, a abstração de
+\emph{backends} de acesso ao KiCad, os recursos e \emph{prompts} expostos e as
+principais decisões de engenharia com seus compromissos.
+
+\section{Visão geral em duas camadas}
+
+O servidor separa, de forma deliberada, responsabilidades de protocolo e
+responsabilidades de domínio. A camada de protocolo, em TypeScript, implementa
+o MCP, registra ferramentas com esquemas de validação e gerencia o ciclo de
+vida de um subprocesso Python. A camada de domínio, em Python, traduz comandos
+em operações sobre o KiCad por meio de três mecanismos: a API \texttt{pcbnew}
+(SWIG), a API IPC e o utilitário \texttt{kicad-cli}. A
+Figura~\ref{fig:arquitetura-mono} detalha a organização.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  font=\scriptsize,
+  box/.style={draw, rounded corners=2pt, align=center, inner sep=4pt},
+  arr/.style={-{Stealth[length=2mm]}, thick},
+  trace/.style={-{Stealth[length=2mm]}, thick, dashed},
+  node distance=5mm and 7mm
+]
+\node[box, fill=blue!6] (host) {Anfitrião /\\assistente};
+\node[box, fill=blue!14, right=of host] (ts) {\textbf{Camada TypeScript}\\\texttt{server.ts}, \texttt{kicad-server.ts}\\\texttt{tools/} (24 módulos)\\\texttt{resources/} (4), \texttt{prompts/} (4)};
+\node[box, fill=orange!12, right=of ts] (py) {\textbf{Camada Python}\\\texttt{kicad\_interface.py}\\\texttt{commands/} (39 módulos)};
+\node[box, fill=green!10, right=of py] (kicad) {\textbf{KiCad 9}\\\texttt{pcbnew} (SWIG)\\\texttt{kicad-cli}};
+\node[box, fill=gray!12, below=6mm of py] (ipc) {Servidor IPC\\(experimental)};
+\draw[arr] (host) -- node[above, font=\tiny]{MCP (JSON-RPC 2.0, stdio)} (ts);
+\draw[arr] (ts) -- node[above, font=\tiny]{NDJSON + IDs} (py);
+\draw[arr] (py) -- node[above, font=\tiny]{comandos} (kicad);
+\draw[trace] (py) -- (ipc);
+\draw[trace] (ipc) -- (kicad);
+\end{tikzpicture}
+\caption{Arquitetura em duas camadas do servidor. Linhas tracejadas indicam o
+caminho IPC opcional (experimental).}
+\label{fig:arquitetura-mono}
+\end{figure}
+
+A separação traz três benefícios concretos. Primeiro, a camada TypeScript é
+testável sem o KiCad instalado, o que viabiliza testes de protocolo em
+integração contínua. Segundo, a camada Python pode evoluir e aproveitar
+bibliotecas do ecossistema do KiCad sem tocar no protocolo. Terceiro, a
+fronteira entre as camadas é um ponto de observabilidade: erros de integração
+podem ser localizados em uma das duas metades.
+
+\section{Camada de protocolo (TypeScript)}
+
+\subsection{Estrutura do código}
+
+A camada TypeScript ocupa 42 arquivos, com 14.677 linhas de código. Os
+componentes principais são:
+
+\begin{itemize}[leftmargin=1.4em,itemsep=0.2em]
+  \item \texttt{src/index.ts} e \texttt{src/server.ts}: entrada do processo e
+        construção da instância MCP, registro de ferramentas, recursos e
+        \emph{prompts}, e gestão do subprocesso Python;
+  \item \texttt{src/kicad-server.ts}: fachada de comunicação com a camada
+        Python;
+  \item \texttt{src/tools/}: 24 módulos que registram as 233 ferramentas;
+  \item \texttt{src/resources/}: recursos de estado do projeto (placa,
+        componentes, bibliotecas, projeto);
+  \item \texttt{src/prompts/}: modelos de interação para tarefas de
+        componente, projeto, \emph{footprint} e roteamento;
+  \item \texttt{src/command-timeout.ts}: tabela de tempos-limite por comando;
+  \item \texttt{src/logger.ts} e \texttt{src/config.ts}: configuração e
+        registros de execução.
+\end{itemize}
+
+\subsection{Registro e validação de ferramentas}
+
+Cada ferramenta é registrada individualmente com \texttt{server.tool()}, com
+nome, descrição e esquema de parâmetros validado em tempo de chamada. Por
+exemplo, a ferramenta de criação de projeto declara os parâmetros
+\texttt{name} e \texttt{path} como cadeias obrigatórias e, em seguida,
+encaminha a chamada ao comando homônimo na camada Python. Essa opção de
+projeto --- uma ferramenta por operação --- foi precedida de uma alternativa
+controlada por um meta-comando único (\texttt{execute\_tool}); a alternativa
+foi descartada porque os clientes MCP não enxergavam os esquemas reais das
+ferramentas, reduzindo a capacidade do assistente de planejar chamadas
+válidas.
+
+Sobre o conjunto de ferramentas, atua o \textbf{registro de descoberta}: uma
+camada de metadados que associa cada ferramenta a uma categoria funcional
+(16 categorias, 173 ferramentas indexadas) e mantém uma lista de ferramentas
+essenciais, sempre visível e priorizada na busca. Um teste automatizado
+congela o número de ferramentas registradas mas não indexadas (60 na versão
+avaliada), de modo que a dívida técnica de descoberta só pode diminuir.
+
+\subsection{Ciclo de vida do processo Python}
+
+O subprocesso Python é iniciado na primeira chamada de ferramenta e mantido
+vivo enquanto o servidor existir, evitando o custo de inicialização do
+ambiente a cada operação. Duas salvaguardas foram incorporadas ao ciclo de
+vida: (i) o transporte MCP só é conectado após o processo Python estar pronto,
+evitando que o cliente acumule requisições contra um servidor silencioso
+durante a inicialização; e (ii) cada comando tem tempo-limite próprio,
+configurado em tabela dedicada, com valores estendidos para operações
+naturalmente longas, como a varredura de bibliotecas contra APIs externas.
+
+\section{Protocolo interno entre as camadas}
+
+A fronteira entre TypeScript e Python usa JSON delimitado por linhas
+(\emph{newline-delimited JSON}, NDJSON): cada requisição é uma linha, cada
+resposta é uma linha. O ponto crucial é a \textbf{correlação por
+identificador}: toda requisição carrega um identificador numérico, que a
+resposta ecoa; respostas cujo identificador não corresponde à requisição em
+espera são descartadas. Sem esse mecanismo, um comando que excede o
+tempo-limite provoca um desalinhamento permanente entre pergunta e resposta
+--- sintoma que motivou a correção registrada na versão 2.7.0 do projeto.
+
+O trecho a seguir (adaptado da documentação interna) ilustra o formato:
+
+\begin{verbatim}
+{"id": 42, "command": "run_drc", "args": {"severity": "all"}}
+{"id": 42, "status": "ok", "result": {"violations": 11}}
+\end{verbatim}
+
+A comunicação é serializada por uma fila no lado TypeScript, garantindo que
+apenas uma requisição esteja em voo por vez e simplificando o raciocínio
+sobre estado. Erros estruturados atravessam a fronteira sem perda de
+informação: exemplos incluem o erro \texttt{schematic\_load\_failed}, que
+nomeia os símbolos problemáticos quando um esquemático não pode ser lido, em
+vez de retornar silenciosamente um resultado parcial.
+
+\section{Camada de domínio (Python)}
+
+A camada Python totaliza 54.442 linhas, organizadas em torno do roteador
+principal \texttt{kicad\_interface.py} (6.529 linhas), que interpreta os
+comandos e despacha para módulos especializados:
+
+\begin{itemize}[leftmargin=1.4em,itemsep=0.2em]
+  \item \texttt{commands/} (38.050 linhas, 39 módulos): projeto, placa,
+        componentes de placa e de esquemático, conexões, fios, localização de
+        pinos, carregamento dinâmico de símbolos, roteamento, regras de
+        projeto, exportação, bibliotecas, criadores de \emph{footprints} e
+        símbolos, \emph{datasheets}, JLCPCB, Freerouting, importação SVG e
+        utilitários de geometria;
+  \item \texttt{schemas/} (3.669 linhas): definições de esquema dos comandos;
+  \item \texttt{utils/} (2.803 linhas): detecção de plataforma, normalização
+        de caminhos e auxiliares;
+  \item \texttt{kicad\_api/} (2.298 linhas): a abstração de \emph{backends};
+  \item \texttt{resources/} (349 linhas) e \texttt{parsers/} (251 linhas):
+        manipuladores de recursos e leitura de expressões-S;
+  \item \texttt{annotations/} (174 linhas): anotações de código do domínio.
+\end{itemize}
+
+O fluxo típico de um comando é: o roteador recebe a mensagem, valida o
+formato, resolve o módulo responsável, executa a operação sobre o documento
+(ou aciona o \texttt{kicad-cli}), e devolve um resultado serializável. Erros
+são convertidos em respostas estruturadas com tipo e mensagem, evitando
+exceções não tratadas que derrubariam o processo persistente.
+
+\section{Abstração de backends de execução}
+
+O acesso ao KiCad é mediado por uma interface abstrata
+(\texttt{kicad\_api/base.py}) com duas implementações: o \emph{backend} SWIG,
+que usa a API \texttt{pcbnew} no processo, e o \emph{backend} IPC, que
+conversa com a interface gráfica do KiCad por meio da biblioteca
+\texttt{kicad-python} \citep{kicaddev}. Uma fábrica
+(\texttt{kicad\_api/factory.py}) decide qual usar conforme a configuração
+(\texttt{KICAD\_BACKEND}: \texttt{auto}, \texttt{swig} ou \texttt{ipc}) e a
+disponibilidade real do ambiente: no modo automático, o servidor tenta o IPC
+com limite de tempo de parede e recua para o SWIG quando não há soquete ativo
+ou quando o KiCad está ocupado demais para atendê-lo.
+
+Essa camada registra ainda a \textbf{fixação de sessão} (\emph{session
+pinning}): uma vez escolhido o \emph{backend} de uma sessão de edição, as
+operações subsequentes de salvamento e recarga permanecem no mesmo
+\emph{backend}, evitando que uma placa salva por um mecanismo seja recarregada
+por outro com estado divergente. A decisão responde diretamente a uma classe
+de risco em integrações de EDA: perda silenciosa de alterações por
+inconsistência de origem de dados.
+
+\section{Recursos MCP}
+
+Além das ferramentas, o servidor expõe 23 recursos dinâmicos que representam
+o estado do projeto em quatro famílias: \emph{projeto} (metadados, arquivos e
+estado geral), \emph{placa} (dimensões, camadas, componentes e redes),
+\emph{componentes} (detalhes de \emph{footprints} e pads) e \emph{bibliotecas}
+(listagens e metadados de bibliotecas registradas). Recursos são somente
+leitura por definição \citep{mcp2025docs}, o que os torna adequados para
+contextualizar o assistente antes de operações destrutivas.
+
+\section{Prompts}
+
+O servidor publica \emph{prompts} para quatro tarefas recorrentes:
+componentes, projeto (\emph{design}), \emph{footprints} e roteamento. Cada
+\emph{prompt} descreve um roteiro de interação --- o que inspecionar, quais
+ferramentas chamar e em que ordem --- reduzindo a variabilidade das primeiras
+iterações do agente em tarefas padrão.
+
+\section{Decisões de engenharia e compromissos}
+
+O Quadro~\ref{qua:decisoes} resume decisões estruturais, alternativas
+consideradas e a motivação registrada.
+
+\begin{quadro}[htbp]
+\centering
+\small
+\caption{Decisões de engenharia e compromissos.}
+\label{qua:decisoes}
+\begin{tabular}{@{}p{3.6cm}p{3.6cm}p{6.7cm}@{}}
+\toprule
+\textbf{Decisão} & \textbf{Alternativa} & \textbf{Motivação / evidência} \\
+\midrule
+Uma ferramenta por operação & Meta-ferramenta \texttt{execute\_tool} & Clientes não viam os esquemas reais; planejamento do agente piorava (histórico do projeto) \\
+Correlação por ID no transporte interno & Sem IDs, apenas ordem & Respostas tardias desalinhavam a fila após um tempo-limite (correção na v2.7.0) \\
+Congelar o número de ferramentas não indexadas & Apenas documentar & Impede regressão de descoberta; teste de completude do registro \\
+Sessão fixada por \emph{backend} & Seleção por chamada & Evita perda de alterações por alternância de origem de dados \\
+Salvamento explícito e recarga controlada & Salvamento automático & Operações destrutivas exigem controle do usuário; ferramentas \texttt{is\_dirty} e \texttt{discard\_or\_reload} \\
+\emph{Delete} em vez de \emph{Remove} na API de placa & \emph{Remove} com coleta de lixo & Destruidor prematuro corrompia o estado SWIG do processo (correção na v2.6.0) \\
+Escapes simétricos na leitura e escrita de expressões-S & Tratamentos separados & Valores com aspas escapadas sobrevivem ao ciclo ler--gravar \\
+Arquivos temporários do autorouter em diretório próprio & Arquivos ao lado da placa & Evita poluição e importação de resultados obsoletos \\
+\bottomrule
+\end{tabular}
+\end{quadro}
+
+\section{Síntese do capítulo}
+
+A arquitetura combina uma camada de protocolo leve e testável com uma camada
+de domínio profunda, conectadas por um protocolo interno com correlação de
+requisições. A abstração de \emph{backends} e as decisões de integridade
+(escritas controladas, sessão fixada, erros estruturados) formam a base sobre
+a qual o catálogo de ferramentas, apresentado no próximo capítulo, foi
+construído.

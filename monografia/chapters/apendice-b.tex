@@ -1,0 +1,75 @@
+\chapter{Reprodutibilidade dos procedimentos}\label{ap:repro}
+
+Este apêndice reúne os comandos utilizados na validação, na mesma ordem em
+que foram executados. Todas as saídas originais estão preservadas em
+\texttt{evidencias/}.
+
+\section{Preparação do servidor MCP}
+
+\begin{verbatim}
+cd KiCAD-MCP-Server
+npm ci
+npm run build
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt -r requirements-dev.txt
+\end{verbatim}
+
+\section{Ambiente do KiCad (instalação snap, Linux)}
+
+\begin{verbatim}
+export PYTHONPATH=/snap/kicad/22/usr/lib/python3/dist-packages
+export LD_LIBRARY_PATH=/snap/kicad/22/usr/lib/x86_64-linux-gnu:...:/snap/kicad/22/lib
+export PATH=/snap/kicad/22/usr/bin:/snap/kicad/22/bin:$PATH
+\end{verbatim}
+
+O \emph{launcher} do projeto (\texttt{run-kicad-mcp.sh}) exporta exatamente
+essas variáveis antes de iniciar o servidor Node.
+
+\section{Execução das suítes de teste}
+
+\begin{verbatim}
+npm run test:ts                # Vitest (tests-ts/)
+python -m pytest tests/ -q -o addopts=""   # pytest; addopts original usa pytest-cov
+\end{verbatim}
+
+Os resultados completos foram redirecionados para
+\texttt{evidencias/testes-vitest-2026-09-10.log} e
+\texttt{evidencias/testes-pytest-2026-09-10.log}.
+
+\section{Verificação de regras e geração de figuras}
+
+\begin{verbatim}
+kicad-cli pcb drc --output drc.json --format json --severity-all \
+    project-kicad/seguidor_de_linhas_4camada2-2026-1.kicad_pcb
+kicad-cli pcb render --output render_top.png --side top \
+    --width 2200 --height 1600 --quality high --perspective \
+    project-kicad/seguidor_de_linhas_4camada2-2026-1.kicad_pcb
+kicad-cli pcb render --output render_bottom.png --side bottom \
+    --width 2200 --height 1600 --quality high \
+    project-kicad/seguidor_de_linhas_4camada2-2026-1.kicad_pcb
+kicad-cli sch export pdf -o sch_root.pdf \
+    project-kicad/seguidor_de_linhas_4camada2-2026-1.kicad_sch
+pdftoppm -png -r 100 -f 1 -l 1 sch_root.pdf sch_root
+\end{verbatim}
+
+\section{Contagens de caracterização}
+
+\begin{verbatim}
+grep -c "(footprint " seguidor_de_linhas_4camada2-2026-1.kicad_pcb   # 97
+grep -oP '\(net \d+' seguidor_de_linhas_4camada2-2026-1.kicad_pcb \
+    | sort -u | wc -l                                              # 83
+\end{verbatim}
+
+As dimensoes do contorno foram obtidas pela caixa envolvente dos elementos
+da camada Edge.Cuts do arquivo \texttt{.kicad\_pcb}.
+
+\section{Compilação dos documentos}
+
+\begin{verbatim}
+cd artigo      && ./build.sh   # gera artigo-mcp-kicad-vscode.pdf
+cd monografia  && ./build.sh   # gera monografia-mcp-kicad-vscode.pdf
+\end{verbatim}
+
+Ambos os \emph{scripts} executam \texttt{pdflatex} e \texttt{bibtex} em
+sequencia (pdflatex, bibtex, pdflatex, pdflatex).

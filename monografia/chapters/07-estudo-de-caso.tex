@@ -1,0 +1,175 @@
+\chapter{Estudo de caso: placa seguidora de linhas}\label{cap:estudo-de-caso}
+
+\section{Apresentação do projeto}
+
+O estudo de caso utiliza o projeto \texttt{seguidor\_de\_linhas\_4camada2-2026-1},
+desenvolvido no mesmo \emph{workspace} do servidor. Trata-se de uma placa de
+controle para robô seguidor de linhas, função clássica em competições e
+atividades de ensino de robótica: o veículo detecta a linha por sensores
+ópticos reflexivos e ajusta a atuação dos motores para permanecer sobre ela.
+
+Os blocos funcionais identificados no esquemático e na lista de materiais são:
+
+\begin{itemize}[leftmargin=1.4em,itemsep=0.2em]
+  \item \textbf{Sensoriamento}: dois sensores ópticos reflexivos
+        (ITR8307) com resistores de limitação e pull-up;
+  \item \textbf{Energia}: conversão com MPPT (\emph{maximum power point
+        tracking}) e regulação linear por LDOs, com medição de tensão da
+        bateria e sinalização;
+  \item \textbf{Atuação}: duas pontes H para acionamento dos motores, com
+        conectores de saída (M1/M2, ENCA/ENCB);
+  \item \textbf{Interface}: porta USB-C para alimentação/programação e
+        botões de operação;
+  \item \textbf{Proteção e sinalização}: chave geral, buzzer de alerta e
+        \emph{LEDs} indicadores.
+\end{itemize}
+
+O bloco de título do esquemático registra a autoria do projeto, a revisão
+\texttt{r01} e a data de emissão das folhas.
+
+\section{Estrutura do esquemático}
+
+O esquemático é hierárquico e contém nove folhas: a raiz, que organiza os
+blocos, e oito folhas de detalhe (fonte LDO, MPPT, pontes H, sensores ópticos,
+USB-C e demais circuitos de apoio). As Figuras~\ref{fig:mono-raiz}
+e~\ref{fig:mono-sensores} mostram a folha raiz e a folha dos sensores ópticos,
+exportadas com \texttt{kicad-cli sch export pdf}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{esquematico-raiz.png}
+\caption{Folha raiz do esquemático hierárquico do projeto seguidor de linhas.}
+\label{fig:mono-raiz}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{esquematico-sensores.png}
+\caption{Folha ``sensores ópticos'': sensores reflexivos ITR8307 e rede de
+polarização.}
+\label{fig:mono-sensores}
+\end{figure}
+
+A organização hierárquica tem consequência prática para a automação: cada
+folha é um arquivo, e operações em lote no esquemático precisam respeitar a
+estrutura de instâncias e caminhos. As ferramentas de hierarquia do servidor
+(\texttt{add\_hierarchical\_sheet}, \texttt{set\_sheet\_property} e
+\texttt{get\_sheet\_properties}) existem justamente para manipular essa
+estrutura.
+
+\section{A placa}
+
+O arquivo de placa contém 97 \emph{footprints} e 83 redes (82 nomeadas, mais a
+rede vazia de itens não conectados), em quatro camadas de cobre
+(F.Cu, In1.Cu, In2.Cu e B.Cu), espessura de 1,6\,mm e contorno de
+aproximadamente 82,1\,mm $\times$ 80,2\,mm --- dimensões medidas pela caixa
+envolvente da geometria do contorno (Edge.Cuts). A
+Figura~\ref{fig:mono-2d} mostra a vista de edição do layout; as
+Figuras~\ref{fig:mono-render-topo} e~\ref{fig:mono-render-fundo} apresentam as
+renderizações 3D das faces superior e inferior.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.9\textwidth]{pcb-2d.png}
+\caption{Vista bidimensional do layout no editor de placas (documentação do
+projeto).}
+\label{fig:mono-2d}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{render-topo.png}
+\caption{Vista superior renderizada (3D) da placa.}
+\label{fig:mono-render-topo}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{render-fundo.png}
+\caption{Vista inferior renderizada (3D) da placa.}
+\label{fig:mono-render-fundo}
+\end{figure}
+
+As redes concentram-se em domínios funcionais coerentes (alimentação,
+sensores, motores, USB e sinais de controle), e os conectores de motor e de
+bateria aparecem nas bordas, disposição compatível com a montagem mecânica do
+robô. A densidade de componentes e a mixagem de tecnologias (\emph{through-hole}
+para conectores e \emph{surface-mount} para passivos e integrados) são
+típicas de projetos didáticos com restrições de fabricação de baixo custo.
+
+\section{Lista de materiais e preparação para fabricação}
+
+A lista de materiais agrupa os componentes em 37 itens, com referências
+múltiplas por valor --- por exemplo, capacitores cerâmicos de 100\,nF em
+encapsulamento 0603 e conjuntos de resistores de \emph{pull-up}. O diretório
+de produção contém os artefatos gerados pelo fluxo de projeto: lista de
+materiais em \texttt{csv}, tabela de designadores, netlist em formato IPC,
+arquivo de posições de montagem e o pacote compactado da placa
+(\texttt{PCB\_SEGUIDOR\_DE\_LINHAS\_r01.zip}).
+
+A existência desses artefatos demonstra a etapa final do fluxo: o projeto
+chega à preparação de fabricação, e não apenas à edição. A verificação de
+regras, descrita a seguir, atua como filtro de qualidade antes do envio.
+
+\section{Verificação de regras de projeto}
+
+A execução de \texttt{kicad-cli pcb drc} (formato JSON, todas as severidades)
+em 10/09/2026 reportou 11 violações: 9 erros e 2 avisos, além de zero itens
+não conectados e zero divergências de paridade esquemático--placa. A
+Tabela~\ref{tab:drc-mono} detalha as violações.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Violações de DRC por tipo, severidade e diagnóstico (KiCad 9.0.7).}
+\label{tab:drc-mono}
+\begin{tabular}{@{}p{3.2cm}p{1.8cm}r p{7.6cm}@{}}
+\toprule
+\textbf{Tipo} & \textbf{Severidade} & \textbf{N.} & \textbf{Diagnóstico} \\
+\midrule
+\texttt{starved\_thermal} & erro & 4 & Conexão térmica à zona incompleta: 1 raio de 2 exigidos (F.Cu) \\
+\texttt{annular\_width} & erro & 2 & Largura anular abaixo de 0,100\,mm (medida: $-0{,}003$\,mm) \\
+\texttt{clearance} & erro & 2 & Afastamento de 0,1812\,mm contra 0,200\,mm (classe \emph{Default}) \\
+\texttt{malformed\_courtyard} & erro & 1 & \emph{Courtyard} autointersectante em um \emph{footprint} \\
+\texttt{padstack} & aviso & 2 & \emph{Padstack} questionável: furo PTH sem cobre remanescente \\
+\midrule
+\multicolumn{2}{@{}l}{\textbf{Total}} & \textbf{11} & 9 erros + 2 avisos; 0 não conectados; 0 divergências \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A leitura técnica das violações permite agrupá-las em dois fenômenos:
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.2em]
+  \item \textbf{Térmica e geometria de cobre}: os quatro apontamentos de
+        \texttt{starved\_thermal} indicam conexões térmicas com um único
+        raio de contato em zonas de cobre. Dependendo do processo de
+        soldagem, conexões térmicas insuficientes dificultam a dissipação
+        pelo plano ou exigem ajuste do \emph{relief}; a correção usual é
+        refazer o preenchimento das zonas com configuração de raios
+        adequada ou ajustar as conexões do componente.
+  \item \textbf{Padstack e anel anular}: os apontamentos \texttt{padstack}
+        (aviso) e \texttt{annular\_width} (erro) referem-se ao mesmo grupo de
+        \emph{pads}: furos cujo anel de cobre remanescente é nulo ou
+        negativo. Essa condição é crítica para fabricação e deve ser
+        corrigida antes do envio, seja ajustando o tamanho dos \emph{pads},
+        seja revisando as dimensões dos furos.
+\end{enumerate}
+
+O apontamento de \texttt{clearance} (0,1812\,mm contra 0,200\,mm exigidos)
+representa violação marginal de afastamento, tipicamente corrigível com ajuste
+fino de trilha ou revisão da regra. O \texttt{courtyard} autointersectante é
+um defeito de biblioteca: corrige-se na definição do \emph{footprint}.
+
+É relevante registrar o contraste com uma expectativa ingênua de ``placa sem
+violações'': a verificação automatizada expôs pendências reais que, sem ela,
+poderiam passar despercebidas até a montagem. Do ponto de vista do estudo de
+caso, o resultado é duplamente útil: caracteriza o estado do artefato e
+demonstra o valor do fluxo de verificação.
+
+\section{Síntese do capítulo}
+
+O capítulo caracterizou o projeto quanto a função, estrutura hierárquica,
+geometria, materiais e preparação para fabricação, e documentou a verificação
+de regras com resultados quantitativos. O próximo capítulo consolida os
+resultados de implementação e de teste, complementando o estudo de caso.

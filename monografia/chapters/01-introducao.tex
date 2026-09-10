@@ -1,0 +1,142 @@
+\chapter{Introdução}\label{cap:introducao}
+
+\section{Contextualização}
+
+O projeto de placas de circuito impresso (\emph{printed circuit board} --- PCB)
+ocupa posição central no desenvolvimento de produtos eletrônicos. O processo
+parte da especificação funcional, passa pela captura esquemática, pela escolha
+de componentes e \emph{footprints}, pela definição da pilha de camadas e pelo
+roteamento das trilhas, e culmina na geração dos arquivos de fabricação ---
+tipicamente Gerber, arquivo de furação e lista de materiais
+\citep{kicaddocs,horowitz2015}. Cada etapa envolve decisões interdependentes:
+um ajuste de geometria pode alterar a integridade do sinal, o custo de
+montagem ou a viabilidade de manufatura.
+
+Nas últimas décadas, o setor consolidou ferramentas de automação de projeto
+eletrônico (EDA) que oferecem tanto interfaces gráficas quanto mecanismos de
+automação --- \emph{scripts}, interfaces de programação e utilitários de linha
+de comando. Esse conjunto de mecanismos é o que permite integrar o projeto a
+fluxos automatizados: verificação de regras, geração de documentação e
+preparação de fabricação sem intervenção manual repetitiva.
+
+Paralelamente, assistentes baseados em grandes modelos de linguagem (LLMs)
+passaram a participar de tarefas de engenharia. Tais modelos demonstram
+capacidade de encadear raciocínio e ação \citep{yao2023react}, aprender a
+invocar ferramentas externas \citep{schick2023toolformer} e operar interfaces
+projetadas para agentes \citep{yang2024sweagent}. Quando o objeto de trabalho
+é um \emph{software} de engenharia instalado localmente, a pergunta deixa de
+ser apenas ``o modelo consegue raciocinar sobre o problema?'' e passa a ser
+``como expor as operações da ferramenta ao modelo de forma padronizada, segura
+e verificável?''.
+
+Em novembro de 2024, a Anthropic publicou o \emph{Model Context Protocol}
+(MCP), um protocolo aberto para conectar assistentes de IA a ferramentas e
+fontes de dados \citep{anthropic2024mcp}. Baseado em JSON-RPC 2.0, o MCP
+define papéis de anfitrião (\emph{host}), cliente e servidor, além de três
+primitivas principais: \emph{tools} (operações executáveis), \emph{resources}
+(dados de contexto) e \emph{prompts} (modelos de interação)
+\citep{mcp2025spec,mcp2025docs}. A adoção do protocolo por diferentes
+fornecedores de modelos e editores de código reduziu o custo de integração:
+um único servidor pode atender diferentes assistentes.
+
+\section{Problema e motivação}
+
+O KiCad, suíte de EDA de código aberto, oferece três caminhos de automação: a
+API Python \texttt{pcbnew} exposta via SWIG, a API IPC para comunicação com a
+interface gráfica e o utilitário \texttt{kicad-cli} para verificações e
+exportações \citep{swig,kicaddev,kicadcli}. Ainda assim, integrar essas
+operações a um assistente de IA exige, sem uma camada padronizada, que cada
+equipe escreva e mantenha \emph{scripts} próprios, com decisões repetidas de
+tratamento de erro, sessão, descoberta de comandos e documentação.
+
+O problema endereçado neste trabalho é, portanto: \emph{como expor o fluxo de
+projeto de PCBs do KiCad a assistentes de IA de forma ampla, descobrível,
+robusta e verificável?} A motivação é dupla: de um lado, reduzir o esforço de
+integração e o risco de operações destrutivas inconsistentes sobre arquivos de
+projeto; de outro, criar uma base de integração que possa ser avaliada,
+testada e estendida pela comunidade.
+
+\section{Questões de pesquisa}
+
+O trabalho busca responder às seguintes questões:
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.2em]
+  \item Q1 --- Como estruturar um servidor MCP que cubra o fluxo completo de
+        projeto de PCB no KiCad, desde a criação do projeto até a exportação
+        de fabricação?
+  \item Q2 --- Como organizar e tornar descobríveis centenas de operações para
+        um agente de IA, sem ocultar esquemas e sem sobrecarregar o cliente?
+  \item Q3 --- Em que medida a implementação resiste a falhas previsíveis de
+        integração (respostas fora de ordem, tempos-limite, estados de sessão)
+        e como isso pode ser verificado de forma automatizada?
+  \item Q4 --- Que evidências de qualidade e de uso real podem ser obtidas a
+        partir de um projeto de placa desenvolvido no mesmo ambiente?
+\end{enumerate}
+
+\section{Objetivos}
+
+\subsection{Objetivo geral}
+
+Especificar, implementar e avaliar um servidor \emph{Model Context Protocol}
+que exponha o fluxo de projeto de placas de circuito impresso do KiCad a
+assistentes de inteligência artificial, com cobertura funcional ampla,
+mecanismos de descoberta, integrações de fabricação e verificação automatizada.
+
+\subsection{Objetivos específicos}
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.2em]
+  \item definir a arquitetura do servidor e o protocolo interno entre as
+        camadas de integração;
+  \item implementar o catálogo de ferramentas MCP cobrindo esquemático,
+        layout, roteamento, regras de projeto, bibliotecas, exportação e
+        cadeia de suprimentos;
+  \item implementar mecanismos de descoberta de ferramentas e de exposição de
+        estado do projeto como recursos MCP;
+  \item construir e executar suítes de teste e integração contínua que
+        verifiquem o comportamento do servidor;
+  \item avaliar a solução por meio de métricas de implementação e de um estudo
+        de caso com uma placa real de quatro camadas;
+  \item registrar limitações, pendências e direções de continuidade.
+\end{enumerate}
+
+\section{Justificativa}
+
+A relevância do trabalho se apoia em três argumentos. Primeiro, a padronização
+via MCP permite que o mesmo servidor sirva a diferentes assistentes, evitando
+integrações proprietárias duplicadas. Segundo, o domínio de projeto de PCB é
+rico em operações verificáveis automaticamente (regras de projeto, paridade
+esquemático--placa, exportações), o que permite construir evidências
+objetivas de qualidade. Terceiro, a documentação pública e os testes
+automatizados reduzem a barreira de entrada para contribuições e para o uso em
+contextos educacionais, como cursos de engenharia que adotam o KiCad.
+
+\section{Delimitação e escopo}
+
+O trabalho concentra-se no servidor MCP e no fluxo de projeto de PCB no KiCad.
+Não fazem parte do escopo: o desenvolvimento de um modelo de linguagem próprio;
+a avaliação de desempenho do modelo de IA em si; a medição controlada de ganho
+de produtividade com usuários; e a garantia de fabricabilidade completa do
+projeto usado como estudo de caso. Tais temas são retomados como limitações e
+trabalhos futuros.
+
+\section{Metodologia em síntese}
+
+A pesquisa é aplicada, de natureza tecnológica, com desenvolvimento de sistema
+e avaliação por estudo de caso instrumental. As etapas compreendem auditoria do
+domínio e do código, definição de requisitos, implementação em duas camadas,
+verificação por testes e integração contínua, e estudo de caso com uma placa
+seguidora de linhas. O Capítulo~\ref{cap:metodologia} detalha o percurso e as
+métricas adotadas.
+
+\section{Organização do trabalho}
+
+O Capítulo~\ref{cap:fundamentacao} apresenta a fundamentação teórica;
+o Capítulo~\ref{cap:relacionados} discute trabalhos relacionados;
+o Capítulo~\ref{cap:metodologia} detalha materiais e métodos;
+o Capítulo~\ref{cap:arquitetura} descreve a arquitetura do servidor;
+o Capítulo~\ref{cap:catalogo} apresenta o catálogo de ferramentas e os fluxos
+de uso; o Capítulo~\ref{cap:estudo-de-caso} documenta o estudo de caso;
+o Capítulo~\ref{cap:resultados} consolida os resultados;
+o Capítulo~\ref{cap:discussao} discute os achados, limitações e ameaças à
+validade; e o Capítulo~\ref{cap:conclusao} conclui o trabalho e indica
+trabalhos futuros.

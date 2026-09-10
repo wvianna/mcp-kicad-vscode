@@ -1,0 +1,398 @@
+.................................................s...................... [  3%]
+........................................................................ [  6%]
+........................................................................ [  9%]
+........................................................................ [ 12%]
+...........................................................ssss......... [ 15%]
+........................................................................ [ 18%]
+........................................................................ [ 21%]
+........................s....FF......................................... [ 24%]
+........................................................................ [ 27%]
+........................................................................ [ 30%]
+........................................................................ [ 33%]
+........................................................................ [ 36%]
+...........................ss........................................... [ 39%]
+........................................................................ [ 42%]
+........................F............................................... [ 45%]
+.s...................................................................... [ 48%]
+........................................................................ [ 51%]
+........................................................................ [ 54%]
+..............................................s.......F.......ssssssssss [ 57%]
+sssssss......................................................s.....s.... [ 60%]
+........................................................................ [ 63%]
+........................................................................ [ 66%]
+........................................................................ [ 69%]
+.........................F.............................................. [ 73%]
+....................................................................FF.. [ 76%]
+........................................................................ [ 79%]
+........................................................................ [ 82%]
+........................................................................ [ 85%]
+........................................................................ [ 88%]
+.........F........ss.................................................... [ 91%]
+........................................................................ [ 94%]
+........................................................................ [ 97%]
+...............................................................          [100%]
+=================================== FAILURES ===================================
+_______________________ test_minimal_fixture_exports_pdf _______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-william/pytest-5/test_minimal_fixture_exports_p0')
+
+    @pytest.mark.skipif(_KICAD_CLI is None, reason="KiCad CLI not installed")
+    def test_minimal_fixture_exports_pdf(tmp_path: Path) -> None:
+        parts, instances, net_wires, net_labels, junctions = parse_eagle_schematic(str(FIXTURE))
+        sch = tmp_path / "minimal.kicad_sch"
+        generate_kicad_sch(parts, instances, net_wires, net_labels, junctions, str(sch))
+        from utils.sexpr_format import prettify
+    
+        sch.write_text(prettify(sch.read_text(encoding="utf-8")), encoding="utf-8")
+        pdf = tmp_path / "out.pdf"
+        import subprocess
+    
+        result = subprocess.run(
+            [str(_KICAD_CLI), "sch", "export", "pdf", "--output", str(pdf), str(sch)],
+            capture_output=True,
+            text=True,
+        )
+>       assert result.returncode == 0, result.stderr
+E       AssertionError: 12:29:40: Error: schema file '/usr/share/kicad/schemas/api.v1.schema.json' not found
+E         
+E       assert 3 == 0
+E        +  where 3 = CompletedProcess(args=['/snap/kicad/22/usr/bin/kicad-cli', 'sch', 'export', 'pdf', '--output', '/tmp/pytest-of-william...turncode=3, stdout='', stderr="12:29:40: Error: schema file '/usr/share/kicad/schemas/api.v1.schema.json' not found\n").returncode
+
+tests/test_eagle_import.py:97: AssertionError
+_________________ test_import_result_reports_ground_truth_erc __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-william/pytest-5/test_import_result_reports_gro0')
+
+    @pytest.mark.skipif(_KICAD_CLI is None, reason="KiCad CLI not installed")
+    def test_import_result_reports_ground_truth_erc(tmp_path: Path) -> None:
+        """The result's erc block must reflect what kicad-cli actually measures.
+    
+        The internal dangling_wires count runs against the importer's own
+        connection model, which can accept endpoints eeschema does not — it once
+        reported 0 while real ERC flagged wire_dangling errors. The erc block
+        exists so callers get KiCad's numbers, not the model's.
+        """
+        ec = EagleCommands()
+        parts, instances, net_wires, net_labels, junctions = parse_eagle_schematic(str(FIXTURE))
+        sch = tmp_path / "minimal.kicad_sch"
+        generate_kicad_sch(parts, instances, net_wires, net_labels, junctions, str(sch))
+        from utils.sexpr_format import prettify
+    
+        sch.write_text(prettify(sch.read_text(encoding="utf-8")), encoding="utf-8")
+    
+        report = ec._erc_check(str(sch))
+>       assert report is not None, "ERC must run when kicad-cli is resolvable"
+E       AssertionError: ERC must run when kicad-cli is resolvable
+E       assert None is not None
+
+tests/test_eagle_import.py:119: AssertionError
+_ TestCliBackedToolEndToEnd.test_export_netlist_succeeds_without_kicad_on_path _
+
+self = <tests.test_kicad_cli_resolver.TestCliBackedToolEndToEnd object at 0x74a18c8bf5c0>
+tmp_path = PosixPath('/tmp/pytest-of-william/pytest-5/test_export_netlist_succeeds_w0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x74a18c32cb90>
+
+    def test_export_netlist_succeeds_without_kicad_on_path(self, tmp_path, monkeypatch):
+        """generate/export netlist must succeed even when KiCad's bin is not on PATH."""
+        from kicad_interface import KiCADInterface
+    
+        kc.reset_cache()
+        _path_without_kicad(monkeypatch)
+    
+        sch = tmp_path / "board.kicad_sch"
+        shutil.copy(EMPTY_SCH, sch)
+        out = tmp_path / "board.net"
+    
+        result = KiCADInterface()._handle_export_netlist(
+            {"schematicPath": str(sch), "outputPath": str(out)}
+        )
+>       assert result["success"] is True, result
+E       AssertionError: {'success': False, 'message': 'Could not locate kicad-cli. Tried, in order:
+E           - $KICAD_CLI / $KICAD_CLI_PATH  (not se...riable to the full path of kicad-cli (e.g. on Windows: C:\\Program Files\\KiCad\\10.0\\bin\\kicad-cli.exe) and retry.'}
+E       assert False is True
+
+tests/test_kicad_cli_resolver.py:192: AssertionError
+------------------------------ Captured log call -------------------------------
+INFO     kicad_interface:kicad_interface.py:434 Initializing with SWIG backend
+INFO     kicad_interface:kicad_interface.py:436 Initializing command handlers...
+INFO     kicad_interface:library.py:46 Loading global fp-lib-table from: /home/william/.config/kicad/9.0/fp-lib-table
+INFO     kicad_interface:library.py:58 Loaded 0 footprint libraries
+INFO     kicad_interface:library_symbol.py:126 Loading global sym-lib-table from: /home/william/.config/kicad/8.0/sym-lib-table
+INFO     kicad_interface:library_symbol.py:138 Loaded 0 symbol libraries
+WARNING  kicad_interface:jlcpcb.py:138 JLCPCB API credentials not found. Set JLCPCB_APP_ID, JLCPCB_API_KEY, and JLCPCB_API_SECRET environment variables.
+INFO     kicad_interface:jlcpcb_parts.py:144 Initialized JLCPCB parts database at /home/william/.local/share/kicad-mcp/jlcpcb_parts.db
+INFO     kicad_interface:kicad_interface.py:751 KiCAD interface initialized (backend: SWIG)
+INFO     kicad_interface:kicad_interface.py:2907 Exporting netlist via kicad-cli
+_________ test_rotate_mirror_then_compute_pin_positions_no_state_leak __________
+
+    @pytest.mark.slow
+    def test_rotate_mirror_then_compute_pin_positions_no_state_leak():
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "pytest",
+                str(TESTS_DIR / "test_rotate_schematic_mirror.py"),
+                str(TESTS_DIR / "test_move_with_wire_preservation.py") + "::TestComputePinPositions",
+                "-q",
+                "--no-cov",
+            ],
+            capture_output=True,
+            text=True,
+            # Hang protection lives here rather than in pytest-timeout flags:
+            # the plugin is not a declared dependency of this repo, and passing
+            # --timeout to a pytest without it is a usage error (exit code 4).
+            timeout=90,
+        )
+>       assert result.returncode == 0, (
+            "Collecting test_rotate_schematic_mirror.py before "
+            "test_move_with_wire_preservation.py::TestComputePinPositions must not "
+            "leak sys.modules state across files (#287).\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: Collecting test_rotate_schematic_mirror.py before test_move_with_wire_preservation.py::TestComputePinPositions must not leak sys.modules state across files (#287).
+E         stdout:
+E         
+E         stderr:
+E         ERROR: usage: python -m pytest [options] [file_or_dir] [file_or_dir] [...]
+E         python -m pytest: error: unrecognized arguments: --cov=python --cov-report=term-missing --cov-report=html --cov-report=xml --cov-branch --no-cov
+E           inifile: /home/william/Nextcloud/git/mcp-kicad-vscode/KiCAD-MCP-Server/pytest.ini
+E           rootdir: /home/william/Nextcloud/git/mcp-kicad-vscode/KiCAD-MCP-Server
+E         
+E         
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['/home/william/Nextcloud/git/mcp-kicad-vscode/KiCAD-MCP-Server/.venv/bin/python', '-m', 'pytest...icad-vscode/KiCAD-MCP-Server/pytest.ini\n  rootdir: /home/william/Nextcloud/git/mcp-kicad-vscode/KiCAD-MCP-Server\n\n').returncode
+
+tests/test_pin_locator_module_leak.py:48: AssertionError
+_______________ TestSheetProperties.test_kicad_cli_still_parses ________________
+
+self = <tests.test_schematic_hierarchy.TestSheetProperties object at 0x74a18c602690>
+tmp_path = PosixPath('/tmp/pytest-of-william/pytest-5/test_kicad_cli_still_parses0')
+
+    def test_kicad_cli_still_parses(self, tmp_path):
+        """Render/parse check: kicad-cli must accept the modified parent."""
+        import shutil as _shutil
+        import subprocess
+    
+        import pytest as _pytest
+    
+        if _shutil.which("kicad-cli") is None:
+            _pytest.skip("kicad-cli not available")
+    
+        template = Path(__file__).parent.parent / "python" / "templates" / "blank.kicad_sch"
+        parent = tmp_path / "top.kicad_sch"
+        parent.write_text(template.read_text(encoding="utf-8"), encoding="utf-8")
+        sub = tmp_path / "sub.kicad_sch"
+        sub.write_text(template.read_text(encoding="utf-8"), encoding="utf-8")
+    
+        c = _cmds()
+        assert c.add_hierarchical_sheet(
+            {
+                "schematicPath": str(parent),
+                "subsheetPath": str(sub),
+                "sheetName": "Cell",
+            }
+        )["success"]
+        assert c.set_sheet_property(
+            {
+                "schematicPath": str(parent),
+                "sheetName": "Cell",
+                "key": "IS.Cell",
+                "value": "vca_2164",
+            }
+        )["success"]
+    
+        out_dir = tmp_path / "svg"
+        out_dir.mkdir()
+        result = subprocess.run(
+            ["kicad-cli", "sch", "export", "svg", str(parent), "-o", str(out_dir)],
+            capture_output=True,
+            text=True,
+            timeout=120,
+        )
+>       assert result.returncode == 0, result.stderr
+E       AssertionError: 12:29:55: Error: schema file '/usr/share/kicad/schemas/api.v1.schema.json' not found
+E         
+E       assert 3 == 0
+E        +  where 3 = CompletedProcess(args=['kicad-cli', 'sch', 'export', 'svg', '/tmp/pytest-of-william/pytest-5/test_kicad_cli_still_pars...turncode=3, stdout='', stderr="12:29:55: Error: schema file '/usr/share/kicad/schemas/api.v1.schema.json' not found\n").returncode
+
+tests/test_schematic_hierarchy.py:426: AssertionError
+------------------------------ Captured log call -------------------------------
+INFO     kicad_interface:schematic_hierarchy.py:34 Adding hierarchical sheet
+INFO     kicad_interface:schematic_hierarchy.py:354 Setting hierarchical sheet property
+________ TestRealKicadLoadsTheResult.test_placed_symbols_load[20231120] ________
+
+self = <tests.test_schematic_writer_format_compat.TestRealKicadLoadsTheResult object at 0x74a18c4a5460>
+tmp_path = PosixPath('/tmp/pytest-of-william/pytest-5/test_placed_symbols_load_202310')
+version = 20231120
+
+    @pytest.mark.parametrize("version", [V8, V9])
+    def test_placed_symbols_load(self, tmp_path: Path, version: int) -> None:
+        if self._cli_major() < 9:
+            pytest.skip("needs KiCad >= 9 to read a 20250114 file")
+    
+        sch = _sch_with_version(tmp_path, version)
+        # power:GND exercises escaping, Device:R exercises the attribute line.
+>       assert _place(sch, "power", "GND", "#PWR01", value="GND", x=50, y=50)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_schematic_writer_format_compat.py:339: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_schematic_writer_format_compat.py:139: in _place
+    loader.inject_symbol_into_schematic(sch, library, symbol)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <commands.dynamic_symbol_loader.DynamicSymbolLoader object at 0x74a18c26e240>
+schematic_path = PosixPath('/tmp/pytest-of-william/pytest-5/test_placed_symbols_load_202310/s.kicad_sch')
+library_name = 'power', symbol_name = 'GND'
+
+    def inject_symbol_into_schematic(
+        self, schematic_path: Path, library_name: str, symbol_name: str
+    ) -> bool:
+        """
+        Inject a symbol definition into a schematic's lib_symbols section.
+        Uses text manipulation to preserve file formatting.
+        """
+        full_name = f"{library_name}:{symbol_name}"
+    
+        with open(schematic_path, "r", encoding="utf-8") as f:
+            content = f.read()
+    
+        # Check if symbol already exists
+        if f'(symbol "{full_name}"' in content:
+            logger.info(f"Symbol {full_name} already exists in schematic")
+            return True
+    
+        # Extract symbol from library
+        symbol_block = self.extract_symbol_from_library(library_name, symbol_name)
+        if not symbol_block:
+>           raise ValueError(f"Symbol '{symbol_name}' not found in library '{library_name}'")
+E           ValueError: Symbol 'GND' not found in library 'power'
+
+python/commands/dynamic_symbol_loader.py:605: ValueError
+------------------------------ Captured log setup ------------------------------
+WARNING  kicad_interface:dynamic_symbol_loader.py:208 Library file not found: Device.kicad_sym / Device.kicad_symdir
+------------------------------ Captured log call -------------------------------
+WARNING  kicad_interface:dynamic_symbol_loader.py:208 Library file not found: power.kicad_sym / power.kicad_symdir
+________ TestRealKicadLoadsTheResult.test_placed_symbols_load[20250114] ________
+
+self = <tests.test_schematic_writer_format_compat.TestRealKicadLoadsTheResult object at 0x74a18c4a55b0>
+tmp_path = PosixPath('/tmp/pytest-of-william/pytest-5/test_placed_symbols_load_202500')
+version = 20250114
+
+    @pytest.mark.parametrize("version", [V8, V9])
+    def test_placed_symbols_load(self, tmp_path: Path, version: int) -> None:
+        if self._cli_major() < 9:
+            pytest.skip("needs KiCad >= 9 to read a 20250114 file")
+    
+        sch = _sch_with_version(tmp_path, version)
+        # power:GND exercises escaping, Device:R exercises the attribute line.
+>       assert _place(sch, "power", "GND", "#PWR01", value="GND", x=50, y=50)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_schematic_writer_format_compat.py:339: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_schematic_writer_format_compat.py:139: in _place
+    loader.inject_symbol_into_schematic(sch, library, symbol)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <commands.dynamic_symbol_loader.DynamicSymbolLoader object at 0x74a18c873980>
+schematic_path = PosixPath('/tmp/pytest-of-william/pytest-5/test_placed_symbols_load_202500/s.kicad_sch')
+library_name = 'power', symbol_name = 'GND'
+
+    def inject_symbol_into_schematic(
+        self, schematic_path: Path, library_name: str, symbol_name: str
+    ) -> bool:
+        """
+        Inject a symbol definition into a schematic's lib_symbols section.
+        Uses text manipulation to preserve file formatting.
+        """
+        full_name = f"{library_name}:{symbol_name}"
+    
+        with open(schematic_path, "r", encoding="utf-8") as f:
+            content = f.read()
+    
+        # Check if symbol already exists
+        if f'(symbol "{full_name}"' in content:
+            logger.info(f"Symbol {full_name} already exists in schematic")
+            return True
+    
+        # Extract symbol from library
+        symbol_block = self.extract_symbol_from_library(library_name, symbol_name)
+        if not symbol_block:
+>           raise ValueError(f"Symbol '{symbol_name}' not found in library '{library_name}'")
+E           ValueError: Symbol 'GND' not found in library 'power'
+
+python/commands/dynamic_symbol_loader.py:605: ValueError
+------------------------------ Captured log setup ------------------------------
+WARNING  kicad_interface:dynamic_symbol_loader.py:208 Library file not found: Device.kicad_sym / Device.kicad_symdir
+------------------------------ Captured log call -------------------------------
+WARNING  kicad_interface:dynamic_symbol_loader.py:208 Library file not found: power.kicad_sym / power.kicad_symdir
+_____________ TestKicadCliRoundTrip.test_erc_parses_and_roundtrips _____________
+
+self = <tests.test_symbol_instance_completeness.TestKicadCliRoundTrip object at 0x74a18c3d9e80>
+tmp_path = PosixPath('/tmp/pytest-of-william/pytest-5/test_erc_parses_and_roundtrips0')
+
+    def test_erc_parses_and_roundtrips(self, tmp_path: Any) -> None:
+        import sexpdata
+    
+        sch = _project(tmp_path, "rt")
+        DynamicSymbolLoader().create_component_instance(
+            sch,
+            "Device",
+            "R",
+            reference="R1",
+            value="10k",
+            footprint="Resistor_SMD:R_0402_1005Metric",
+            x=100,
+            y=100,
+        )
+        before = _placed_block(sch)
+    
+        # 1) ERC must load/parse the file (non-zero exit just means violations exist).
+        erc = subprocess.run(
+            [self.cli, "sch", "erc", str(sch)],
+            capture_output=True,
+            text=True,
+            cwd=str(tmp_path),
+        )
+        assert "Failed to load" not in (erc.stdout + erc.stderr)
+    
+        # 2) Round-trip: KiCad rewrites to canonical form; structural tree must be equal.
+        up = subprocess.run(
+            [self.cli, "sch", "upgrade", str(sch)],
+            capture_output=True,
+            text=True,
+            cwd=str(tmp_path),
+        )
+>       assert up.returncode == 0, up.stdout + up.stderr
+E       AssertionError: Failed to parse 'upgrade', did you mean 'erc'
+E         Usage: sch [--help] {erc,export}
+E         
+E         Schematics
+E         
+E         Optional arguments:
+E           -h, --help  Shows help message and exits 
+E         
+E         Subcommands:
+E           erc        Runs the Electrical Rules Check (ERC) on the schematic and creates a report
+E           export     Export utilities (netlist, pdf, bom, etc)
+E         12:30:01: Error: schema file '/usr/share/kicad/schemas/api.v1.schema.json' not found
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/snap/kicad/22/usr/bin/kicad-cli', 'sch', 'upgrade', '/tmp/pytest-of-william/pytest-5/test_erc...st, pdf, bom, etc)\n", stderr="12:30:01: Error: schema file '/usr/share/kicad/schemas/api.v1.schema.json' not found\n").returncode
+
+tests/test_symbol_instance_completeness.py:361: AssertionError
+------------------------------ Captured log call -------------------------------
+INFO     kicad_interface:dynamic_symbol_loader.py:998 Snapped R1 origin (100, 100) -> (100.33, 100.33) onto 1.27mm grid
+INFO     kicad_interface:dynamic_symbol_loader.py:1174 Added component instance R1 (Device:R) at (100.33, 100.33)
+=========================== short test summary info ============================
+FAILED tests/test_eagle_import.py::test_minimal_fixture_exports_pdf - Asserti...
+FAILED tests/test_eagle_import.py::test_import_result_reports_ground_truth_erc
+FAILED tests/test_kicad_cli_resolver.py::TestCliBackedToolEndToEnd::test_export_netlist_succeeds_without_kicad_on_path
+FAILED tests/test_pin_locator_module_leak.py::test_rotate_mirror_then_compute_pin_positions_no_state_leak
+FAILED tests/test_schematic_hierarchy.py::TestSheetProperties::test_kicad_cli_still_parses
+FAILED tests/test_schematic_writer_format_compat.py::TestRealKicadLoadsTheResult::test_placed_symbols_load[20231120]
+FAILED tests/test_schematic_writer_format_compat.py::TestRealKicadLoadsTheResult::test_placed_symbols_load[20250114]
+FAILED tests/test_symbol_instance_completeness.py::TestKicadCliRoundTrip::test_erc_parses_and_roundtrips
+8 failed, 2328 passed, 31 skipped in 45.04s

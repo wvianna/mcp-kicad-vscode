@@ -1,0 +1,142 @@
+npm notice run kicad-mcp@2.7.0 test:ts
+npm notice run vitest run
+
+ RUN  v2.1.9 /home/william/Nextcloud/git/mcp-kicad-vscode/KiCAD-MCP-Server
+
+ ✓ tests-ts/tool-response.test.ts > formatKicadResult > wraps a successful object result as JSON text content
+ ✓ tests-ts/tool-response.test.ts > formatKicadResult > flags isError when the KiCAD payload reports success=false
+ ✓ tests-ts/tool-response.test.ts > formatKicadResult > does not flag isError for payloads without a success field
+ ✓ tests-ts/tool-response.test.ts > formatKicadResult > does not flag isError for success=true
+ ✓ tests-ts/tool-response.test.ts > formatKicadResult > does not flag isError when success is a truthy non-false value
+ ✓ tests-ts/tool-response.test.ts > formatKicadResult > handles string results
+ ✓ tests-ts/tool-response.test.ts > formatKicadResult > handles null without throwing
+ ✓ tests-ts/readme-counts.test.ts > README tool counts > headline count matches getRegistryStats()
+ ✓ tests-ts/registry.test.ts > tool registry — categories > getAllCategories returns the exported list
+ ✓ tests-ts/registry.test.ts > tool registry — categories > every category has a name, description, and at least one tool
+ ✓ tests-ts/registry.test.ts > tool registry — categories > getCategory returns a known category
+ ✓ tests-ts/registry.test.ts > tool registry — categories > getCategory returns undefined for unknown names
+ ✓ tests-ts/registry.test.ts > tool registry — direct vs routed classification > isDirectTool identifies direct tools
+ ✓ tests-ts/registry.test.ts > tool registry — direct vs routed classification > isDirectTool rejects routed tools
+ ✓ tests-ts/registry.test.ts > tool registry — direct vs routed classification > isRoutedTool identifies routed tools
+ ✓ tests-ts/registry.test.ts > tool registry — direct vs routed classification > isRoutedTool rejects direct tools and unknowns
+ ✓ tests-ts/registry.test.ts > tool registry — direct vs routed classification > getToolCategory maps a tool to its category
+ ✓ tests-ts/registry.test.ts > tool registry — invariants > direct/routed overlap is limited to the documented schematic essentials
+ ✓ tests-ts/registry.test.ts > tool registry — invariants > no tool name is duplicated across categories
+ ✓ tests-ts/registry.test.ts > tool registry — stats > getRegistryStats totals match the underlying sources
+ ✓ tests-ts/registry.test.ts > tool registry — stats > getRegistryStats per-category counts match category.tools.length
+ ✓ tests-ts/registry.test.ts > tool registry — search > searchTools finds routed tools by substring
+ ✓ tests-ts/registry.test.ts > tool registry — search > searchTools finds direct tools by substring
+ ✓ tests-ts/registry.test.ts > tool registry — search > searchTools returns an empty array for no matches
+ ✓ tests-ts/registry.test.ts > tool registry — search > searchTools caps results at 20
+ ✓ tests-ts/command-timeout.test.ts > computeCommandTimeout > gives ordinary commands the short default
+ ✓ tests-ts/command-timeout.test.ts > computeCommandTimeout > gives size-bound commands the blanket long allowance
+ ✓ tests-ts/command-timeout.test.ts > computeCommandTimeout > autoroute (issue #251) > is never left on the 30s default
+ ✓ tests-ts/command-timeout.test.ts > computeCommandTimeout > autoroute (issue #251) > covers the caller's own per-attempt budget plus overhead
+ ✓ tests-ts/command-timeout.test.ts > computeCommandTimeout > autoroute (issue #251) > multiplies the budget by attempts for best-of-N
+ ✓ tests-ts/command-timeout.test.ts > computeCommandTimeout > autoroute (issue #251) > still waits at least the blanket allowance for small budgets
+ ✓ tests-ts/command-timeout.test.ts > computeCommandTimeout > autoroute (issue #251) > falls back to the 300s default when timeout is absent or nonsense
+ ✓ tests-ts/command-timeout.test.ts > computeCommandTimeout > autoroute (issue #251) > accepts numeric strings, since MCP clients stringify params
+ ✓ tests-ts/command-timeout.test.ts > computeCommandTimeout > autoroute (issue #251) > treats bad attempts values as a single attempt
+ ✓ tests-ts/command-timeout.test.ts > computeCommandTimeout > autoroute (issue #251) > floors fractional attempts rather than inflating the budget
+ ✓ tests-ts/command-timeout.test.ts > computeCommandTimeout > autoroute (issue #251) > tolerates a missing params object
+ ✓ tests-ts/registry-completeness.test.ts > registry completeness > finds the server.tool registrations at all
+ ✓ tests-ts/registry-completeness.test.ts > registry completeness > no NEW tool is registered on the server but missing from the registry
+ ✓ tests-ts/registry-completeness.test.ts > registry completeness > the known-unregistered baseline does not grow
+ ✓ tests-ts/registry-completeness.test.ts > registry completeness > every registry entry is actually registered on the server
+ ✓ tests-ts/registry-completeness.test.ts > registry completeness > total_tools counts distinct tools, not category+direct with overlap
+ ✓ tests-ts/registry-completeness.test.ts > registry completeness > no tool name is claimed by two categories
+ ✓ tests-ts/digikey-schemas.test.ts > Digi-Key tool schemas > registers exactly the three documented tools
+ ✓ tests-ts/digikey-schemas.test.ts > Digi-Key tool schemas > declares no argument that could carry a credential
+ ✓ tests-ts/digikey-schemas.test.ts > Digi-Key tool schemas > declares only the expected arguments
+ ✓ tests-ts/digikey-schemas.test.ts > Digi-Key tool schemas > looks inside the nested locale object
+ ✓ tests-ts/digikey-schemas.test.ts > Digi-Key tool schemas > does not promise that a credential argument is rejected
+ ✓ tests-ts/digikey-schemas.test.ts > the library sweep's timeout budget > is not left on the 30 s default
+ ✓ tests-ts/digikey-schemas.test.ts > the library sweep's timeout budget > leaves the two cheap Digi-Key tools on the default
+stderr | tests-ts/no-stale-tool-references.test.ts > discovery responses do not reference deleted tools > registers the three read-only discovery tools
+[2026-09-10 12:30:08,007] [INFO] Registering router tools
+[2026-09-10 12:30:08,010] [INFO] Router tools registered successfully
+
+stderr | tests-ts/no-stale-tool-references.test.ts > discovery responses do not reference deleted tools > no discovery response mentions execute_tool
+[2026-09-10 12:30:08,012] [INFO] Registering router tools
+[2026-09-10 12:30:08,012] [INFO] Router tools registered successfully
+
+stderr | tests-ts/no-stale-tool-references.test.ts > discovery responses do not reference deleted tools > every tool named in a discovery response is actually registered
+[2026-09-10 12:30:08,015] [INFO] Registering router tools
+[2026-09-10 12:30:08,015] [INFO] Router tools registered successfully
+
+ ✓ tests-ts/no-stale-tool-references.test.ts > discovery responses do not reference deleted tools > execute_tool is not registered anywhere
+ ✓ tests-ts/no-stale-tool-references.test.ts > discovery responses do not reference deleted tools > registers the three read-only discovery tools
+ ✓ tests-ts/no-stale-tool-references.test.ts > discovery responses do not reference deleted tools > no discovery response mentions execute_tool
+ ✓ tests-ts/no-stale-tool-references.test.ts > discovery responses do not reference deleted tools > every tool named in a discovery response is actually registered
+stderr | tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > search filters case-insensitively over name/keywords/manufacturer
+[2026-09-10 12:30:08,017] [INFO] Fetching parts registry index: https://registry.test/api-sytzzkef6z/parts.json
+[2026-09-10 12:30:08,024] [INFO] Cached 3 registry parts
+
+stderr | tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > search honours the category filter and reports no-match cleanly
+[2026-09-10 12:30:08,028] [INFO] Fetching parts registry index: https://registry.test/api-diyuve44kw9/parts.json
+[2026-09-10 12:30:08,029] [INFO] Cached 3 registry parts
+
+stderr | tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > download writes the asset with the format-matched remote filename
+[2026-09-10 12:30:08,031] [INFO] Fetching registry part detail: https://registry.test/api-907si2rqbi6/parts/r_0603.json
+[2026-09-10 12:30:08,032] [INFO] Downloading kicad_mod for r_0603: https://assets.registry.test/lib/R_0603.kicad_mod
+[2026-09-10 12:30:08,034] [INFO] Saved 19 bytes to /tmp/partreel-test-wVMIuy/R_0603.kicad_mod
+
+stderr | tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > download falls back to id + format extension when the remote name is foreign
+[2026-09-10 12:30:08,038] [INFO] Fetching registry part detail: https://registry.test/api-iakps9jcnuq/parts/r_0603.json
+[2026-09-10 12:30:08,040] [INFO] Downloading kicad_mod for r_0603: https://assets.registry.test/lib/payload.ps1
+[2026-09-10 12:30:08,041] [INFO] Saved 20 bytes to /tmp/partreel-test-YwUCKt/r_0603.kicad_mod
+
+stderr | tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > download refuses assets on hosts outside the registry
+[2026-09-10 12:30:08,044] [INFO] Fetching registry part detail: https://registry.test/api-iw34pxn8bfe/parts/r_0603.json
+
+stderr | tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > download rejects oversized assets by declared content-length
+[2026-09-10 12:30:08,046] [INFO] Fetching registry part detail: https://registry.test/api-0trlvsdwy5yf/parts/big.json
+[2026-09-10 12:30:08,047] [INFO] Downloading step for big: https://registry.test/big.step
+
+stderr | tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > download reports a missing format cleanly
+[2026-09-10 12:30:08,050] [INFO] Fetching registry part detail: https://registry.test/api-6xocaquhjgi/parts/sym_only.json
+
+stderr | tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > get_registry_part summarizes detail and surfaces fetch errors
+[2026-09-10 12:30:08,055] [INFO] Fetching registry part detail: https://registry.test/api-wqldy1q5609/parts/jst_ph_4pin.json
+[2026-09-10 12:30:08,056] [INFO] Fetching registry part detail: https://registry.test/api-wqldy1q5609/parts/jst_ph_4pin.json
+
+ ✓ tests-ts/parts-registry.test.ts > parts-registry category > is registered with a name, description, and its three tools
+ ✓ tests-ts/parts-registry.test.ts > parts-registry category > maps each tool back to the parts-registry category
+ ✓ tests-ts/parts-registry.test.ts > filenameForAsset > keeps the remote basename when its extension matches the requested format
+ ✓ tests-ts/parts-registry.test.ts > filenameForAsset > keeps .glb for a step-format request (web preview variant)
+ ✓ tests-ts/parts-registry.test.ts > filenameForAsset > is case-insensitive about the remote extension
+ ✓ tests-ts/parts-registry.test.ts > filenameForAsset > falls back to id + default extension when the registry supplies a foreign extension
+ ✓ tests-ts/parts-registry.test.ts > filenameForAsset > falls back for extensionless paths and non-URLs, sanitizing the id
+ ✓ tests-ts/parts-registry.test.ts > assetUrlAllowed > allows the API host itself and its subdomains
+ ✓ tests-ts/parts-registry.test.ts > assetUrlAllowed > rejects foreign hosts, lookalike suffixes, and non-URLs
+ ✓ tests-ts/parts-registry.test.ts > assetUrlAllowed > rejects protocol downgrades unless the API itself is http (local dev)
+ ✓ tests-ts/parts-registry.test.ts > assetUrlAllowed > honours the PARTS_REGISTRY_ASSET_HOSTS allow-list
+ ✓ tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > search filters case-insensitively over name/keywords/manufacturer
+ ✓ tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > search honours the category filter and reports no-match cleanly
+ ✓ tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > download writes the asset with the format-matched remote filename
+ ✓ tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > download falls back to id + format extension when the remote name is foreign
+ ✓ tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > download refuses assets on hosts outside the registry
+ ✓ tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > download rejects oversized assets by declared content-length
+ ✓ tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > download reports a missing format cleanly
+ ✓ tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > download validates the destination directory before any fetch
+ ✓ tests-ts/parts-registry.test.ts > parts-registry tool handlers (stubbed fetch) > get_registry_part summarizes detail and surfaces fetch errors
+ ✓ tests-ts/parts-registry.test.ts > download safety > filenameForAsset cannot escape the output directory > strips directory components from a traversal path
+ ✓ tests-ts/parts-registry.test.ts > download safety > filenameForAsset cannot escape the output directory > neutralises percent-encoded separators
+ ✓ tests-ts/parts-registry.test.ts > download safety > filenameForAsset cannot escape the output directory > falls back to the sanitised id when the basename has no valid extension
+ ✓ tests-ts/parts-registry.test.ts > download safety > filenameForAsset cannot escape the output directory > never returns a name containing a path separator
+ ✓ tests-ts/parts-registry.test.ts > download safety > assetUrlAllowed > accepts the API host and its subdomains
+ ✓ tests-ts/parts-registry.test.ts > download safety > assetUrlAllowed > rejects a host that merely ends with the API host
+ ✓ tests-ts/parts-registry.test.ts > download safety > assetUrlAllowed > rejects unrelated hosts and plaintext http
+ ✓ tests-ts/parts-registry.test.ts > download safety > assetUrlAllowed > rejects malformed urls rather than throwing
+ ✓ tests-ts/startup-ready-gate.test.ts > startup ready gate (#377) > holds queued tool calls until the backend reports READY
+stderr | tests-ts/request-correlation.test.ts > Python bridge response correlation > discards a late response and resolves only the matching request
+[2026-09-10 12:30:08,602] [WARN] Discarding stale Python response 1; waiting for 2
+
+ ✓ tests-ts/request-correlation.test.ts > Python bridge response correlation > discards a late response and resolves only the matching request
+ ✓ tests-ts/request-correlation.test.ts > Python bridge response correlation > waits for a complete newline-delimited response
+
+ Test Files  10 passed (10)
+      Tests  84 passed (84)
+   Start at  12:30:07
+   Duration  1.45s (transform 992ms, setup 0ms, collect 3.07s, tests 266ms, environment 3ms, prepare 1.52s)
+

@@ -1,0 +1,214 @@
+\chapter{Resultados}\label{cap:resultados}
+
+Este capítulo consolida os resultados quantitativos da avaliação: métricas de
+implementação, cobertura funcional, execução das suítes de teste, integração
+contínua e resultados consolidados do estudo de caso.
+
+\section{Métricas de implementação}
+
+A Tabela~\ref{tab:loc-mono} apresenta o tamanho da implementação por
+componente. A camada de protocolo (TypeScript) concentra 42 arquivos com
+14.677 linhas; a camada de domínio (Python) totaliza 54.442 linhas, com
+destaque para o módulo de comandos (38.050 linhas, 39 arquivos) e para o
+roteador principal (6.529 linhas).
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Distribuição do código-fonte por componente.}
+\label{tab:loc-mono}
+\begin{tabular}{@{}p{6.0cm}p{2.4cm}r r@{}}
+\toprule
+\textbf{Componente} & \textbf{Linguagem} & \textbf{Arquivos} & \textbf{Linhas} \\
+\midrule
+Servidor e ferramentas (\texttt{src/}) & TypeScript & 42 & 14.677 \\
+Roteador de comandos (\texttt{kicad\_interface.py}) & Python & 1 & 6.529 \\
+Módulos de comando (\texttt{commands/}) & Python & 39 & 38.050 \\
+Esquemas (\texttt{schemas/}) & Python & -- & 3.669 \\
+Utilitários (\texttt{utils/}) & Python & -- & 2.803 \\
+Abstração de \emph{backends} (\texttt{kicad\_api/}) & Python & -- & 2.298 \\
+Recursos (\texttt{resources/}) & Python & -- & 349 \\
+Analisadores (\texttt{parsers/}) & Python & -- & 251 \\
+Anotações (\texttt{annotations/}) & Python & -- & 174 \\
+Demais arquivos Python & Python & -- & 319 \\
+\midrule
+\textbf{Total} & -- & -- & \textbf{68.819} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Cobertura funcional}
+
+A Tabela~\ref{tab:macro-mono} agrega as 233 ferramentas em dez macro-áreas
+funcionais. A cobertura de descoberta é dada pela
+Equação~\ref{eq:cobertura-mono}: 173 das 233 ferramentas (74,2\,\%) estão
+indexadas em 16 categorias; as 60 restantes são executáveis por nome, mas não
+localizáveis por busca.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Ferramentas por macro-área funcional.}
+\label{tab:macro-mono}
+\begin{tabular}{@{}p{7.0cm}r p{6.0cm}@{}}
+\toprule
+\textbf{Macro-área} & \textbf{N.} & \textbf{Módulos} \\
+\midrule
+Esquemático (autoria, lote, hierarquia, acabamento) & 65 & 4 módulos \\
+Bibliotecas e criação de partes & 31 & 4 módulos \\
+Projeto e ciclo de vida da placa & 31 & 2 módulos \\
+Componentes & 28 & 1 módulo \\
+Exportação e fabricação & 27 & 1 módulo \\
+Roteamento e autorouter & 21 & 2 módulos \\
+Datasheets e cadeia de suprimentos & 13 & 4 módulos \\
+Regras de projeto e validação & 9 & 2 módulos \\
+Interface do KiCad e descoberta & 6 & 2 módulos \\
+Importação de formatos legados & 2 & 2 módulos \\
+\midrule
+\textbf{Total} & \textbf{233} & \textbf{24 módulos} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{equation}
+\label{eq:cobertura-mono}
+C_{desc} = \frac{173}{233} \approx 0{,}742 \;(74{,}2\,\%).
+\end{equation}
+
+Além das ferramentas, o servidor expõe 23 recursos dinâmicos e quatro
+\emph{prompts} de tarefas recorrentes.
+
+\section{Execução das suítes de teste}
+
+A Tabela~\ref{tab:testes-mono} apresenta os resultados da execução local de
+10/09/2026, com o ambiente completo descrito no
+Capítulo~\ref{cap:metodologia}. Dos 2.451 casos coletados, 2.412 foram
+aprovados (98,4\,\%); 8 falharam e 31 foram ignorados.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Resultados das suítes de teste na execução local (10/09/2026).}
+\label{tab:testes-mono}
+\begin{tabular}{@{}p{4.6cm}rrrrp{2.2cm}@{}}
+\toprule
+\textbf{Suíte} & \textbf{Casos} & \textbf{Aprov.} & \textbf{Falhas} & \textbf{Ign.} & \textbf{Tempo} \\
+\midrule
+TypeScript (Vitest 2.1) & 84 & 84 & 0 & 0 & 1,5\,s \\
+Python (pytest 9.1) & 2.367 & 2.328 & 8 & 31 & 45,0\,s \\
+\midrule
+\textbf{Total} & \textbf{2.451} & \textbf{2.412} & \textbf{8} & \textbf{31} & 46,5\,s \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+As oito falhas, identificadas pelos logs preservados, concentram-se em testes
+que:
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.2em]
+  \item invocam o \texttt{kicad-cli} como processo externo (importação Eagle,
+        exportação de netlist, verificação ERC e compatibilidade de formato
+        de esquemático);
+  \item exercitam o caminho legado de modelos de componente (estado de
+        módulo e um caso de localização de pinos).
+\end{enumerate}
+
+A análise dos rastros indica sensibilidade ao ambiente de validação ---
+instalação do KiCad por pacote \emph{snap}, sem o diretório
+\texttt{/usr/share/kicad/schemas} esperado por alguns utilitários --- e não
+regressão funcional das ferramentas exercitadas pelos 2.328 casos aprovados.
+A taxa de aprovação entre os casos efetivamente executados (excluindo os 31
+ignorados) é de 99,7\,\%.
+
+\section{Integração contínua}
+
+O projeto mantém dois fluxos de integração contínua~\cite{githubactions}: a
+suíte TypeScript
+executa em quatro sistemas operacionais (Ubuntu 24.04, Ubuntu 22.04, Windows e
+macOS) com Node.js 20 e 22; a suíte Python executa em Ubuntu 24.04 e 22.04 com
+Python 3.9 a 3.12. Dois portões adicionais protegem a qualidade: a análise
+estática TypeScript e a verificação de que o inventário de ferramentas
+permanece sincronizado com o código. Esse último portão é relevante para o
+objetivo de descoberta: como o inventário é gerado a partir do código, uma
+ferramenta adicionada sem indexação não passa silenciosamente --- o número de
+ferramentas não indexadas é congelado por teste e só pode diminuir.
+
+\section{Resultados consolidados do estudo de caso}
+
+A Tabela~\ref{tab:placa-mono} consolida as métricas do projeto utilizado como
+estudo de caso, e a Tabela~\ref{tab:drc-resumo} resume a verificação de
+regras. Detalhes e interpretação constam do Capítulo~\ref{cap:estudo-de-caso}.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Métricas do projeto \texttt{seguidor\_de\_linhas\_4camada2-2026-1}.}
+\label{tab:placa-mono}
+\begin{tabular}{@{}p{7.4cm}p{7.2cm}@{}}
+\toprule
+\textbf{Grandeza} & \textbf{Valor} \\
+\midrule
+\emph{Footprints} & 97 \\
+Redes (nomeadas + não conectada) & 83 (82 + 1) \\
+Camadas de cobre & 4 (F.Cu, In1.Cu, In2.Cu, B.Cu) \\
+Espessura & 1,6\,mm \\
+Contorno (caixa envolvente) & $\approx$ 82,1\,mm $\times$ 80,2\,mm \\
+Folhas do esquemático & 9 \\
+Itens agrupados na BOM & 37 \\
+Artefatos de fabricação & BOM, designadores, netlist IPC, posições e pacote da placa \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Resumo da verificação de regras de projeto (DRC).}
+\label{tab:drc-resumo}
+\begin{tabular}{@{}p{4.6cm}rrr@{}}
+\toprule
+\textbf{Resultado} & \textbf{Erros} & \textbf{Avisos} & \textbf{Total} \\
+\midrule
+\emph{Starved thermal} (conexão térmica) & 4 & 0 & 4 \\
+\emph{Annular width} (anel anular) & 2 & 0 & 2 \\
+\emph{Clearance} (afastamento) & 2 & 0 & 2 \\
+\emph{Malformed courtyard} & 1 & 0 & 1 \\
+\emph{Padstack} (furo sem cobre) & 0 & 2 & 2 \\
+\midrule
+\textbf{Total de violações} & \textbf{9} & \textbf{2} & \textbf{11} \\
+Itens não conectados & -- & -- & \textbf{0} \\
+Divergências de paridade & -- & -- & \textbf{0} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Síntese da avaliação em relação aos requisitos}
+
+O Quadro~\ref{qua:status} sintetiza o estado de cada requisito.
+
+\begin{quadro}[htbp]
+\centering
+\small
+\caption{Síntese de atendimento aos requisitos.}
+\label{qua:status}
+\begin{tabular}{@{}p{0.7cm}p{7.2cm}p{6.6cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Avaliação} & \textbf{Base} \\
+\midrule
+R1 & Atendido: cobertura do fluxo completo em 24 módulos & 233 ferramentas; Capítulo~\ref{cap:catalogo} \\
+R2 & Parcial: 74,2\,\% descobríveis; 60 pendentes & Equação~\ref{eq:cobertura-mono} \\
+R3 & Atendido com ressalvas: mecanismos presentes e testados; falhas localizadas em testes de integração com \texttt{kicad-cli} & Suítes; Capítulo~\ref{cap:arquitetura} \\
+R4 & Atendido: salvamento explícito, sessão fixada, validação estrutural & Suítes; Quadro~\ref{qua:decisoes} \\
+R5 & Atendido: matriz de CI em 4 sistemas (TS) e 2 (Python) & Seção anterior \\
+R6 & Atendido: suítes em duas linguagens e portão de inventário & Tabela~\ref{tab:testes-mono} \\
+\bottomrule
+\end{tabular}
+\end{quadro}
+
+\section{Síntese do capítulo}
+
+Os resultados quantificam a solução: 68.819 linhas de código, 233 ferramentas
+em 24 módulos, 74,2\,\% de cobertura de descoberta, 2.412 de 2.451 casos de
+teste aprovados e 11 violações de regras residuais no projeto de placa
+estudado. A interpretação desses números, suas limitações e implicações são
+discutidas no próximo capítulo.

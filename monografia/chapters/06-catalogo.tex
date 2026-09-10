@@ -1,0 +1,235 @@
+\chapter{Catálogo de ferramentas, recursos e fluxos}\label{cap:catalogo}
+
+Este capítulo detalha o catálogo exposto pelo servidor: como as ferramentas
+são organizadas e descobertas, o que cada área funcional oferece, quais fluxos
+de trabalho de referência podem ser executados, como as integrações externas
+funcionam e quais salvaguardas protegem os arquivos do usuário.
+
+\section{Organização do catálogo e descoberta}
+
+As 233 ferramentas distribuem-se em 24 módulos de código, conforme o
+Quadro~\ref{qua:modulos}. Para apoiar a descoberta, o servidor mantém 16
+categorias funcionais e uma lista de ferramentas essenciais. Três ferramentas
+implementam a busca: \texttt{list\_tool\_categories},
+\texttt{get\_category\_tools} e \texttt{search\_tools}. A cobertura de
+descoberta é de 173 em 233 ferramentas (74,2\,\% na versão avaliada), com as
+60 restantes executáveis por nome, mas ainda não localizáveis por busca.
+
+\begin{quadro}[htbp]
+\centering
+\small
+\caption{Distribuição das ferramentas pelos 24 módulos registrados.}
+\label{qua:modulos}
+\begin{tabular}{@{}p{6.2cm}rp{6.2cm}@{}}
+\toprule
+\textbf{Módulo (arquivo-fonte)} & \textbf{N.} & \textbf{Exemplos de ferramentas} \\
+\midrule
+Esquemático (\texttt{schematic.ts}) & 46 & \texttt{create\_schematic}, \texttt{add\_schematic\_component}, \texttt{edit\_schematic\_component} \\
+Exportação (\texttt{export.ts}) & 27 & \texttt{export\_gerber}, \texttt{export\_pdf}, \texttt{export\_3d} \\
+Componentes (\texttt{component.ts}) & 28 & \texttt{place\_component}, \texttt{move\_component}, \texttt{batch\_move\_components} \\
+Placa (\texttt{board.ts}) & 19 & \texttt{set\_board\_size}, \texttt{add\_layer}, \texttt{add\_board\_outline} \\
+Roteamento (\texttt{routing.ts}) & 17 & \texttt{add\_net}, \texttt{route\_trace}, \texttt{route\_arc\_trace}, \texttt{add\_via} \\
+Projeto (\texttt{project.ts}) & 12 & \texttt{create\_project}, \texttt{open\_project}, \texttt{snapshot\_project} \\
+Lote esquemático (\texttt{schematic-batch.ts}) & 9 & \texttt{batch\_add\_components}, \texttt{batch\_edit\_schematic\_components} \\
+Símbolos (\texttt{library-symbol.ts}) & 9 & \texttt{list\_symbol\_libraries}, \texttt{search\_symbols}, \texttt{repair\_flat\_symbols} \\
+Criador de símbolos (\texttt{symbol-creator.ts}) & 8 & \texttt{create\_symbol}, \texttt{register\_symbol\_library} \\
+Regras/DRC (\texttt{design-rules.ts}) & 7 & \texttt{set\_design\_rules}, \texttt{run\_drc}, \texttt{assign\_net\_to\_class} \\
+Bibliotecas de \emph{footprint} (\texttt{library.ts}) & 7 & \texttt{list\_libraries}, \texttt{search\_footprints} \\
+Criador de \emph{footprints} (\texttt{footprint.ts}) & 7 & \texttt{create\_footprint}, \texttt{add\_footprint\_3d\_model} \\
+JLCPCB (\texttt{jlcpcb-api.ts}) & 5 & \texttt{search\_jlcpcb\_parts}, \texttt{download\_jlcpcb\_database} \\
+Hierarquia (\texttt{schematic-hierarchy.ts}) & 5 & \texttt{add\_hierarchical\_sheet}, \texttt{set\_sheet\_property} \\
+Layout/cosmética (\texttt{schematic-layout.ts}) & 5 & \texttt{autoplace\_schematic\_fields}, \texttt{lint\_schematic\_cosmetic} \\
+Freerouting (\texttt{freerouting.ts}) & 4 & \texttt{autoroute}, \texttt{export\_dsn}, \texttt{import\_ses} \\
+Descoberta (\texttt{router.ts}) & 3 & \texttt{search\_tools}, \texttt{get\_category\_tools} \\
+Interface/backend (\texttt{ui.ts}) & 3 & \texttt{get\_backend\_state}, \texttt{launch\_kicad\_ui} \\
+DigiKey (\texttt{digikey-api.ts}) & 3 & \texttt{digikey\_search\_parts}, \texttt{digikey\_check\_library\_availability} \\
+Partes (\texttt{parts-registry.ts}) & 3 & \texttt{search\_parts\_registry}, \texttt{get\_registry\_part} \\
+Validação (\texttt{validation.ts}) & 2 & \texttt{validate\_schematic}, \texttt{validate\_symbol\_library} \\
+Datasheets (\texttt{datasheet.ts}) & 2 & \texttt{enrich\_datasheets}, \texttt{get\_datasheet\_url} \\
+Importação Eagle (\texttt{eagle.ts}) & 1 & \texttt{import\_eagle\_project} \\
+Importação de PCB (\texttt{pcb-import.ts}) & 1 & \texttt{import\_pcb} \\
+\bottomrule
+\end{tabular}
+\end{quadro}
+
+\section{Ferramentas por área funcional}
+
+\subsection{Ciclo de vida do projeto}
+
+O grupo de 12 ferramentas de projeto cobre criação, abertura, recarga,
+salvamento e encerramento: \texttt{create\_project}, \texttt{open\_project},
+\texttt{open\_board}, \texttt{reload\_board}, \texttt{close\_project},
+\texttt{save\_project}, \texttt{save\_board}, \texttt{save\_as},
+\texttt{is\_dirty}, \texttt{discard\_or\_reload}, \texttt{get\_project\_info}
+e \texttt{snapshot\_project}. Esta última materializa a ideia de ponto de
+restauração: grava um rótulo de etapa e renderiza a placa em PDF, permitindo
+retroceder a um estado nomeado do fluxo.
+
+\subsection{Placa, camadas e geometria}
+
+O módulo de placa oferece dimensionamento e camadas (\texttt{set\_board\_size},
+\texttt{add\_layer}), origens (\texttt{set\_board\_origin},
+\texttt{get\_board\_origin}), contorno e textos
+(\texttt{add\_board\_outline}, \texttt{add\_board\_text}), furação de fixação
+(\texttt{add\_mounting\_hole}), planos de cobre e zonas
+(\texttt{add\_copper\_pour}, \texttt{add\_zone}), reforço de aterramento com
+vias de costura (\texttt{add\_gnd\_stitching\_vias}) e consultas de geometria
+(\texttt{get\_component\_geometry}, \texttt{get\_pads},
+\texttt{get\_ratsnest}, \texttt{estimate\_airwire\_lengths},
+\texttt{check\_placement\_clearance}). Movimentação em lote de componentes e
+ajuste de textos completam o conjunto.
+
+\subsection{Componentes}
+
+As ferramentas de componente cobrem posicionamento e edição
+(\texttt{place\_component}, \texttt{move\_component},
+\texttt{rotate\_component}, \texttt{batch\_move\_components}), anotações e
+metadados (\texttt{add\_component\_annotation}), modelos 3D
+(\texttt{add\_component\_3d\_model}) e alinhamento
+(\texttt{align\_components}). O fluxo típico inclui consulta de pads e
+\emph{courtyard} para decisões de posicionamento.
+
+\subsection{Roteamento e integridade de sinal}
+
+O roteamento é coberto por 17 ferramentas, com destaque para
+\texttt{add\_net} (declaração de rede), \texttt{route\_trace} e
+\texttt{route\_arc\_trace} (trilhas retas e arcos), \texttt{add\_via} (vias) e
+\texttt{modify\_trace} (ajuste de trilhas existentes). As operações interagem
+com as regras de projeto e com as classes de rede para respeitar larguras e
+afastamentos configurados.
+
+\subsection{Regras de projeto e verificação}
+
+O grupo de regras inclui \texttt{set\_design\_rules},
+\texttt{get\_design\_rules}, \texttt{run\_drc} e
+\texttt{assign\_net\_to\_class}, além de consultas específicas de folga e de
+sobreposição de \emph{courtyard}. A validação estrutural é atendida por
+\texttt{validate\_schematic} e \texttt{validate\_symbol\_library}, que
+localizam danos de estrutura com posição de linha e coluna.
+
+\subsection{Exportação e fabricação}
+
+As 27 ferramentas de exportação cobrem Gerber (\texttt{export\_gerber}), PDF,
+SVG, modelos 3D (\texttt{export\_3d}) e demais formatos suportados pelo
+\texttt{kicad-cli} \citep{kicadcli}, incluindo listas de posição e netlists.
+O objetivo é permitir que o assistente prepare o pacote de fabricação sem
+sair do fluxo de chamadas de ferramentas.
+
+\subsection{Esquemático}
+
+A maior área do catálogo reúne 65 ferramentas em quatro módulos: autoria
+(\texttt{create\_schematic}, \texttt{add\_schematic\_component},
+\texttt{delete\_schematic\_component}, \texttt{edit\_schematic\_component},
+além de fios, rótulos e símbolos de não conexão), operações em lote
+(\texttt{batch\_add\_components}, \texttt{batch\_edit\_schematic\_components},
+\texttt{update\_symbol\_from\_library}), hierarquia
+(\texttt{add\_hierarchical\_sheet}, \texttt{remove\_hierarchical\_sheet},
+\texttt{set\_sheet\_property}, \texttt{get\_sheet\_properties}) e acabamento
+(\texttt{set\_schematic\_property\_position},
+\texttt{autoplace\_schematic\_fields}, \texttt{lint\_schematic\_cosmetic}).
+A verificação elétrica (ERC), a extração de netlist e a sincronização
+esquemático--placa completam o conjunto.
+
+\subsection{Bibliotecas e criação de partes}
+
+As ferramentas de biblioteca permitem listar, buscar e inspecionar
+\emph{footprints} e símbolos (\texttt{list\_libraries},
+\texttt{search\_footprints}, \texttt{list\_symbol\_libraries},
+\texttt{search\_symbols}), reparar símbolos problemáticos
+(\texttt{repair\_flat\_symbols}) e manter as tabelas de bibliotecas
+(\texttt{list\_library\_table}, \texttt{remove\_library\_table\_entry},
+\texttt{set\_library\_table\_uri}). Os criadores suportam a criação de novas
+partes (\texttt{create\_footprint}, \texttt{create\_symbol}) e a associação
+de modelos 3D.
+
+\subsection{Datasheets e cadeia de suprimentos}
+
+Três fontes alimentam a escolha de componentes: JLCPCB
+(\texttt{search\_jlcpcb\_parts}, \texttt{download\_jlcpcb\_database},
+\texttt{get\_jlcpcb\_database\_stats}), LCSC para enriquecimento de
+\emph{datasheets} (\texttt{enrich\_datasheets}, \texttt{get\_datasheet\_url})
+e DigiKey (\texttt{digikey\_search\_parts},
+\texttt{digikey\_check\_library\_availability}). Um registro de partes
+(\texttt{search\_parts\_registry}) mantém um catálogo local pesquisável.
+
+\subsection{Autorouter}
+
+O autorouter é acionado por \texttt{autoroute}, com utilitários de preparação
+(\texttt{export\_dsn}), importação de resultado (\texttt{import\_ses}) e
+diagnóstico (\texttt{check\_freerouting}) \citep{freerouting}. O projeto
+adota diretório temporário isolado para os arquivos \texttt{.dsn}/\texttt{.ses}
+e inclui seleção do melhor resultado entre múltiplas execuções pontuadas.
+
+\subsection{Interface, backend e descoberta}
+
+Um pequeno conjunto expõe o estado operacional
+(\texttt{get\_backend\_state}, \texttt{check\_kicad\_ui},
+\texttt{launch\_kicad\_ui}) e sustenta a descoberta
+(\texttt{list\_tool\_categories}, \texttt{get\_category\_tools},
+\texttt{search\_tools}).
+
+\section{Fluxos de trabalho de referência}
+
+A Tabela~\ref{tab:fluxos} descreve quatro fluxos de referência executáveis
+com o catálogo. Os nomes entre parênteses são exemplos de ferramentas
+chamadas; a ordem ilustra o encadeamento esperado.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Fluxos de referência e sequência de ferramentas.}
+\label{tab:fluxos}
+\begin{tabular}{@{}p{3.2cm}p{11.2cm}@{}}
+\toprule
+\textbf{Fluxo} & \textbf{Sequência (exemplo)} \\
+\midrule
+Projeto até fabricação & \texttt{create\_project} $\rightarrow$ \texttt{create\_schematic} $\rightarrow$ autoria e sincronização $\rightarrow$ \texttt{place\_component} $\rightarrow$ \texttt{route\_trace} $\rightarrow$ \texttt{run\_drc} $\rightarrow$ \texttt{export\_gerber} \\
+Edição em lote no esquemático & \texttt{list\_tool\_categories} $\rightarrow$ \texttt{batch\_add\_components} $\rightarrow$ \texttt{batch\_edit\_schematic\_components} $\rightarrow$ \texttt{validate\_schematic} $\rightarrow$ ERC \\
+Varredura de obsolescência & \texttt{digikey\_check\_library\_availability} sobre uma biblioteca de símbolos, com relatório por estado (obsoleto, sem estoque, não encontrado) \\
+Autorouter & \texttt{export\_dsn} $\rightarrow$ \texttt{autoroute} (múltiplas execuções pontuadas) $\rightarrow$ \texttt{import\_ses} $\rightarrow$ \texttt{run\_drc} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Integrações externas}
+
+As integrações externas foram projetadas para degradar com elegância quando
+faltam credenciais ou rede. No caso da DigiKey~\cite{digikey}, a implementação
+lida com três
+detalhes críticos: os cabeçalhos de localidade são obrigatórios (a ausência
+resulta em erro 404 enganoso); o número de catálogo da DigiKey vive em cada
+variação de embalagem, e não no produto, de modo que a cotação escolhe a
+variação preferida e marca como não encomendável o produto sem variações; e o
+campo de situação do produto é localizado, exigindo comparação independente
+de idioma. A varredura de bibliotecas limita-se, por padrão, a 25 símbolos por
+chamada e interrompe após cinco falhas consecutivas, protegendo a cota da API
+e devolvendo resultados parciais com estado de erro por símbolo.
+
+No caso da JLCPCB~\cite{jlcpcb}, o servidor baixa a base local de partes e a
+consulta com degradação controlada quando a base não está disponível. O
+enriquecimento de \emph{datasheets} via LCSC~\cite{lcsc} complementa os
+metadados de símbolos e \emph{footprints}.
+
+\section{Integridade, segurança e tratamento de erros}
+
+Operações sobre arquivos de projeto exigem disciplina. O servidor adota:
+salvamento explícito (\texttt{save\_board}, \texttt{save\_project}),
+indicador de alterações pendentes (\texttt{is\_dirty}), recarga controlada
+(\texttt{discard\_or\_reload}), validação estrutural antes de editar
+esquemáticos e mensagens de erro tipadas. Ferramentas de risco médio oferecem
+modo de simulação (\emph{dry-run}), como o ajuste em lote de tipos de pino e o
+posicionamento de vias de costura, permitindo ao agente pré-visualizar
+alterações antes de aplicá-las.
+
+Do ponto de vista do protocolo, as ferramentas são declaráveis e inspecionáveis
+pelo cliente, e a especificação MCP prevê confirmação do usuário para
+operações sensíveis \citep{mcp2025spec}. O trabalho futuro identificado na
+discussão inclui uma camada explícita de políticas de permissão por
+ferramenta.
+
+\section{Síntese do capítulo}
+
+O catálogo cobre o ciclo completo de projeto de PCB, com 233 ferramentas
+organizadas em áreas coerentes, três mecanismos de descoberta, integrações de
+suprimentos e salvaguardas de integridade. O capítulo seguinte exercita esse
+catálogo em um projeto real.

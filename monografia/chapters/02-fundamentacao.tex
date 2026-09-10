@@ -1,0 +1,207 @@
+\chapter{Fundamentação teórica}\label{cap:fundamentacao}
+
+Este capítulo apresenta os conceitos necessários à compreensão do trabalho:
+o fluxo de projeto de uma PCB, os mecanismos de automação disponíveis em
+ferramentas de EDA, a estrutura do KiCad, os fundamentos de agentes baseados
+em LLMs e o \emph{Model Context Protocol}.
+
+\section{O fluxo de projeto de uma PCB}
+
+O desenvolvimento de uma placa de circuito impresso pode ser descrito como uma
+sequência de etapas com critérios de verificação próprios
+\citep{kicaddocs,horowitz2015}:
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.2em]
+  \item \textbf{Especificação funcional}: definição dos blocos elétricos,
+        tensões, correntes e interfaces do sistema;
+  \item \textbf{Captura esquemática}: representação da conectividade por
+        símbolos e fios, com anotações de valores e encapsulamentos;
+  \item \textbf{Atribuição de \emph{footprints}}: associação de cada símbolo
+        ao desenho físico correspondente (dimensões, pads, \emph{courtyard});
+  \item \textbf{Layout}: posicionamento dos componentes e definição da pilha
+        de camadas, do contorno da placa e das zonas de cobre;
+  \item \textbf{Roteamento}: traçado das trilhas e posicionamento de vias,
+        respeitando regras elétricas e de fabricação;
+  \item \textbf{Verificação}: checagem de regras de projeto (DRC) para
+        geometria e de regras elétricas (ERC) para o esquemático, incluindo a
+        paridade entre placa e esquemático;
+  \item \textbf{Preparação para fabricação}: geração de Gerber, furação,
+        máscara, lista de materiais e arquivos de posição de montagem.
+\end{enumerate}
+
+As verificações das etapas 6 e 7 são especialmente importantes para a
+automação, pois produzem resultados estruturados (listas de violações por
+tipo e severidade) que podem ser processados por ferramentas externas. Em
+contrapartida, operações das etapas 2 a 5 são destrutivas do ponto de vista do
+arquivo de projeto: alteram geometria e conectividade, exigindo que qualquer
+automação controle salvamento, recarga e estado de sessão.
+
+\section{Automação em ferramentas de EDA}
+
+Ferramentas de EDA oferecem, tipicamente, três níveis de automação:
+
+\begin{itemize}[leftmargin=1.4em,itemsep=0.2em]
+  \item \textbf{Interfaces de programação em processo} (\emph{in-process
+        scripting}): o usuário executa código dentro do processo da ferramenta,
+        com acesso direto ao modelo de dados. No KiCad, essa via é a API
+        Python \texttt{pcbnew}, gerada por \emph{bindings} SWIG
+        \citep{swig}.
+  \item \textbf{Interfaces de comunicação entre processos}: a ferramenta expõe
+        uma API de serviço com a qual aplicações externas conversam em tempo
+        real. No KiCad, essa via é a API IPC \citep{kicaddev}.
+  \item \textbf{Utilitários de linha de comando}: operações de verificação e
+        exportação executadas sem interface gráfica. No KiCad, essa via é o
+        \texttt{kicad-cli}, com subcomandos para DRC, ERC, exportações Gerber,
+        furação, PDF, SVG, STEP, entre outros \citep{kicadcli}.
+\end{itemize}
+
+Cada nível tem vantagens e limites: a programação em processo tem acesso
+completo, mas exige um ambiente Python compatível com a instalação da
+ferramenta; a API IPC é adequada para sincronização em tempo real, porém
+depende de um servidor habilitado pelo usuário; a linha de comando é robusta e
+isolada, mas não mantém estado entre execuções. Uma integração madura
+beneficia-se dos três, escolhendo o mecanismo conforme a operação.
+
+\section{O KiCad}
+
+O KiCad é uma suíte de EDA de código aberto que integra captura esquemática,
+editor de \emph{footprints}, editor de símbolos, editor de placas, visualizador
+3D e utilitários de fabricação \citep{kicaddocs}. Os arquivos de projeto são
+armazenados em formato textual de expressões-S (arquivos
+\texttt{.kicad\_pro}, \texttt{.kicad\_sch}, \texttt{.kicad\_pcb} e bibliotecas
+\texttt{.kicad\_sym}/\texttt{.kicad\_mod}), o que favorece controle de versão
+e inspeção por ferramentas externas.
+
+Duas características são relevantes para este trabalho. A primeira é a
+\textbf{estabilidade da API de automação}: a API \texttt{pcbnew} cobre placas,
+enquanto a manipulação de esquemáticos é feita por ferramentas próprias da
+suíte; por isso, integrações de esquemático frequentemente combinam geração e
+leitura de expressões-S com validação pelo \texttt{kicad-cli}. A segunda é a
+\textbf{versatilidade de verificação}: os relatórios de DRC e ERC do
+\texttt{kicad-cli}, emitidos em formato JSON, permitem automação de
+qualidade --- exatamente os artefatos utilizados na avaliação deste trabalho
+\citep{kicadcli}.
+
+\section{Modelos de linguagem e agentes}
+
+Modelos de linguagem modernos são capazes de manter contexto sobre
+documentação e código, planejar sequências de ações e produzir chamadas
+estruturadas a ferramentas. A literatura documenta três marcos relevantes para
+esta dissertação:
+
+\begin{itemize}[leftmargin=1.4em,itemsep=0.2em]
+  \item Yao et al.~\cite{yao2023react} demonstram que intercalar raciocínio e ação, com
+        observações do ambiente realimentando o ciclo, melhora o desempenho em
+        tarefas que exigem decisões encadeadas;
+  \item Schick et al.~\cite{schick2023toolformer} e Patil
+        et al.~\cite{patil2023gorilla} evidenciam que
+        modelos podem aprender a usar APIs externas de forma autônoma quando
+        as chamadas lhes são apresentadas de forma estruturada;
+  \item Yang et al.~\cite{yang2024sweagent} mostram que a interface entre agente e
+        computador (ACI) é determinante: comandos claros, saídas concisas e
+        ferramentas descobríveis elevam o desempenho do agente.
+\end{itemize}
+
+Esses resultados orientam decisões concretas adotadas neste trabalho:
+exposição individual de cada ferramenta, com descrição e esquema próprios;
+lista de ferramentas essenciais para ordenar a descoberta; respostas
+estruturadas e concisas; e separação clara entre operações de leitura e de
+escrita.
+
+\section{O Model Context Protocol}
+
+\subsection{Origem e motivação}
+
+O MCP foi anunciado pela Anthropic em novembro de 2024 como um padrão aberto
+para conectar assistentes de IA a sistemas externos \citep{anthropic2024mcp}.
+A motivação central é reduzir o problema $N \times M$: sem um protocolo comum,
+cada combinação de assistente e ferramenta requer uma integração dedicada;
+com o protocolo, ferramentas publicam um servidor e assistentes implementam um
+cliente.
+
+\subsection{Arquitetura}
+
+A arquitetura do MCP define três papéis \citep{mcp2025spec}:
+
+\begin{itemize}[leftmargin=1.4em,itemsep=0.2em]
+  \item \textbf{Anfitrião} (\emph{host}): aplicação que hospeda o assistente e
+        coordena um ou mais clientes;
+  \item \textbf{Cliente}: componente que mantém a conexão com um servidor e
+        encaminha requisições;
+  \item \textbf{Servidor}: programa que expõe capacidades (ferramentas,
+        recursos, prompts) e responde às requisições.
+\end{itemize}
+
+A comunicação usa JSON-RPC 2.0, com transporte por entrada/saída padrão
+(\emph{stdio}) ou por HTTP com \emph{streaming}. O ciclo de vida inclui
+inicialização com negociação de capacidades e notificações de mudança. A
+Figura~\ref{fig:mcp-geral} ilustra a organização geral aplicada a este
+trabalho.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  box/.style={draw, rounded corners=2pt, align=center, inner sep=5pt},
+  arr/.style={-{Stealth[length=2mm]}, thick},
+  node distance=8mm and 10mm
+]
+\node[box, fill=blue!6] (host) {Aplicação anfitriã\\(editor de código, agente)};
+\node[box, fill=blue!12, right=of host] (srv) {Servidor MCP\\\texttt{mcp-kicad-vscode}\\(233 ferramentas, 23 recursos)};
+\node[box, fill=green!10, right=of srv] (kicad) {KiCad 9\\\texttt{pcbnew} (SWIG), API IPC,\\\texttt{kicad-cli}};
+\draw[arr] (host) -- node[above, font=\scriptsize]{MCP} (srv);
+\draw[arr] (srv) -- node[above, font=\scriptsize]{comandos} (kicad);
+\draw[arr] (kicad.west) -- ++(0,-1.6) -| node[below, font=\scriptsize, pos=0.25]{resultados} (srv.south);
+\end{tikzpicture}
+\caption{Organização geral: o assistente conecta-se ao servidor MCP, que opera
+o KiCad e devolve resultados estruturados.}
+\label{fig:mcp-geral}
+\end{figure}
+
+\subsection{Primitivas}
+
+O protocolo define três primitivas de servidor, resumidas no
+Quadro~\ref{qua:primitivas} \citep{mcp2025docs}.
+
+\begin{quadro}[htbp]
+\centering
+\small
+\caption{Primitivas do MCP.}
+\label{qua:primitivas}
+\begin{tabular}{@{}p{2.4cm}p{3.4cm}p{8.4cm}@{}}
+\toprule
+\textbf{Primitiva} & \textbf{Direção} & \textbf{Função} \\
+\midrule
+\emph{Tools} & modelo $\rightarrow$ servidor & Operações executáveis com
+efeitos, descritas por esquema de parâmetros; exigem confirmação do usuário
+quando destrutivas. \\
+\emph{Resources} & servidor $\rightarrow$ modelo & Dados de contexto somente
+leitura, identificados por URI (estado do projeto, listas, metadados). \\
+\emph{Prompts} & servidor $\rightarrow$ modelo & Modelos de interação
+reutilizáveis para tarefas recorrentes. \\
+\bottomrule
+\end{tabular}
+\end{quadro}
+
+Além das primitivas, a especificação define elementos transversais relevantes
+para integrações robustas: \emph{timeouts}, cancelamento de requisições,
+notificações de progresso e limites de tamanho de mensagem
+\citep{mcp2025spec}.
+
+\subsection{Adoção e relevância}
+
+Após o anúncio, o protocolo passou a ser implementado por diferentes
+fornecedores e comunidades, e servidores MCP foram publicados para domínios
+distintos --- de edição de código a sistemas de arquivos e bancos de dados.
+Para o presente trabalho, a adoção importa por dois motivos: valida a aposta
+de padronização e amplia o número de assistentes capazes de consumir o
+servidor sem código adicional.
+
+\section{Síntese do capítulo}
+
+A fundamentação apresentada permite situar o problema: o fluxo de PCB combina
+operações destrutivas e verificações estruturadas; o KiCad oferece três
+mecanismos de automação complementares; os agentes baseados em LLMs exigem
+interfaces desenhadas para sua forma de operação; e o MCP fornece o contrato
+padronizado que faltava. O próximo capítulo examina como trabalhos
+relacionados tratam essa combinação.

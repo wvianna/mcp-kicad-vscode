@@ -1,0 +1,69 @@
+\section{Introdução}\label{sec:introducao}
+
+O projeto de placas de circuito impresso (PCB, do inglês \emph{printed circuit
+board}) é uma atividade multidisciplinar que combina decisões elétricas,
+térmicas, mecânicas e de manufatura. Nas últimas décadas, o setor consolidou
+fluxos de trabalho fortemente assistidos por computador, nos quais ferramentas
+de automação de projeto eletrônico (EDA) executam desde a captura esquemática
+até a geração de arquivos de fabricação, passando por verificação de regras de
+projeto (DRC, \emph{design rule check}) e roteamento assistido
+\citep{kicaddocs,horowitz2015}.
+
+Paralelamente, assistentes de programação e engenharia baseados em grandes
+modelos de linguagem (LLMs) passaram a atuar como agentes capazes de planejar e
+executar ações em computadores, desde que recebam interfaces adequadas às suas
+capacidades \citep{yao2023react,yang2024sweagent}. Quando o alvo é um
+\emph{software} de engenharia desktop, como o KiCad, o obstáculo deixa de ser a
+capacidade de raciocínio do modelo e passa a ser a ausência de uma camada de
+integração padronizada, descobrível e verificável entre o assistente e as
+operações da ferramenta.
+
+Em novembro de 2024, a Anthropic publicou o \emph{Model Context Protocol} (MCP),
+um protocolo aberto baseado em JSON-RPC 2.0 que padroniza a forma como
+aplicações hospedeiras (\emph{hosts}) expõem \emph{tools}, \emph{resources} e
+\emph{prompts} a modelos de linguagem \citep{anthropic2024mcp,mcp2025spec}. A
+proposta reduz o custo de integração de $N \times M$ conectores proprietários
+para um único protocolo, permitindo que um mesmo servidor seja utilizado por
+diferentes clientes (editores de código, ambientes de chat e agentes
+autônomos).
+
+Este trabalho parte da seguinte questão de pesquisa: \emph{como expor de forma
+ampla, descobrível e testável o fluxo de projeto de PCBs do KiCad a assistentes
+de IA, preservando a robustez exigida por operações destrutivas sobre arquivos
+de projeto?} Para respondê-la, foi especificado, implementado e avaliado o
+\texttt{mcp-kicad-vscode}, um servidor MCP que traduz operações do KiCad em
+ferramentas executáveis por agentes, com integração a catálogos reais de
+componentes e a roteador automático.
+
+As principais contribuições deste trabalho são:
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.25em]
+  \item a especificação e implementação de uma arquitetura em duas camadas
+        (TypeScript para o protocolo MCP; Python para a interface com a API
+        \emph{pcbnew}/IPC do KiCad), com abstração de \emph{backends} e
+        correlação de requisições entre os processos;
+  \item um catálogo de 233 ferramentas MCP organizadas em 24 módulos
+        funcionais, cobrindo esquemático, placa, roteamento, regras de
+        projeto, exportação, bibliotecas, criação de partes, datasheets e
+        cadeia de suprimentos;
+  \item um mecanismo de descoberta por palavra-chave (\texttt{search\_tools},
+        \texttt{get\_category\_tools}) que indexa 173 ferramentas em 16
+        categorias, além de 23 recursos dinâmicos que expõem o estado do
+        projeto;
+  \item uma estratégia de qualidade que combina testes automatizados em duas
+        linguagens (84 casos em TypeScript e 2.367 casos coletados em Python),
+        integração contínua em múltiplos sistemas operacionais e geração
+        automática do inventário de ferramentas;
+  \item uma avaliação por estudo de caso com uma placa seguidora de linhas de
+        quatro camadas projetada no workspace, incluindo verificação de regras
+        por \texttt{kicad-cli}, quantificação de violações residuais e
+        análise crítica das limitações.
+\end{enumerate}
+
+O restante do artigo está organizado da seguinte forma: a
+Seção~\ref{sec:fundamentacao} apresenta a fundamentação teórica e os trabalhos
+relacionados; a Seção~\ref{sec:metodologia} descreve os materiais e métodos,
+incluindo a arquitetura do servidor e o desenho da avaliação; a
+Seção~\ref{sec:resultados} reporta os resultados e a
+Seção~\ref{sec:discussao} os discute; por fim, a
+Seção~\ref{sec:conclusao} conclui o trabalho e aponta direções futuras.

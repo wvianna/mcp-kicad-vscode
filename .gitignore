@@ -1,11 +1,17 @@
 # =============================================================================
 # mcp-kicad-vscode — .gitignore da raiz do workspace
-# Compatível com: KiCAD-MCP-Server (Node.js/TypeScript + Python) e
-# projetos KiCad (project-kicad/) gerados/analisados localmente.
+#
+# Escopo: cobre o monorepo inteiro (KiCAD-MCP-Server, project-kicad, artigo,
+# monografia, evidencias). Os subprojetos KiCAD-MCP-Server/, artigo/ e
+# monografia/ possuem .gitignore próprios; as regras daqui são a rede de
+# segurança do nível superior.
+#
+# Regra de ouro: artefatos gerados/regeneráveis ficam FORA; fontes, evidências
+# e entregáveis finais (PDFs, vídeo, bibliotecas, relatórios de DRC) ficam DENTRO.
 # =============================================================================
 
 # -----------------------------------------------------------------------------
-# Node.js / TypeScript (KiCAD-MCP-Server)
+# KiCAD-MCP-Server — Node.js / TypeScript
 # -----------------------------------------------------------------------------
 node_modules/
 dist/
@@ -17,10 +23,12 @@ yarn-error.log*
 .prettiercache
 
 # -----------------------------------------------------------------------------
-# Python (KiCAD-MCP-Server)
+# KiCAD-MCP-Server — Python
 # -----------------------------------------------------------------------------
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
 *$py.class
 *.so
 .Python
@@ -40,24 +48,53 @@ htmlcov/
 .hypothesis/
 *.cover
 
-# Virtual environments
+# Ambientes virtuais
 venv/
 .venv/
 env/
 ENV/
 
 # -----------------------------------------------------------------------------
-# VS Code (configurações locais/máquina-específicas)
+# VS Code e editores (configurações locais/máquina-específicas)
 # -----------------------------------------------------------------------------
 .vscode/
+.idea/
 *.code-workspace
 *.swp
 *.swo
 *~
 
 # -----------------------------------------------------------------------------
+# LaTeX (artigo/ e monografia/) — artefatos de compilação
+# Mantém versionados: .tex, .bib, PDFs finais, figuras e scripts de build.
+# -----------------------------------------------------------------------------
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.loq
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bcf
+*.run.xml
+*-blx.bib
+latex.out/
+.texpadtmp/
+
+# Evidências — exceção intencional:
+# evidencias/ guarda prova de execução (testes, DRC) citada no README.md, no
+# artigo e nos apêndices da monografia; por isso os logs NÃO são ignorados.
+!evidencias/*.log
+
+# -----------------------------------------------------------------------------
 # Projetos KiCad (project-kicad/ e similares) — artefatos gerados
-# Importante: manter versionados .kicad_pro, .kicad_pcb, .kicad_sch e libs.
+# Mantém versionados: .kicad_pro, .kicad_pcb, .kicad_sch, bibliotecas (mylib/,
+# libjlc/), tabelas de biblioteca, BOM.csv, datasheets e imagens de referência.
 # -----------------------------------------------------------------------------
 fp-info-cache
 *.kicad_prl
@@ -72,14 +109,13 @@ fp-info-cache
 *-backups/
 production/
 *_drc_violations.json
-temp-*.dsn
+*.dsn
 datasheet.zip
 
 # -----------------------------------------------------------------------------
-# Logs e dados locais
+# Logs, dados e bancos locais
 # -----------------------------------------------------------------------------
 logs/
-*.log
 data/
 *.db
 *.db-journal
@@ -87,7 +123,7 @@ data/
 *.sqlite3
 
 # -----------------------------------------------------------------------------
-# Ambiente
+# Ambiente e segredos
 # -----------------------------------------------------------------------------
 .env
 .env.local
@@ -99,5 +135,11 @@ data/
 # -----------------------------------------------------------------------------
 .DS_Store
 Thumbs.db
+Desktop.ini
 
+# -----------------------------------------------------------------------------
+# Arquivos compactados (evita versionar binários grandes: datasheet.zip,
+# mylib.zip); regere localmente quando necessário.
+# -----------------------------------------------------------------------------
 *.zip
+*.tar.gz

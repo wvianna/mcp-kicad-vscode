@@ -30,6 +30,21 @@ Vídeo de preview da PCB (arquivo local — não incorporado diretamente):
 
 [Preview da PCB seguidor de linhas](project-kicad/video/PREVIAPCBSEGUIDORLINHAS.mp4)
 
+## Documentação acadêmica
+
+Este workspace inclui dois documentos sobre o servidor MCP, de autoria de
+**William da Silva Vianna (Instituto Federal Fluminense — IFF)**:
+
+| Documento | PDF | Fontes LaTeX | Escopo |
+|---|---|---|---|
+| **Artigo** | [`artigo/artigo-mcp-kicad-vscode.pdf`](artigo/artigo-mcp-kicad-vscode.pdf) | [`artigo/`](artigo/) | 12 páginas: arquitetura, catálogo, resultados de teste, estudo de caso |
+| **Monografia** | [`monografia/monografia-mcp-kicad-vscode.pdf`](monografia/monografia-mcp-kicad-vscode.pdf) | [`monografia/`](monografia/) | 56 páginas: detalhamento completo do MCP (arquitetura, 233 ferramentas, integrações, estudo de caso, apêndices) |
+
+Os documentos citam apenas dados verificáveis do repositório. As evidências
+(logs de teste de 10/09/2026 e relatório de DRC) estão em
+[`evidencias/`](evidencias/); informações ausentes no workspace estão marcadas
+explicitamente (ver [`monografia/MONOGRAFIA_PENDENCIAS.md`](monografia/MONOGRAFIA_PENDENCIAS.md)).
+
 
 ## Funcionalidades
 
@@ -50,7 +65,7 @@ Vídeo de preview da PCB (arquivo local — não incorporado diretamente):
 - [x] Placa 4 camadas (F.Cu, B.Cu, In1.Cu, In2.Cu) — 82,2 × 80,3 mm
 - [x] 97 componentes (80 da lib `mylib`, sensores IR `ITR8307`, ESP32, ponte H, MPPT, USB-C — conforme nets e BOM)
 - [x] 83 nets (GND, +5V, +3V3, VBAT e sinais `/mptt/*`, `/ponteH/*`, `/usb-c/*`, `/IO*`)
-- [x] DRC limpo (0 violações verificado via `kicad-cli`)
+- [x] DRC executado via `kicad-cli` (10/09/2026): 11 violações residuais (9 erros + 2 avisos), **0 itens não conectados** — relatório em [`project-kicad/docs/drc-seguidor-de-linhas-2026-09-10.json`](project-kicad/docs/drc-seguidor-de-linhas-2026-09-10.json); correções pendentes antes da fabricação
 - [x] `BOM.csv` e bibliotecas locais (`mylib/`, `logopcb/`)
 
 ## Arquitetura
@@ -103,7 +118,7 @@ mcp-kicad-vscode/
 | TypeScript | 5.9 | compilação via `npm run build` |
 | npm | — | gerenciador de dependências |
 | Python | ≥ 3.9 | local: 3.12.3 (`.venv`) |
-| KiCad | 9.0.7 | installação **snap** (`/snap/kicad/22`) |
+| KiCad | 9.0.7 | instalação **snap** (`/snap/kicad/22`) |
 | JRE | 21 | apenas para suítes de teste do Freerouting (CI) |
 
 Opcional: `kicad-python` (`pip install kicad-python`) habilita o backend IPC em tempo real; sem ele o servidor usa o backend SWIG.
@@ -239,7 +254,7 @@ pre-commit run --all-files   # hooks de qualidade (git)
 
 - **Testes**: Vitest (`tests-ts/*.test.ts`) e pytest (`tests/test_*.py`, `testpaths = tests`).
 - **CI**: `.github/workflows/ci.yml` (matrix Node 20/22 e Python 3.9–3.12) — inclui gates de `docs:tools:check` e `lint:ts`.
-- **Estilo*KiCAD-MCP-Server/*: TypeScript estrito + Prettier/ESLint; Python Black (100 col) + Isort + MyPy + Flake8.
+- **Estilo (em `KiCAD-MCP-Server/`):** TypeScript estrito + Prettier/ESLint; Python Black (100 col) + Isort + MyPy + Flake8.
 
 ## Licença
 
@@ -249,4 +264,4 @@ pre-commit run --all-files   # hooks de qualidade (git)
 ## Créditos
 
 - Servidor MCP: projeto upstream [KiCAD-MCP-Server](https://github.com/mixelpixx/KiCAD-MCP-Server) (autores originais conforme repositório; documentação detalhada em [`KiCAD-MCP-Server/README.md`](KiCAD-MCP-Server/README.md)).
-- Projeto de hardware `seguidor_de_linhas_4camada2-2026-1`: autoria não identificada nos arquivos do workspace.
+- Projeto de hardware `seguidor_de_linhas_4camada2-2026-1`: o bloco de título do esquemático registra **"Autor: William / IFF"** (revisão `r01`), confirmando a autoria no próprio projeto.

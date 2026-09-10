@@ -1,0 +1,100 @@
+% =============================================================================
+% mcp-kicad-vscode — Artigo científico/tecnológico
+% Autor: William da Silva Vianna — Instituto Federal Fluminense (IFF)
+%
+% Compilação: pdflatex -> bibtex -> pdflatex -> pdflatex
+%   ./build.sh          (gera artigo-mcp-kicad-vscode.pdf)
+%
+% Alternativas de título avaliadas (mantido o primeiro):
+%   1. mcp-kicad-vscode: automação do fluxo de projeto de placas de circuito
+%      impresso no KiCad por meio do Model Context Protocol (ESCOLHIDO)
+%   2. Um servidor Model Context Protocol para projeto assistido de PCBs no KiCad
+%   3. Integração de assistentes de IA ao KiCad via Model Context Protocol:
+%      arquitetura, implementação e estudo de caso
+%   4. Conectando modelos de linguagem ao fluxo de projeto de PCBs: o servidor
+%      mcp-kicad-vscode
+% =============================================================================
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\shorthandoff{"}
+
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit,backgrounds}
+\usepackage[numbers]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+% Palavras-chave e demais metadados -------------------------------------------------
+\title{\textbf{mcp-kicad-vscode: automação do fluxo de projeto de placas de
+circuito impresso no KiCad por meio do Model Context Protocol}}
+
+\author{
+  William da Silva Vianna\\
+  \small Instituto Federal Fluminense (IFF)\\
+  \small Campos dos Goytacazes, RJ, Brasil
+}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\noindent
+A crescente adoção de assistentes baseados em grandes modelos de linguagem
+(LLMs) na engenharia cria uma demanda por integrações padronizadas entre esses
+assistentes e ferramentas de automação de projeto eletrônico (EDA). Este
+trabalho apresenta o \texttt{mcp-kicad-vscode}, um servidor
+\emph{Model Context Protocol} (MCP) que expõe operações do KiCad --- projeto,
+esquemático, layout de placa, roteamento, verificação de regras, exportação de
+fabricação e integrações com catálogos de componentes --- a assistentes de IA.
+O sistema adota arquitetura em duas camadas (TypeScript para o protocolo MCP e
+Python para a interface com o \emph{pcbnew}/IPC), registra 233 ferramentas
+organizadas em 24 módulos funcionais, disponibiliza 173 delas para descoberta
+por palavra-chave em 16 categorias e expõe 23 recursos dinâmicos de estado do
+projeto. A validação combinou métricas de implementação, execução das suítes de
+teste (84 casos TypeScript e 2.367 casos Python) e um estudo de caso com uma
+placa seguidora de linhas de quatro camadas (97 \emph{footprints}, 83 redes,
+82,1\,mm $\times$ 80,2\,mm). Os resultados locais apontam 84/84 testes
+TypeScript aprovados e 2.328/2.367 casos Python aprovados (8 falhas e 31
+ignorados), além de verificação de regras de projeto que identificou 11
+violações residuais (9 erros; 2 avisos) e zero itens não conectados. Discutem-se
+limitações --- integração IPC não exercitada no ambiente de validação, 60
+ferramentas ainda não indexadas e ausência de estudo com usuários --- e
+trabalhos futuros.
+\end{abstract}
+
+\noindent\textbf{Palavras-chave:} Model Context Protocol; KiCad; projeto de
+placas de circuito impresso; assistentes de IA; automação de EDA.
+
+\input{sections/01-introducao}
+\input{sections/02-fundamentacao}
+\input{sections/03-metodologia}
+\input{sections/04-resultados}
+\input{sections/05-discussao}
+\input{sections/06-conclusao}
+
+\section*{Agradecimentos}
+\addcontentsline{toc}{section}{Agradecimentos}
+Os agradecimentos são dirigidos ao próprio autor deste trabalho, William da
+Silva Vianna, responsável pela concepção, implementação e documentação do
+sistema apresentado.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

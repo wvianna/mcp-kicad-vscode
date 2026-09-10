@@ -1,0 +1,98 @@
+\chapter{Trabalhos relacionados}\label{cap:relacionados}
+
+Este capítulo situa o trabalho em três frentes: a aplicação de LLMs ao
+domínio de projeto eletrônico, a automação do KiCad por mecanismos
+convencionais e o emergente ecossistema de servidores MCP. Ao final,
+apresenta-se a lacuna que o trabalho endereça.
+
+\section{LLMs aplicados ao projeto eletrônico}
+
+Liu et al.~\cite{liu2023chipnemo} adaptam modelos de linguagem ao domínio de projeto de
+\emph{chips} industriais por meio de tokenização específica, pré-treinamento
+continuado e alinhamento com instruções do domínio, avaliando três aplicações:
+assistente de engenharia, geração de \emph{scripts} de EDA e análise de
+defeitos. Os resultados demonstram que especialização de domínio melhora
+tarefas downstream, inclusive superando modelos genéricos em dois dos três
+casos avaliados.
+
+Essa linha de trabalho responde à pergunta ``como adaptar o modelo ao
+domínio?''. O presente trabalho responde a uma pergunta complementar: ``como
+adaptar as ferramentas ao modelo?'', sem alterar o modelo. As duas estratégias
+são ortogonais e potencialmente combináveis: um modelo especializado poderia
+consumir o mesmo servidor MCP.
+
+\section{Automação do KiCad}
+
+A automação convencional do KiCad apoia-se em três mecanismos
+\citep{swig,kicaddev,kicadcli}:
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.2em]
+  \item \emph{Scripts} Python sobre a API \texttt{pcbnew} (SWIG), típicos para
+        geração de geometria, automação de bibliotecas e extração de dados;
+  \item \emph{Plugins} executados dentro da interface gráfica, com acesso
+        direto ao documento em edição;
+  \item Pipelines de \texttt{kicad-cli}, usados em integração contínua para
+        verificação e exportação.
+\end{enumerate}
+
+Cada abordagem resolve bem o seu caso, mas nenhuma oferece um contrato único
+consumível por assistentes: não há, por exemplo, descoberta padronizada de
+operações, gestão de sessão entre chamadas ou exposição de estado como
+recursos. Uma integração conduzida por IA tende a reproduzir, de forma ad hoc,
+esse conjunto de decisões em cada projeto.
+
+\section{O ecossistema de servidores MCP}
+
+Desde a publicação da especificação \citep{mcp2025spec}, servidores MCP foram
+criados para domínios variados. No domínio de EDA, o repositório
+\texttt{KiCAD-MCP-Server} \citep{kicadmcpserver} consolidou uma implementação
+de referência em Python e TypeScript que serve de base ao presente trabalho:
+o servidor analisado neste texto é um \emph{fork} mantido no workspace do
+autor, que preserva a arquitetura de duas camadas e incorpora correções e
+extensões próprias, documentadas em capítulos posteriores.
+
+A literatura acadêmica sobre servidores MCP para EDA ainda é incipiente: os
+trabalhos publicados concentram-se no protocolo e em agentes de software, e
+não em avaliações de integrações de EDA com métricas de cobertura de
+ferramentas, testes e verificação de projeto.
+
+\section{Análise comparativa}
+
+O Quadro~\ref{qua:comparativo} compara as abordagens segundo critérios
+relevantes para integração com assistentes de IA.
+
+\begin{quadro}[htbp]
+\centering
+\small
+\caption{Comparação entre abordagens de automação/integração para o fluxo de
+PCB no KiCad.}
+\label{qua:comparativo}
+\begin{tabular}{@{}p{3.4cm}p{3.4cm}p{3.4cm}p{3.4cm}@{}}
+\toprule
+\textbf{Critério} & \textbf{\emph{Scripts} e plugins} & \textbf{Modelo adaptado ao domínio} & \textbf{Servidor MCP (este trabalho)} \\
+\midrule
+Contrato com o assistente & inexistente (integração ad hoc) & implícito no modelo & padronizado (MCP 2025-06-18) \\
+Descoberta de operações & manual (documentação) & embutida no treinamento & \texttt{search\_tools} / categorias \\
+Cobertura do fluxo & parcial, por script & parcial, por caso de uso & 233 ferramentas em 24 módulos \\
+Verificação & dependente do autor & tarefas avaliadas isoladamente & 2.451 casos de teste; DRC/ERC por \texttt{kicad-cli} \\
+Reuso entre assistentes & baixo & baixo (modelo específico) & alto (qualquer cliente MCP) \\
+Gratuidade de adaptação & alta (sem protocolo) & alta (treinamento) & média (implementar servidor) \\
+\bottomrule
+\end{tabular}
+\end{quadro}
+
+\section{Lacuna endereçada}
+
+As três frentes analisadas não cobrem, simultaneamente: (i) um contrato
+padronizado entre assistentes e o fluxo completo de PCB; (ii) mecanismos de
+descoberta e de estado que sustentem uso por agentes; e (iii) evidências
+publicadas de qualidade --- testes, cobertura e verificação de regras em um
+projeto real. O presente trabalho endereça essa lacuna construindo e
+avaliando o \texttt{mcp-kicad-vscode} com esse tripé.
+
+\section{Síntese do capítulo}
+
+A literatura demonstra o valor de adaptar modelos ao domínio e de desenhar
+interfaces para agentes. Este trabalho explora a segunda direção em um
+domínio ainda pouco explorado, com ênfase em amplitude de cobertura,
+descoberta, robustez e evidências verificáveis.

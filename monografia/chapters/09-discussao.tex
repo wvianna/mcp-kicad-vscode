@@ -1,0 +1,145 @@
+\chapter{Discussão}\label{cap:discussao}
+
+\section{Resposta às questões de pesquisa}
+
+\textbf{Q1 --- Como estruturar um servidor MCP que cubra o fluxo completo de
+PCB no KiCad?} A arquitetura em duas camadas, apresentada no
+Capítulo~\ref{cap:arquitetura}, mostrou-se adequada: a camada TypeScript isola
+o protocolo e permite testes sem o KiCad; a camada Python concentra o domínio
+e a comunicação com os três mecanismos de automação (SWIG, IPC e
+\texttt{kicad-cli}). O catálogo resultante cobre da criação do projeto à
+exportação de fabricação em 24 módulos (Capítulo~\ref{cap:catalogo}).
+
+\textbf{Q2 --- Como organizar e tornar descobríveis centenas de operações?} A
+combinação de registro por categorias, lista de essenciais e busca por
+palavra-chave cobre 74,2\,\% das ferramentas. O restante permanece como dívida
+de descoberta controlada por teste. A experiência do projeto indica que a
+descoberta não é um detalhe: sem ela, um catálogo de 233 operações torna-se
+difícil de usar por agentes.
+
+\textbf{Q3 --- A implementação resiste a falhas previsíveis de integração?} Os
+mecanismos de correlação de requisições, descarte de respostas tardias,
+tempos-limite por comando e sessão fixada por \emph{backend} atacam
+exatamente as classes de falha observadas no histórico do projeto. As suítes
+registraram 2.412 de 2.451 casos aprovados na execução local; as 8 falhas
+remanescentes estão associadas ao ambiente de validação e a caminhos legados,
+conforme análise do Capítulo~\ref{cap:resultados}.
+
+\textbf{Q4 --- Que evidências de qualidade e uso real podem ser obtidas?} O
+estudo de caso produziu um conjunto concreto de evidências: caracterização do
+projeto (97 \emph{footprints}, 83 redes, 9 folhas), verificação de regras com
+11 violações residuais e zero itens não conectados, renderizações 3D e
+artefatos de fabricação. A verificação, em especial, revelou pendências reais
+--- conexões térmicas insuficientes e anéis anulares críticos --- que
+precisam de correção antes da fabricação.
+
+\section{Comparação com a literatura}
+
+Os achados dialogam com três resultados da literatura. Primeiro, a
+importância da interface agente--computador \citep{yang2024sweagent} foi
+confirmada na prática: decisões como expor uma ferramenta por operação, manter
+uma lista de essenciais e devolver erros estruturados decorrem diretamente da
+necessidade de tornar as ações compreensíveis para o agente. Segundo, a
+complementaridade em relação à adaptação de modelos proposta por
+Liu et al.~\cite{liu2023chipnemo}: o servidor não altera o modelo e, por isso, beneficia
+qualquer assistente compatível; os dois caminhos podem ser combinados. Por
+fim, o trabalho explora o contrato padronizado do MCP \citep{mcp2025spec} em
+um domínio de engenharia com operações destrutivas, ampliando os relatos
+predominantes de integração em domínios de software.
+
+\section{Contribuições}
+
+As contribuições do trabalho são:
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.2em]
+  \item um servidor MCP de cobertura ampla para o fluxo de PCB no KiCad
+        (233 ferramentas em 24 módulos), com integrações de fabricação e
+        cadeia de suprimentos;
+  \item uma arquitetura em duas camadas documentada, com protocolo interno
+        correlacionado e abstração de \emph{backends} (SWIG/IPC/CLI);
+  \item um modelo de descoberta em três mecanismos (categorias, essenciais e
+        busca), com salvaguarda automatizada contra regressão de cobertura;
+  \item uma base de verificação com 2.451 casos de teste e integração
+        contínua multi-plataforma, servindo de referência para integrações
+        semelhantes;
+  \item um estudo de caso completo, com métricas verificáveis de um projeto
+        de quatro camadas, incluindo a análise crítica das violações
+        residuais de regras de projeto.
+\end{enumerate}
+
+\section{Limitações}\label{sec:limitacoes}
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.25em]
+  \item \textbf{Integração IPC não exercitada.} No ambiente de validação, a
+        API IPC do KiCad estava desabilitada na configuração do usuário e sem
+        soquete ativo; os resultados refletem o caminho SWIG e o
+        \texttt{kicad-cli}. A validação do fluxo em tempo real permanece como
+        o principal trabalho futuro.
+  \item \textbf{Cobertura de descoberta parcial.} Sessenta ferramentas não
+        são localizáveis por busca; embora a dívida esteja congelada por
+        teste, ela limita a autonomia do agente.
+  \item \textbf{Falhas de teste sensíveis ao ambiente.} Oito casos falharam
+        na execução local, todos dependentes de subprocessos
+        \texttt{kicad-cli} ou de caminhos legados; o comportamento em
+        ambientes de CI limpos pode divergir.
+  \item \textbf{Pendências de fabricação no caso estudado.} As 11 violações
+        residuais --- 9 erros, incluindo anel anular crítico --- impedem a
+        leitura do projeto como pronto para fabricação; são, ao mesmo tempo,
+        evidência do valor da verificação.
+  \item \textbf{Avaliação restrita.} Não houve estudo com usuários, medição
+        de tempo de projeto ou comparação controlada com fluxo manual ou
+        roteirizado; as métricas são descritivas e de um único projeto.
+  \item \textbf{Escopo do modelo.} O trabalho não avalia a qualidade de
+        raciocínio do modelo de linguagem; assume que o cliente MCP é capaz
+        de planejar e invocar ferramentas.
+\end{enumerate}
+
+\section{Ameaças à validade}
+
+\textbf{Validade de construto}: contagens de ferramentas e de testes são
+proxis de capacidade e confiabilidade; a utilidade percebida não foi medida.
+\textbf{Validade interna}: parte das falhas de teste é atribuível ao ambiente
+\emph{snap} do KiCad na estação de validação, o que recomenda replicação em
+ambiente de CI padrão. Além disso, os dados do estudo de caso refletem a
+revisão vigente do projeto na data da verificação; projetos evoluem.
+\textbf{Validade externa}: a generalização para outros \emph{softwares} de
+EDA exige esforço de porte; contudo, o desenho de duas camadas com
+\emph{backend} abstrato é replicável. \textbf{Confiabilidade}: os
+procedimentos são reprodutíveis (comandos e logs preservados); as suítes são
+determinísticas, exceto pelos casos sensíveis a ambiente.
+
+\section{Implicações práticas}
+
+Três implicações merecem destaque. Na \textbf{educação em engenharia}, o
+servidor permite que estudantes conduzam verificações de regras e
+entendam o fluxo de fabricação com assistência; na \textbf{prototipagem
+industrial}, o encadeamento projeto--verificação--fabricação reduz passos
+manuais e padroniza a troca de informação com fornecedores; na
+\textbf{qualidade de projetos}, a combinação de DRC/ERC e artefatos de
+fabricação automatizados cria trilhas de auditoria verificáveis.
+
+\section{Trabalhos futuros}
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.2em]
+  \item habilitar e validar o fluxo IPC em tempo real, com testes de
+        integração ponta a ponta na interface gráfica;
+  \item indexar as 60 ferramentas restantes e avaliar busca semântica de
+        operações;
+  \item implementar camada de políticas de permissão e auditoria para
+        operações destrutivas;
+  \item reduzir a sensibilidade ambiental da suíte e ampliar a cobertura de
+        formatos de arquivo legados;
+  \item conduzir estudos com usuários para medir tempo de projeto, taxa de
+        retrabalho e percepção de utilidade;
+  \item avaliar a solução com modelos e clientes MCP distintos, incluindo
+        execução local de modelos;
+  \item evoluir o caso de estudo para fechamento das violações residuais e
+        fabricação completa da placa.
+\end{enumerate}
+
+\section{Síntese do capítulo}
+
+A discussão conectou os resultados às questões de pesquisa e à literatura,
+explicitou as contribuições, delimitou limitações e ameaças à validade e
+propôs uma agenda de continuidade. O capítulo final retoma o percurso e
+encerra o trabalho.

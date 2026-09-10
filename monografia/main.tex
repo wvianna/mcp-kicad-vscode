@@ -1,0 +1,118 @@
+% =============================================================================
+% mcp-kicad-vscode — Monografia
+% Autor: William da Silva Vianna — Instituto Federal Fluminense (IFF)
+%
+% Compilação: pdflatex -> bibtex -> pdflatex -> pdflatex
+%   ./build.sh          (gera monografia-mcp-kicad-vscode.pdf)
+%
+% Formatação ABNT manual (memoir), citações numéricas (unsrt), 12pt, 1,5.
+% =============================================================================
+\documentclass[12pt,a4paper,oneside]{memoir}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\shorthandoff{"}
+
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit,backgrounds}
+\usepackage[numbers]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+% -----------------------------------------------------------------------------
+% Layout ABNT: margens 3 cm (esquerda/superior) e 2 cm (direita/inferior)
+% -----------------------------------------------------------------------------
+\setlrmarginsandblock{3cm}{2cm}{*}
+\setulmarginsandblock{3cm}{2cm}{*}
+\checkandfixthelayout
+\OnehalfSpacing
+
+% -----------------------------------------------------------------------------
+% Estilo de capítulo: "1 Título" (ABNT)
+% -----------------------------------------------------------------------------
+\makechapterstyle{abnt}{%
+  \renewcommand{\chapnamefont}{\normalfont\bfseries}
+  \renewcommand{\chapnumfont}{\normalfont\bfseries\large}
+  \renewcommand{\chaptitlefont}{\normalfont\bfseries\large}
+  \renewcommand{\printchaptername}{\chapnumfont\thechapter}
+  \renewcommand{\printchapternum}{}
+  \renewcommand{\afterchapternum}{\enspace}
+  \renewcommand{\afterchapskip}{1.2\baselineskip}
+  \renewcommand{\beforechapskip}{0pt}
+}
+\chapterstyle{abnt}
+\setsecnumdepth{subsubsection}
+\settocdepth{subsubsection}
+
+% -----------------------------------------------------------------------------
+% Nomes dos elementos pré-textuais e pós-textuais
+% -----------------------------------------------------------------------------
+\renewcommand{\contentsname}{Sumário}
+\renewcommand{\listfigurename}{Lista de Figuras}
+\renewcommand{\listtablename}{Lista de Tabelas}
+\renewcommand{\bibname}{Referências}
+\renewcommand{\appendixname}{Apêndice}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabela}
+
+% Quadros (elementos qualitativos) segundo a memória do projeto:
+% usar SOMENTE o pacote float para evitar conflito com \newlistof do memoir.
+\newfloat{quadro}{htbp}{loq}
+\floatname{quadro}{Quadro}
+\counterwithin{quadro}{chapter}
+\newcommand{\listofquadros}{\listof{quadro}{Lista de Quadros}}
+
+% -----------------------------------------------------------------------------
+% Metadados
+% -----------------------------------------------------------------------------
+\title{mcp-kicad-vscode: um servidor Model Context Protocol para automação
+do fluxo de projeto de placas de circuito impresso no KiCad}
+\author{William da Silva Vianna}
+
+\begin{document}
+
+\frontmatter
+\pagestyle{plain}
+
+\input{pretextual}
+
+\tableofcontents*
+\clearpage
+\listoffigures
+\listoftables
+\listofquadros
+
+\mainmatter
+
+\input{chapters/01-introducao}
+\input{chapters/02-fundamentacao}
+\input{chapters/03-relacionados}
+\input{chapters/04-metodologia}
+\input{chapters/05-arquitetura}
+\input{chapters/06-catalogo}
+\input{chapters/07-estudo-de-caso}
+\input{chapters/08-resultados}
+\input{chapters/09-discussao}
+\input{chapters/10-conclusao}
+
+\clearpage
+\addcontentsline{toc}{chapter}{\bibname}
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\appendix
+\renewcommand{\printchaptername}{\chapnumfont\appendixname~\thechapter}
+\input{chapters/apendice-a}
+\input{chapters/apendice-b}
+
+\end{document}

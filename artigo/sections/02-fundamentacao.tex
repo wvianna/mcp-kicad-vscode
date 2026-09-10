@@ -1,0 +1,90 @@
+\section{Fundamentação teórica e trabalhos relacionados}\label{sec:fundamentacao}
+
+\subsection{O Model Context Protocol}
+
+O MCP é um protocolo aberto que padroniza a comunicação entre aplicações de IA
+e fontes externas de contexto e execução \citep{anthropic2024mcp}. Sua
+especificação define uma arquitetura cliente--servidor na qual o
+\emph{host} (por exemplo, um editor de código ou assistente conversacional)
+instancia um cliente MCP por servidor conectado. A comunicação emprega
+JSON-RPC 2.0 e pode ocorrer por entrada/saída padrão (\emph{stdio}) ou por
+transportes HTTP com streaming \citep{mcp2025spec}.
+
+O protocolo define três primitivas principais que um servidor pode oferecer
+\citep{mcp2025docs}:
+
+\begin{itemize}[leftmargin=1.4em,itemsep=0.2em]
+  \item \textbf{Tools}: funções executáveis, descritas por esquema JSON, que o
+        modelo pode invocar para produzir efeitos (criar arquivos, modificar
+        geometria, executar verificações);
+  \item \textbf{Resources}: dados somente leitura identificados por URI, como o
+        estado de um projeto ou listas de componentes;
+  \item \textbf{Prompts}: modelos de interação predefinidos que orientam o
+        uso do servidor para tarefas recorrentes.
+\end{itemize}
+
+A especificação utilizada nesta implementação é a de 18 de junho de 2025
+\citep{mcp2025spec}, que consolida o ciclo de vida de inicialização,
+negociação de capacidades e transporte. A adoção do MCP por diferentes
+fornecedores de modelos e editores reduziu o acoplamento entre assistentes e
+ferramentas, tornando viável publicar um único servidor para todo um domínio,
+como o projeto de PCBs.
+
+\subsection{Agentes baseados em LLMs e uso de ferramentas}
+
+A capacidade de um agente de interagir com o ambiente depende não apenas do
+modelo, mas do desenho da interface que lhe é oferecida. \citet{yao2023react}
+demonstram que intercalar raciocínio e ação melhora o desempenho em tarefas
+que exigem decisões encadeadas. \citet{schick2023toolformer} e
+\citet{patil2023gorilla} evidenciam que modelos podem aprender a invocar APIs
+e ferramentas externas com acurácia crescente quando as chamadas são expostas
+de forma estruturada. \citet{yang2024sweagent} mostram, no contexto de
+engenharia de software, que a interface agente--computador (ACI) tem impacto
+direto no desempenho: nomes de comandos claros, saídas concisas e
+descobribilidade de ferramentas importam tanto quanto o modelo utilizado.
+
+Esses resultados motivam decisões de projeto adotadas neste trabalho: exposição
+individual de cada ferramenta (sem roteador oculto), descrições objetivas,
+mecanismos explícitos de descoberta e respostas padronizadas e testáveis.
+
+\subsection{Automação de EDA e o KiCad}
+
+O KiCad é uma suíte de EDA de código aberto que abrange captura esquemática,
+layout de placa, bibliotecas de símbolos e \emph{footprints}, visualização 3D e
+geração de arquivos de fabricação \citep{kicaddocs}. Seus arquivos de projeto
+são expressões-S (\emph{S-expressions}) versionáveis em texto, o que facilita
+automação e revisão por ferramentas externas.
+
+A extensibilidade do KiCad se apoia em três mecanismos complementares:
+(i) a API Python \texttt{pcbnew}, disponibilizada por meio de \emph{bindings}
+SWIG \citep{swig}; (ii) a API IPC, que permite comunicação em tempo real com a
+interface gráfica; e (iii) o utilitário de linha de comando \texttt{kicad-cli},
+que executa exportações e verificações de forma independente da interface
+gráfica \citep{kicadcli,kicaddev}. Esses mecanismos são a base de integrações
+automatizadas, inclusive as conduzidas por agentes de IA.
+
+\subsection{Trabalhos relacionados}
+
+A aplicação de LLMs ao domínio de \emph{design} de circuitos tem exemplos
+relevantes. \citet{liu2023chipnemo} adaptam modelos ao domínio de projeto de
+\emph{chips} industriais (assistente de engenharia, geração de \emph{scripts}
+de EDA e análise de defeitos), demonstrando ganhos com especialização de
+domínio. Trabalhos dessa natureza, no entanto, concentram-se na adaptação do
+\emph{modelo} a um domínio; a integração entre assistentes genéricos e
+ferramentas de EDA permanece fragmentada, tipicamente resolvida por
+\emph{scripts} específicos e não reutilizáveis.
+
+Do lado das ferramentas, a automação do KiCad por \emph{scripts} Python é
+consolidada, porém cada integração reproduz decisões de sessão, tratamento de
+erros e descoberta de operações. O MCP altera esse cenário ao oferecer um
+contrato único entre assistentes e ferramentas \citep{mcp2025spec}. Neste
+contexto, o \texttt{mcp-kicad-vscode} se posiciona como um servidor MCP de
+propósito geral para o fluxo de PCB no KiCad, com cobertura ampla,
+integrações de fabricação e suíte de testes própria --- combinação ainda
+escassa na literatura e no ecossistema de código aberto.
+
+A lacuna endereçada é, portanto, dupla: (i) ausência de uma camada padronizada
+e descobrível que cubra o ciclo de projeto de PCB de ponta a ponta
+(esquemático, layout, verificação, fabricação); e (ii) ausência de evidências
+publicadas sobre robustez e manutenibilidade desse tipo de integração,
+incluindo o comportamento sob operações destrutivas e a cobertura de testes.

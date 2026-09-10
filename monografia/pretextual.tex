@@ -1,0 +1,138 @@
+% =============================================================================
+% Elementos pré-textuais (ABNT NBR 14724):
+% capa, folha de rosto, resumo, abstract, lista de abreviaturas.
+% =============================================================================
+
+% ------------------------------- CAPA ---------------------------------------
+\begin{titlingpage}
+\begin{center}
+  \textbf{\MakeUppercase{Instituto Federal Fluminense}}\\[2\baselineskip]
+  \textbf{\MakeUppercase{William da Silva Vianna}}\\[6\baselineskip]
+  \textbf{mcp-kicad-vscode: um servidor Model Context Protocol para automação
+  do fluxo de projeto de placas de circuito impresso no KiCad}\\[10\baselineskip]
+  \vfill
+  Campos dos Goytacazes, RJ\\[0.5\baselineskip]
+  2026
+\end{center}
+\end{titlingpage}
+
+% --------------------------- FOLHA DE ROSTO ---------------------------------
+\begin{titlingpage}
+\begin{center}
+  \textbf{\MakeUppercase{William da Silva Vianna}}\\[6\baselineskip]
+  \textbf{mcp-kicad-vscode: um servidor Model Context Protocol para automação
+  do fluxo de projeto de placas de circuito impresso no KiCad}\\[4\baselineskip]
+\end{center}
+
+\vspace{2\baselineskip}
+\hfill
+\begin{minipage}{0.55\textwidth}
+  \SingleSpacing
+  \footnotesize
+  Trabalho apresentado ao Instituto Federal Fluminense (IFF) como requisito
+  parcial para a obtenção do título de
+  \textbf{[CURSO/TÍTULO A CONFIRMAR --- NÃO CONSTA NO WORKSPACE]}.
+
+  Orientação: \textbf{[ORIENTADOR A CONFIRMAR --- NÃO CONSTA NO WORKSPACE]}.
+\normalsize
+\end{minipage}
+
+\vfill
+\begin{center}
+  Campos dos Goytacazes, RJ\\
+  2026
+\end{center}
+\end{titlingpage}
+
+% -------------------------------- RESUMO ------------------------------------
+\chapter*{Resumo}
+\addcontentsline{toc}{chapter}{Resumo}
+
+\noindent
+O \emph{Model Context Protocol} (MCP) surgiu como um padrão aberto para
+conectar assistentes baseados em grandes modelos de linguagem (LLMs) a
+ferramentas e fontes de dados externas. Este trabalho especifica, implementa e
+avalia o \texttt{mcp-kicad-vscode}, um servidor MCP dedicado à automação do
+fluxo de projeto de placas de circuito impresso (PCB) no KiCad. A solução
+adota arquitetura em duas camadas --- TypeScript para o protocolo e Python
+para a interface com o KiCad --- e expõe 233 ferramentas em 24 módulos
+funcionais, 173 delas indexadas para descoberta por palavra-chave em 16
+categorias, além de 23 recursos dinâmicos de estado do projeto. O sistema
+cobre esquemático, layout, roteamento, verificação de regras de projeto (DRC e
+ERC), exportação de fabricação e integrações com os catálogos JLCPCB, LCSC e
+DigiKey, com suporte ao roteador automático Freerouting. A avaliação combinou
+métricas de implementação, execução das suítes de teste --- 84 casos
+TypeScript e 2.367 casos Python coletados, com 2.328 aprovados, 8 falhas e 31
+ignorados na execução local de setembro de 2026 --- e um estudo de caso com
+uma placa seguidora de linhas de quatro camadas (97 \emph{footprints}, 83
+redes, aproximadamente 82,1\,mm $\times$ 80,2\,mm), cuja verificação de regras
+reportou 11 violações residuais (9 erros e 2 avisos) e nenhum item não
+conectado. Discutem-se as limitações --- integração IPC não exercitada no
+ambiente de validação, cobertura parcial de descoberta e avaliação restrita a
+um único projeto --- e propõem-se trabalhos futuros.
+
+\vspace{\baselineskip}
+\noindent\textbf{Palavras-chave:} Model Context Protocol; KiCad; projeto de
+placas de circuito impresso; automação de EDA; assistentes de inteligência
+artificial.
+
+% ------------------------------- ABSTRACT -----------------------------------
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+\noindent
+The \emph{Model Context Protocol} (MCP) has emerged as an open standard for
+connecting assistants based on large language models (LLMs) to external tools
+and data sources. This work specifies, implements and evaluates
+\texttt{mcp-kicad-vscode}, an MCP server dedicated to automating the printed
+circuit board (PCB) design workflow in KiCad. The solution adopts a two-layer
+architecture --- TypeScript for the protocol and Python for the KiCad
+interface --- and exposes 233 tools across 24 functional modules, 173 of which
+are indexed for keyword discovery in 16 categories, plus 23 dynamic project
+state resources. The system covers schematic capture, layout, routing, design
+rule checking (DRC and ERC), fabrication export and integrations with the
+JLCPCB, LCSC and DigiKey catalogs, with support for the Freerouting
+autorouter. The evaluation combined implementation metrics, test suite
+execution --- 84 TypeScript cases and 2,367 collected Python cases, with 2,328
+passed, 8 failed and 31 skipped in the local run of September 2026 --- and a
+case study with a four-layer line-follower board (97 footprints, 83 nets,
+approximately 82.1\,mm $\times$ 80.2\,mm), whose design rule check reported 11
+residual violations (9 errors and 2 warnings) and no unconnected items.
+Limitations are discussed --- the IPC integration was not exercised in the
+validation environment, discovery coverage is partial, and the evaluation is
+restricted to a single project --- and future work is proposed.
+
+\vspace{\baselineskip}
+\noindent\textbf{Keywords:} Model Context Protocol; KiCad; printed circuit
+board design; EDA automation; artificial intelligence assistants.
+
+% -------------------- LISTA DE ABREVIATURAS E SIGLAS ------------------------
+\chapter*{Lista de Abreviaturas e Siglas}
+\addcontentsline{toc}{chapter}{Lista de Abreviaturas e Siglas}
+
+\begin{tabular}{@{}p{2.6cm}p{11.4cm}@{}}
+\toprule
+\textbf{Sigla} & \textbf{Significado} \\
+\midrule
+ABNT & Associação Brasileira de Normas Técnicas \\
+API & \emph{Application Programming Interface} \\
+CI & \emph{Continuous Integration} \\
+CLI & \emph{Command-Line Interface} \\
+DRC & \emph{Design Rule Check} \\
+EDA & \emph{Electronic Design Automation} \\
+ERC & \emph{Electrical Rule Check} \\
+IPC & \emph{Inter-Process Communication} (API IPC do KiCad) \\
+JSON & \emph{JavaScript Object Notation} \\
+JSON-RPC & \emph{JSON Remote Procedure Call} \\
+LLM & \emph{Large Language Model} \\
+LOC & \emph{Lines of Code} \\
+MCP & \emph{Model Context Protocol} \\
+MPPT & \emph{Maximum Power Point Tracking} \\
+NDJSON & \emph{Newline-Delimited JSON} \\
+PCB & \emph{Printed Circuit Board} \\
+PTH & \emph{Plated Through-Hole} \\
+SMD & \emph{Surface-Mount Device} \\
+SWIG & \emph{Simplified Wrapper and Interface Generator} \\
+USB & \emph{Universal Serial Bus} \\
+\bottomrule
+\end{tabular}

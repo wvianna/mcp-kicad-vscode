@@ -1,0 +1,246 @@
+{
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-09-10T12:11:05-0300",
+    "kicad_version": "9.0.7",
+    "schematic_parity": [],
+    "source": "seguidor_de_linhas_4camada2-2026-1.kicad_pcb",
+    "unconnected_items": [],
+    "violations": [
+        {
+            "comment": "",
+            "description": "Annular width (board setup constraints min annular width 0,1000 mm; actual -0,0030 mm)",
+            "excluded": true,
+            "items": [
+                {
+                    "description": "PTH pad [<no net>] of USB1",
+                    "pos": {
+                        "x": 137.85,
+                        "y": 94.16
+                    },
+                    "uuid": "101539fc-8edd-45d1-8caf-98a7d091b1e9"
+                }
+            ],
+            "severity": "error",
+            "type": "annular_width"
+        },
+        {
+            "comment": "",
+            "description": "Annular width (board setup constraints min annular width 0,1000 mm; actual -0,0030 mm)",
+            "excluded": true,
+            "items": [
+                {
+                    "description": "PTH pad [<no net>] of USB1",
+                    "pos": {
+                        "x": 137.85,
+                        "y": 99.94
+                    },
+                    "uuid": "647c054f-753e-4dab-ad43-108c601ca33c"
+                }
+            ],
+            "severity": "error",
+            "type": "annular_width"
+        },
+        {
+            "comment": "",
+            "description": "Clearance violation (netclass 'Default' clearance 0,2000 mm; actual 0,1812 mm)",
+            "excluded": true,
+            "items": [
+                {
+                    "description": "PTH pad [<no net>] of USB1",
+                    "pos": {
+                        "x": 137.85,
+                        "y": 94.16
+                    },
+                    "uuid": "101539fc-8edd-45d1-8caf-98a7d091b1e9"
+                },
+                {
+                    "description": "Pad A1B12 [GND] of USB1 on F.Cu",
+                    "pos": {
+                        "x": 138.93,
+                        "y": 93.85
+                    },
+                    "uuid": "a333d537-a9a4-4adc-89c5-02ba28219f06"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "comment": "",
+            "description": "Clearance violation (netclass 'Default' clearance 0,2000 mm; actual 0,1812 mm)",
+            "excluded": true,
+            "items": [
+                {
+                    "description": "PTH pad [<no net>] of USB1",
+                    "pos": {
+                        "x": 137.85,
+                        "y": 99.94
+                    },
+                    "uuid": "647c054f-753e-4dab-ad43-108c601ca33c"
+                },
+                {
+                    "description": "Pad B1A12 [GND] of USB1 on F.Cu",
+                    "pos": {
+                        "x": 138.93,
+                        "y": 100.25
+                    },
+                    "uuid": "95008faa-e17a-481b-98cd-d38afcd9f6da"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "comment": "",
+            "description": "Footprint has malformed courtyard (self-intersecting)",
+            "excluded": true,
+            "items": [
+                {
+                    "description": "Footprint BUZZER1",
+                    "pos": {
+                        "x": 165.66,
+                        "y": 58.52
+                    },
+                    "uuid": "c2ee8622-b5c8-4cca-9823-ab6fa10d5672"
+                }
+            ],
+            "severity": "error",
+            "type": "malformed_courtyard"
+        },
+        {
+            "comment": "",
+            "description": "Padstack is questionable (PTH pad hole leaves no copper)",
+            "excluded": true,
+            "items": [
+                {
+                    "description": "PTH pad [<no net>] of USB1",
+                    "pos": {
+                        "x": 137.85,
+                        "y": 94.16
+                    },
+                    "uuid": "101539fc-8edd-45d1-8caf-98a7d091b1e9"
+                }
+            ],
+            "severity": "warning",
+            "type": "padstack"
+        },
+        {
+            "comment": "",
+            "description": "Padstack is questionable (PTH pad hole leaves no copper)",
+            "excluded": true,
+            "items": [
+                {
+                    "description": "PTH pad [<no net>] of USB1",
+                    "pos": {
+                        "x": 137.85,
+                        "y": 99.94
+                    },
+                    "uuid": "647c054f-753e-4dab-ad43-108c601ca33c"
+                }
+            ],
+            "severity": "warning",
+            "type": "padstack"
+        },
+        {
+            "comment": "",
+            "description": "Thermal relief connection to zone incomplete (layer F.Cu; zone min spoke count 2; actual 1)",
+            "excluded": true,
+            "items": [
+                {
+                    "description": "Zone [GND] on F.Cu, B.Cu and 2 more, priority 0",
+                    "pos": {
+                        "x": 212.8266,
+                        "y": 43.18
+                    },
+                    "uuid": "b03dda74-9f99-4c45-a50a-1a596058c4fb"
+                },
+                {
+                    "description": "Pad 7 [GND] of U9 on F.Cu",
+                    "pos": {
+                        "x": 193.12,
+                        "y": 80.765
+                    },
+                    "uuid": "3a6222d4-643d-4d9c-a16b-9d145f845dbf"
+                }
+            ],
+            "severity": "error",
+            "type": "starved_thermal"
+        },
+        {
+            "comment": "",
+            "description": "Thermal relief connection to zone incomplete (layer F.Cu; zone min spoke count 2; actual 1)",
+            "excluded": true,
+            "items": [
+                {
+                    "description": "Zone [GND] on F.Cu, B.Cu and 2 more, priority 0",
+                    "pos": {
+                        "x": 212.8266,
+                        "y": 43.18
+                    },
+                    "uuid": "b03dda74-9f99-4c45-a50a-1a596058c4fb"
+                },
+                {
+                    "description": "Pad 7 [GND] of U10 on F.Cu",
+                    "pos": {
+                        "x": 193.265,
+                        "y": 62.135
+                    },
+                    "uuid": "08932639-3791-4c9c-bda2-c14360298075"
+                }
+            ],
+            "severity": "error",
+            "type": "starved_thermal"
+        },
+        {
+            "comment": "",
+            "description": "Thermal relief connection to zone incomplete (layer F.Cu; zone min spoke count 2; actual 1)",
+            "excluded": true,
+            "items": [
+                {
+                    "description": "Zone [GND] on F.Cu, B.Cu and 2 more, priority 0",
+                    "pos": {
+                        "x": 212.8266,
+                        "y": 43.18
+                    },
+                    "uuid": "b03dda74-9f99-4c45-a50a-1a596058c4fb"
+                },
+                {
+                    "description": "Pad A1B12 [GND] of USB1 on F.Cu",
+                    "pos": {
+                        "x": 138.93,
+                        "y": 93.85
+                    },
+                    "uuid": "a333d537-a9a4-4adc-89c5-02ba28219f06"
+                }
+            ],
+            "severity": "error",
+            "type": "starved_thermal"
+        },
+        {
+            "comment": "",
+            "description": "Thermal relief connection to zone incomplete (layer F.Cu; zone min spoke count 2; actual 1)",
+            "excluded": true,
+            "items": [
+                {
+                    "description": "Zone [GND] on F.Cu, B.Cu and 2 more, priority 0",
+                    "pos": {
+                        "x": 212.8266,
+                        "y": 43.18
+                    },
+                    "uuid": "b03dda74-9f99-4c45-a50a-1a596058c4fb"
+                },
+                {
+                    "description": "Pad B1A12 [GND] of USB1 on F.Cu",
+                    "pos": {
+                        "x": 138.93,
+                        "y": 100.25
+                    },
+                    "uuid": "95008faa-e17a-481b-98cd-d38afcd9f6da"
+                }
+            ],
+            "severity": "error",
+            "type": "starved_thermal"
+        }
+    ]
+}

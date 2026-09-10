@@ -1,0 +1,171 @@
+\chapter{Materiais e métodos}\label{cap:metodologia}
+
+\section{Natureza e abordagem da pesquisa}
+
+Este trabalho caracteriza-se como pesquisa aplicada, de natureza tecnológica,
+orientada ao desenvolvimento de um artefato de \emph{software} e à sua
+avaliação em contexto de uso real. A abordagem combina elementos
+quantitativos (contagens, taxas, resultados de verificação) e qualitativos
+(análise de decisões de projeto, limitações e implicações). A avaliação adota
+o formato de \textbf{estudo de caso instrumental}: um projeto de placa é
+utilizado como instrumento para examinar as capacidades e os limites do
+servidor, e não como amostra representativa de todos os projetos de PCB. O
+documento segue as normas ABNT NBR 14724~\cite{abnt14724},
+NBR 6023~\cite{abnt6023} e NBR 10520~\cite{abnt10520} para estrutura,
+referências e citações.
+
+\section{Percurso metodológico}
+
+O percurso foi organizado em cinco etapas:
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.25em]
+  \item \textbf{E1 --- Auditoria do domínio e do código}: leitura da
+        documentação do servidor, do inventário de ferramentas, da arquitetura
+        e da suíte de testes; identificação dos pontos de integração com o
+        KiCad e com APIs externas.
+  \item \textbf{E2 --- Definição de requisitos}: consolidação dos requisitos
+        R1 a R6 (Seção~\ref{sec:req-monografia}) a partir das lacunas
+        identificadas na fundamentação.
+  \item \textbf{E3 --- Implementação}: análise da implementação existente no
+        workspace, incluindo a arquitetura em duas camadas, o protocolo
+        interno e os mecanismos de robustez documentados no código e no
+        histórico do projeto.
+  \item \textbf{E4 --- Verificação automatizada}: execução das suítes
+        TypeScript e Python com o ambiente completo do projeto, em
+        10/09/2026, com registro de resultados em arquivo de evidência.
+  \item \textbf{E5 --- Estudo de caso}: caracterização da placa seguidora de
+        linhas, verificação de regras de projeto com \texttt{kicad-cli},
+        geração de renderizações 3D e inspeção dos artefatos de fabricação.
+\end{enumerate}
+
+\section{Requisitos do sistema}\label{sec:req-monografia}
+
+O Quadro~\ref{qua:requisitos} apresenta os requisitos que orientaram a
+avaliação, com a forma de atendimento observada e as evidências
+correspondentes.
+
+\begin{quadro}[htbp]
+\centering
+\small
+\caption{Requisitos, atendimento e evidências.}
+\label{qua:requisitos}
+\begin{tabular}{@{}p{0.7cm}p{3.4cm}p{5.2cm}p{4.6cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Requisito} & \textbf{Atendimento} & \textbf{Evidência} \\
+\midrule
+R1 & Cobertura do fluxo de PCB & 233 ferramentas em 24 módulos funcionais (projeto a fabricação) & Inventário do servidor (06/09/2026) \\
+R2 & Descoberta de operações & Registro de 16 categorias, lista de essenciais e busca por palavra-chave & 173 ferramentas indexadas; Capítulo~\ref{cap:catalogo} \\
+R3 & Robustez sob falhas & Correlação de requisições, descarte de respostas tardias, tempos-limite por comando & Testes TypeScript de correlação e de inicialização \\
+R4 & Integridade dos arquivos & Salvamento explícito, sessão fixada por \emph{backend}, validação estrutural de esquemáticos & Suíte Python; seção de decisões de engenharia \\
+R5 & Portabilidade & Node.js e Python portáveis; configuração por variáveis de ambiente & Matriz de integração contínua (4 sistemas para TypeScript) \\
+R6 & Verificabilidade & Testes em duas linguagens e inventário gerado como portão de qualidade & 84 casos TypeScript; 2.367 casos Python; \texttt{docs:tools:check} \\
+\bottomrule
+\end{tabular}
+\end{quadro}
+
+\section{Métricas e instrumentos}
+
+As métricas adotadas e seus instrumentos são descritos no
+Quadro~\ref{qua:metricas}. Todas são reprodutíveis a partir do repositório.
+
+\begin{quadro}[htbp]
+\centering
+\small
+\caption{Métricas de avaliação e instrumentos de coleta.}
+\label{qua:metricas}
+\begin{tabular}{@{}p{3.8cm}p{6.2cm}p{3.9cm}@{}}
+\toprule
+\textbf{Métrica} & \textbf{Definição} & \textbf{Instrumento / fonte} \\
+\midrule
+Cobertura de descoberta & razão entre ferramentas indexadas e registradas & inventário gerado por \texttt{scripts/generate-tool-inventory.mjs} \\
+Tamanho de implementação & linhas de código por camada e por módulo & contagem direta em \texttt{src/} e \texttt{python/} \\
+Casos de teste & casos executados, aprovados, com falha e ignorados & Vitest e pytest (logs em \texttt{evidencias/}) \\
+Conformidade de projeto & violações de DRC por tipo e severidade & \texttt{kicad-cli pcb drc --format json --severity-all} \\
+Conectividade & itens não conectados e paridade esquemático--placa & relatório de DRC \\
+Artefatos de fabricação & presença e tipo de arquivos de produção & inspeção do diretório \texttt{production/} \\
+\bottomrule
+\end{tabular}
+\end{quadro}
+
+\section{Ambiente de validação}
+
+A validação foi executada em estação de trabalho com Ubuntu 24.04.4 LTS
+(\emph{kernel} 7.0.0-31), KiCad 9.0.7 instalado por pacote \emph{snap}
+(revisão 22), Node.js~\cite{nodejs} v22.23.2, npm 12.0.2 e
+Python~\cite{python} 3.12.3 em ambiente virtual
+dedicado. As dependências declaradas pelo projeto (produção e
+desenvolvimento) foram instaladas previamente à execução, incluindo as
+bibliotecas \texttt{kicad-python}, \texttt{kicad-skip}, \texttt{sexpdata},
+\texttt{pymupdf} e \texttt{cairosvg}. O \emph{backend} de execução foi
+selecionado automaticamente pela fábrica de \emph{backends}, recaindo sobre a
+API \texttt{pcbnew} (SWIG), uma vez que o servidor IPC do KiCad não estava
+habilitado no sistema utilizado (detalhes na Seção~\ref{sec:limitacoes}).
+
+Os registros de execução das suítes de teste e o relatório de DRC estão
+preservados em \texttt{evidencias/}, com os nomes
+\texttt{testes-pytest-2026-09-10.log}, \texttt{testes-vitest-2026-09-10.log}
+e \texttt{drc-seguidor-de-linhas-2026-09-10.json}.
+
+\section{Estudo de caso e procedimentos}
+
+A placa utilizada como estudo de caso é o projeto
+\texttt{seguidor\_de\_linhas\_4camada2-2026-1}, desenvolvido no mesmo
+\emph{workspace} do servidor. O projeto destina-se a um robô seguidor de
+linhas, com os seguintes blocos funcionais identificados no esquemático e na
+lista de materiais: sensoriamento óptico reflexivo; conversão de energia com
+rastreamento de ponto de máxima potência (MPPT); acionamento de motores por
+pontes H; alimentação com reguladores lineares (LDO); interface USB-C;
+medição e sinalização de tensão da bateria; e alerta sonoro.
+
+Os procedimentos executados foram:
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.25em]
+  \item \textbf{P1 --- Caracterização do projeto}: contagem de
+        \emph{footprints} e redes no arquivo \texttt{.kicad\_pcb}; verificação
+        da espessura e do número de camadas; contagem de folhas do
+        esquemático; inspeção da lista de materiais.
+  \item \textbf{P2 --- Verificação de regras}: execução de
+        \texttt{kicad-cli pcb drc} com formato JSON e severidade completa,
+        exportando o relatório para arquivo de evidência; sumarização por
+        tipo e severidade.
+  \item \textbf{P3 --- Geração de figuras}: renderizações 3D (faces superior
+        e inferior) com \texttt{kicad-cli pcb render} e exportação das folhas
+        do esquemático com \texttt{kicad-cli sch export pdf}.
+  \item \textbf{P4 --- Execução das suítes}: \texttt{npm run test:ts}
+        (Vitest~\cite{vitest}) e \texttt{python -m pytest tests/}
+        (pytest~\cite{pytest}), com o ambiente completo descrito, registrando
+        os resultados em log.
+\end{enumerate}
+
+Os comandos exatos estão reproduzidos no Apêndice~\ref{ap:repro}.
+
+\section{Matriz de rastreabilidade}
+
+O Quadro~\ref{qua:rastreabilidade} relaciona objetivos específicos, métodos,
+evidências e seções de resultado, conforme exigência de rastreabilidade
+metodológica.
+
+\begin{quadro}[htbp]
+\centering
+\small
+\caption{Matriz de rastreabilidade objetivo--método--evidência.}
+\label{qua:rastreabilidade}
+\begin{tabular}{@{}p{4.6cm}p{3.4cm}p{3.8cm}p{2.6cm}@{}}
+\toprule
+\textbf{Objetivo específico} & \textbf{Método} & \textbf{Evidência} & \textbf{Seção} \\
+\midrule
+Arquitetura definida & E1/E3 & Capítulo~\ref{cap:arquitetura} & 5 \\
+Catálogo implementado & E1/E3 & Inventário; Capítulo~\ref{cap:catalogo} & 6 \\
+Descoberta e recursos & E4 & Métricas do Capítulo~\ref{cap:resultados} & 8 \\
+Testes e integração contínua & E4 & Logs; matriz de CI & 8 \\
+Estudo de caso & E5 & DRC; figuras; artefatos & 7 \\
+Limitações e continuidade & E5 & Capítulo~\ref{cap:discussao} & 9/10 \\
+\bottomrule
+\end{tabular}
+\end{quadro}
+
+\section{Síntese do capítulo}
+
+O capítulo fixou o desenho metodológico, os requisitos, as métricas e o
+ambiente. Os capítulos seguintes apresentam o artefato (arquitetura e
+catálogo) e, em seguida, os resultados obtidos nos procedimentos P1 a P4.

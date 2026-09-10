@@ -1,0 +1,136 @@
+\section{Materiais e métodos}\label{sec:metodologia}
+
+\subsection{Delineamento da pesquisa}
+
+Este trabalho caracteriza-se como pesquisa aplicada de natureza tecnológica,
+conduzida por meio de desenvolvimento de sistema e avaliação por estudo de caso
+instrumental. O percurso metodológico compreendeu cinco etapas:
+(i) auditoria do domínio e do código-fonte do servidor;
+(ii) definição de requisitos do sistema e da API MCP exposta;
+(iii) implementação e evolução da arquitetura em duas camadas;
+(iv) verificação automatizada por suítes de teste e integração contínua;
+(v) estudo de caso com uma placa de quatro camadas projetada no mesmo
+\emph{workspace}.
+
+Não se trata de experimento controlado com grupo de comparação: a avaliação
+adota métricas descritivas de implementação (contagem de ferramentas, recursos,
+linhas de código e casos de teste), resultados de execução das suítes e
+indicadores de verificação de projeto (regras do KiCad) obtidos sobre um
+artefato real. As ameaças à validade dessa escolha são discutidas na
+Seção~\ref{sec:discussao}.
+
+\subsection{Requisitos do sistema}
+
+Os requisitos que orientaram a implementação estão sintetizados na
+Tabela~\ref{tab:requisitos}, com a forma de atendimento e a evidência
+correspondente.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Requisitos do servidor e evidências de atendimento.}
+\label{tab:requisitos}
+\begin{tabular}{@{}p{0.8cm}p{4.0cm}p{5.4cm}p{4.2cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Requisito} & \textbf{Implementação} & \textbf{Evidência} \\
+\midrule
+R1 & Cobrir o fluxo de PCB de ponta a ponta & 233 ferramentas em 24 módulos (projeto, esquemático, roteamento, regras, exportação) & Inventário gerado (\texttt{docs/TOOL\_INVENTORY.md}) e Seção~\ref{sec:resultados} \\
+R2 & Permitir descoberta de operações pelo agente & Registro com categorias, lista de essenciais e \texttt{search\_tools} / \texttt{get\_category\_tools} & 173 ferramentas indexadas em 16 categorias \\
+R3 & Ser robusto sob falhas e respostas fora de ordem & Correlação de requisições com identificadores, descarte de respostas tardias, tempos-limite por comando & Testes de correlação e de \emph{startup} em \texttt{tests-ts/} \\
+R4 & Preservar integridade dos arquivos do usuário & \emph{Saves} explícitos, sessão fixada por \emph{backend}, validação prévia de esquemáticos corrompidos & Suíte Python (\texttt{tests/}) e histórico de correções do projeto \\
+R5 & Ser portável (Linux, Windows, macOS) & Node.js + Python portáveis; \emph{launcher} com variáveis específicas por plataforma & Matriz de CI em quatro sistemas operacionais \\
+R6 & Ser verificável e extensível & Testes em duas linguagens, inventário gerado automaticamente como \emph{gate} de CI & 84 casos TypeScript e 2.367 casos Python; verificação \texttt{docs:tools:check} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Arquitetura do servidor}\label{subsec:arquitetura}
+
+O sistema adota arquitetura em duas camadas, ilustrada na
+Figura~\ref{fig:arquitetura}. A camada externa implementa o protocolo MCP em
+TypeScript, registra as ferramentas com esquemas de validação e gerencia o
+ciclo de vida do processo Python. A camada interna, em Python, traduz comandos
+em operações do KiCad por meio de dois \emph{backends} intercambiáveis:
+a API \texttt{pcbnew} (SWIG) e a API IPC \citep{kicadcli,kicaddev,swig}. A
+seleção do \emph{backend} é automática, com queda para SWIG quando a API IPC
+não está disponível.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  box/.style={draw, rounded corners=2pt, align=center, inner sep=4pt},
+  arr/.style={-{Stealth[length=2mm]}, thick},
+  trace/.style={-{Stealth[length=2mm]}, thick, dashed},
+  node distance=6mm and 8mm
+]
+\node[box, fill=blue!6] (host) {Assistente de IA\\(host MCP)};
+\node[box, fill=blue!12, right=of host] (ts) {Servidor MCP (TypeScript)\\233 ferramentas -- 16 categorias\\23 recursos --- esquemas};
+\node[box, fill=orange!10, right=of ts] (py) {Interface Python\\\texttt{kicad\_interface.py}\\roteador de comandos};
+\node[box, fill=green!10, right=of py] (kicad) {KiCad 9\\arquivos \texttt{.kicad\_pcb}\\\texttt{.kicad\_sch}};
+\node[box, fill=gray!10, below=8mm of py] (cli) {\texttt{kicad-cli}\\(DRC, ERC, exportações)};
+\node[box, fill=gray!10, above=8mm of py] (ipc) {API IPC\\(experimental)};
+\draw[arr] (host) -- node[above, font=\scriptsize]{MCP (JSON-RPC 2.0)} (ts);
+\draw[arr] (ts) -- node[above, font=\scriptsize]{JSON (NDJSON) + IDs} (py);
+\draw[arr] (py) -- node[above, font=\scriptsize]{pcbnew (SWIG)} (kicad);
+\draw[trace] (py) -- (ipc);
+\draw[trace] (ipc) -- (kicad);
+\draw[arr] (py) -- (cli);
+\draw[arr] (cli) |- (kicad);
+\end{tikzpicture}
+\caption{Arquitetura em duas camadas do \texttt{mcp-kicad-vscode}. A camada
+TypeScript fala MCP com o assistente; a camada Python opera o KiCad por SWIG,
+IPC (experimental) ou \texttt{kicad-cli}.}
+\label{fig:arquitetura}
+\end{figure}
+
+Cada ferramenta é registrada individualmente com \texttt{server.tool()}, isto é,
+sem roteador que oculte esquemas do cliente MCP. O registro de categorias
+existe para apoiar a \emph{descoberta} --- decisão alinhada à literatura sobre
+interfaces agente--computador \citep{yang2024sweagent}: o agente pode tanto
+chamar uma ferramenta conhecida quanto localizá-la por palavra-chave.
+
+O protocolo interno entre as camadas usa JSON delimitado por linhas
+(\emph{newline-delimited JSON}) com identificadores de requisição. Cada
+resposta ecoa o identificador correspondente; respostas tardias de uma
+requisição expirada são descartadas, evitando o desalinhamento entre pedido e
+resposta que pode ocorrer após um tempo-limite. O processo Python é único e
+persistente, iniciado na primeira chamada de ferramenta, e mantém o estado do
+projeto em memória quando o \emph{backend} permite.
+
+\subsection{Estratégia de qualidade}
+
+A verificação adota três mecanismos complementares: (i) suítes de teste em
+TypeScript (Vitest~\citep{vitest}) e Python (pytest~\citep{pytest}), incluindo
+testes de correlação de requisições, completude do registro de ferramentas e
+validação sintática; (ii) integração contínua~\citep{githubactions} com matriz
+de sistemas operacionais e versões de \emph{runtime}; e (iii) geração
+automática do inventário de ferramentas a partir do código, exigida como
+condição de aceitação no CI (\texttt{npm run docs:tools:check}), impedindo que a
+documentação diverga da implementação.
+
+\subsection{Ambiente de validação}
+
+A execução local ocorreu em estação de trabalho com Ubuntu 24.04.4 LTS
+(\emph{kernel} 7.0.0-31), com KiCad 9.0.7 (pacote \emph{snap}, revisão 22),
+Node.js~v22.23.2~\citep{nodejs}, npm~12.0.2, Python~3.12.3~\citep{python}
+(ambiente virtual com as dependências de produção e de teste declaradas pelo
+projeto) e pytest 9.1.1.
+O utilitário \texttt{kicad-cli} 9.0.7 foi utilizado para verificação e
+exportações fora da interface gráfica \citep{kicadcli}.
+
+\subsection{Estudo de caso}
+
+O estudo de caso utiliza a placa \texttt{seguidor\_de\_linhas\_4camada2-2026-1},
+um projeto de quatro camadas para um robô seguidor de linhas, contendo
+subsistemas de sensoriamento óptico reflexivo, conversão de energia
+(\emph{MPPT}), acionamento de motores em ponte H, interface USB-C, regulação
+de tensão e sinalização. O projeto foi analisado por meio de:
+(i) contagem de \emph{footprints}, redes e folhas do esquemático;
+(ii) execução de DRC com \texttt{kicad-cli pcb drc --format json
+--severity-all};
+(iii) renderizações 3D das faces superior e inferior; e
+(iv) inspeção dos artefatos de fabricação gerados pelo fluxo de projeto.
+Os comandos exatos e os artefatos resultantes estão preservados no repositório
+do projeto (material suplementar digital), em especial no diretório
+\texttt{evidencias/}.

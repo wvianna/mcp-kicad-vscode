@@ -1,0 +1,48 @@
+\chapter{Inventário por categoria de descoberta}\label{ap:inventario}
+
+A Tabela~\ref{tab:categorias-ap} reproduz o sumário de categorias de
+descoberta do inventário de ferramentas do servidor, gerado automaticamente
+a partir do código em 06/09/2026. Essas são as categorias consultadas por
+\texttt{search\_tools} e \texttt{get\_category\_tools}.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Ferramentas indexadas por categoria de descoberta (fonte: inventário
+do projeto, 06/09/2026).}
+\label{tab:categorias-ap}
+\begin{tabular}{@{}lrlr@{}}
+\toprule
+\textbf{Categoria} & \textbf{N.} & \textbf{Categoria} & \textbf{N.} \\
+\midrule
+\texttt{board} & 15 & \texttt{schematic\_hierarchy} & 5 \\
+\texttt{component} & 15 & \texttt{schematic\_layout} & 5 \\
+\texttt{export} & 27 & \texttt{schematic\_batch} & 6 \\
+\texttt{drc} & 7 & \texttt{routing} & 3 \\
+\texttt{schematic} & 26 & \texttt{autoroute} & 4 \\
+\texttt{library} & 7 & \texttt{validation} & 2 \\
+\texttt{symbol\_library} & 17 & \texttt{parts-registry} & 3 \\
+\texttt{symbol\_pins} & 3 & \texttt{digikey} & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+O inventário informa que as categorias cobrem 173 das 233 ferramentas
+registradas, com 60 ferramentas executáveis por nome, mas ainda não
+indexadas. A soma das contagens por categoria não coincide com o total
+indexado informado pelo próprio artefato; a divergência foi registrada como
+pendência de documentação do projeto (arquivo
+\texttt{MONOGRAFIA\_PENDENCIAS.md}, item D-02) e deve ser reconciliada em
+versão futura.
+
+As ferramentas essenciais --- o subconjunto priorizado na busca e sempre
+visível --- incluem operações de uso frequente de projeto, placa,
+componentes e esquemático, além de ferramentas de leitura de estado. A lista
+é mantida no módulo de registro do servidor e verificada por teste
+automatizado de completude, que congela o número de ferramentas não
+indexadas e impede regressão silenciosa de descoberta.
+
+Para reprodutibilidade, o inventário completo (descrição, categoria e forma
+de descoberta de cada um dos 233 itens) encontra-se versionado no repositório
+em \texttt{KiCAD-MCP-Server/docs/TOOL\_INVENTORY.md} e é regenerável pelo
+comando \texttt{npm run docs:tools}.

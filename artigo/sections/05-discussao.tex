@@ -1,0 +1,80 @@
+\section{Discussão}\label{sec:discussao}
+
+\subsection{Atendimento aos requisitos e à questão de pesquisa}
+
+Os resultados indicam que a questão de pesquisa --- como expor o fluxo de PCB do
+KiCad a assistentes de IA de forma ampla, descobrível e testável --- foi
+endereçada com sucesso nas dimensões propostas. A cobertura de R1 materializa-se
+nas 233 ferramentas, que abrangem desde a criação do projeto até a exportação
+de fabricação. R2 avançou, mas de forma parcial: 74,2\,\% das ferramentas estão
+descobríveis, e o próprio projeto reconhece as 60 restantes como dívida técnica
+controlada por teste automatizado. R3 e R4 refletem-se na correlação de
+requisições entre as camadas e na sessão fixada por \emph{backend} --- os dois
+mecanismos que impedem falhas silenciosas em operações destrutivas, classe de
+defeito recorrente em integrações desse tipo. R5 e R6 são sustentados pela
+matriz de integração contínua e pela execução local das suítes.
+
+\subsection{Comparação com a literatura}
+
+A literatura de interfaces agente--computador sustenta que a forma de exposição
+das ações afeta o desempenho do agente \citep{yang2024sweagent}. O presente
+trabalho aplica esse princípio em um domínio físico: cada operação é uma
+ferramenta nomeada, com esquema validado, e as operações mais frequentes formam
+uma lista de essenciais que ordena a busca. Diferentemente de adaptações de
+modelo ao domínio, como o \emph{chip} assistente de \citet{liu2023chipnemo}, a
+solução aqui é ortogonal ao modelo: qualquer cliente compatível com o MCP
+2025-06-18 obtém as mesmas capacidades, sem treinamento específico.
+
+O trabalho também se distingue das automações tradicionais de KiCad ---
+\emph{scripts} Python isolados sobre \texttt{pcbnew} \citep{swig} --- ao
+padronizar descoberta, tratamento de erros, recursos de estado e integrações de
+fabricação em um servidor único. A verificação por \texttt{kicad-cli}
+\citep{kicadcli} fecha o ciclo de qualidade fora da interface gráfica.
+
+\subsection{Limitações}
+
+\begin{itemize}[leftmargin=1.4em,itemsep=0.25em]
+  \item \textbf{Integração IPC não exercitada.} No ambiente de validação, o
+        servidor IPC do KiCad estava desabilitado na configuração do usuário
+        (\texttt{enable\_server}: falso) e não havia soquete de comunicação
+        ativo; portanto, o fluxo em tempo real não foi validado nesta execução,
+        e os resultados referem-se ao \emph{backend} SWIG e ao
+        \texttt{kicad-cli}. A validação do caminho IPC é o principal trabalho
+        futuro.
+  \item \textbf{Cobertura de descoberta parcial.} Sessenta ferramentas não são
+        localizáveis por busca, embora permaneçam chamáveis por nome.
+  \item \textbf{Falhas de teste sensíveis ao ambiente.} Oito casos falharam
+        localmente, todos dependentes de subprocessos \texttt{kicad-cli} ou de
+        caminhos legados; a operação em CI com ambientes limpos pode
+        comportar-se de forma distinta e deve ser monitorada.
+  \item \textbf{Violações residuais de DRC.} A revisão analisada da placa não
+        está pronta para fabricação sem revisão dos apontamentos: as violações
+        de \texttt{starved\_thermal}, \texttt{annular\_width},
+        \texttt{clearance} e \texttt{padstack} indicam ajustes de geometria
+        necessários. Este resultado deve ser lido como evidência do valor da
+        verificação automatizada, não como defeito metodológico.
+  \item \textbf{Avaliação restrita.} Não houve estudo com usuários nem medição
+        de produtividade (tempo de projeto, retrabalho) contra um fluxo
+        manual; as métricas são descritivas e derivadas de um único projeto de
+        placa, em uma única máquina.
+\end{itemize}
+
+\subsection{Ameaças à validade}
+
+Quanto à validade de construto, contagens de ferramentas e de casos de teste
+são proxis de capacidade e confiabilidade, não medidas diretas de utilidade
+para o engenheiro. Quanto à validade interna, o ambiente \emph{snap} do KiCad
+influencia parte das falhas observadas; uma réplica em ambiente CI padrão é
+recomendável. Quanto à validade externa, a generalização para outros
+\emph{softwares} de EDA exige esforço de porte; contudo, a arquitetura em duas
+camadas e a separação por \emph{backends} são replicáveis.
+
+\subsection{Implicações e trabalhos futuros}
+
+Além da validação do caminho IPC, os desdobramentos naturais incluem: indexar
+as ferramentas restantes e ampliar a busca semântica; adicionar uma camada de
+políticas para operações destrutivas (confirmação, limites, auditoria);
+expandir a suíte para reduzir a sensibilidade a ambientes específicos;
+conduzir estudos com usuários medindo tempo de projeto e taxa de retrabalho; e
+avaliar a interoperabilidade com outros clientes MCP e versões futuras do
+KiCad.

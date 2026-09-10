@@ -1,0 +1,164 @@
+\section{Resultados}\label{sec:resultados}
+
+\subsection{Implementação e catálogo de ferramentas}
+
+A implementação reúne 42 arquivos TypeScript (14.677 linhas) na camada MCP e
+54.442 linhas em Python na camada de interface, das quais 38.050 no módulo de
+comandos e 6.529 no roteador principal (\texttt{kicad\_interface.py}). O
+servidor registra \textbf{233 ferramentas}, organizadas em 24 módulos
+funcionais, agrupadas na Tabela~\ref{tab:categorias} em dez macro-áreas.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Ferramentas MCP por macro-área funcional.}
+\label{tab:categorias}
+\begin{tabular}{@{}p{5.6cm}p{1.6cm}p{7.2cm}@{}}
+\toprule
+\textbf{Macro-área} & \textbf{N.\ de ferramentas} & \textbf{Módulos de origem} \\
+\midrule
+Esquemático (autoria, lote, hierarquia, acabamento) & 65 & \texttt{schematic.ts}, \texttt{schematic-batch.ts}, \texttt{schematic-hierarchy.ts}, \texttt{schematic-layout.ts} \\
+Bibliotecas e criação de partes & 31 & \texttt{library.ts}, \texttt{library-symbol.ts}, \texttt{footprint.ts}, \texttt{symbol-creator.ts} \\
+Projeto e ciclo de vida da placa & 31 & \texttt{project.ts}, \texttt{board.ts} \\
+Componentes & 28 & \texttt{component.ts} \\
+Exportação e fabricação & 27 & \texttt{export.ts} \\
+Roteamento e autorouter & 21 & \texttt{routing.ts}, \texttt{freerouting.ts} \\
+Datasheets e cadeia de suprimentos & 13 & \texttt{datasheet.ts}, \texttt{jlcpcb-api.ts}, \texttt{parts-registry.ts}, \texttt{digikey-api.ts} \\
+Regras de projeto e validação & 9 & \texttt{design-rules.ts}, \texttt{validation.ts} \\
+Interface do KiCad e descoberta & 6 & \texttt{ui.ts}, \texttt{router.ts} \\
+Importação de formatos legados & 2 & \texttt{eagle.ts}, \texttt{pcb-import.ts} \\
+\midrule
+\textbf{Total} & \textbf{233} & 24 módulos \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Do total, 173 ferramentas (74,2\,\%) estão indexadas para descoberta por
+palavra-chave em 16 categorias, conforme a Equação~\ref{eq:cobertura}; as 60
+restantes permanecem executáveis, porém não localizáveis pelos mecanismos de
+busca --- número que um teste automatizado congela para que só possa diminuir.
+Além das ferramentas, o servidor expõe 23 recursos dinâmicos com o estado do
+projeto (placa aberta, componentes, bibliotecas e informações do projeto) e
+modelos de \emph{prompt} para tarefas recorrentes de projeto.
+
+\begin{equation}
+\label{eq:cobertura}
+C_{desc} = \frac{173}{233} \approx 74{,}2\,\%.
+\end{equation}
+
+\subsection{Execução das suítes de teste}
+
+A Tabela~\ref{tab:testes} consolida a execução local de 10 de setembro de 2026.
+No total, 2.451 casos foram coletados; 2.412 foram aprovados (98,4\,\%), com 8
+falhas e 31 casos ignorados. A suíte TypeScript passou integralmente
+(84 de 84).
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Resultados da execução local das suítes de teste (10/09/2026).}
+\label{tab:testes}
+\begin{tabular}{@{}p{4.0cm}rrrrp{2.4cm}@{}}
+\toprule
+\textbf{Suíte} & \textbf{Casos} & \textbf{Aprov.} & \textbf{Falhas} & \textbf{Ignor.} & \textbf{Tempo} \\
+\midrule
+TypeScript (Vitest 2.1) & 84 & 84 & 0 & 0 & 1,5\,s \\
+Python (pytest 9.1) & 2.367 & 2.328 & 8 & 31 & 45,0\,s \\
+\midrule
+\textbf{Total} & \textbf{2.451} & \textbf{2.412} & \textbf{8} & \textbf{31} & 46,5\,s \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+As oito falhas concentram-se em casos que invocam o utilitário
+\texttt{kicad-cli} como processo externo (importação Eagle, exportação de
+netlist, verificação ERC e compatibilidade de formato de esquemático) e em um
+teste de estado de módulo legado. A análise dos rastros de execução indica
+sensibilidade ao ambiente de validação --- instalação do KiCad por pacote
+\emph{snap}, sem o diretório \texttt{/usr/share/kicad/schemas} esperado por
+alguns utilitários --- e não a regressões funcionais nas ferramentas exercitadas
+pelos demais 2.328 casos aprovados. Os registros completos das execuções estão
+preservados no repositório (\texttt{evidencias/}).
+
+Em integração contínua, o projeto executa a suíte TypeScript em quatro
+sistemas operacionais (Ubuntu 24.04, Ubuntu 22.04, Windows e macOS) com Node.js
+20 e 22, a suíte Python em Ubuntu com Python 3.9 a 3.12, e dois portões de
+qualidade adicionais: o \emph{lint} TypeScript e a verificação de que o
+inventário de ferramentas está em dia com o código.
+
+\subsection{Estudo de caso: placa seguidora de linhas de quatro camadas}
+
+O projeto analisado possui 97 \emph{footprints} distribuídos em quatro camadas
+de cobre (F.Cu, In1.Cu, In2.Cu e B.Cu), espessura total de 1,6\,mm e contorno
+de aproximadamente 82,1\,mm $\times$ 80,2\,mm. O esquemático é hierárquico,
+com nove folhas (raiz, fonte regulada, \emph{MPPT}, pontes H, sensores ópticos
+reflexivos, interface USB-C e demais blocos), e a lista de materiais agrupa 37
+itens. As Figura~\ref{fig:render-topo} e~\ref{fig:render-fundo} mostram
+renderizações 3D geradas a partir do arquivo de placa; a
+Figura~\ref{fig:esquematico} apresenta a folha raiz do esquemático, cujo bloco
+de título registra a autoria do projeto.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{pcb-render-topo.png}
+\caption{Vista superior da placa seguidora de linhas (renderização 3D gerada
+com \texttt{kicad-cli pcb render}).}
+\label{fig:render-topo}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{pcb-render-fundo.png}
+\caption{Vista inferior da placa, evidenciando o plano de cobre e a
+distribuição dos componentes SMD.}
+\label{fig:render-fundo}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{esquematico-raiz.png}
+\caption{Folha raiz do esquemático hierárquico (nove folhas), exportada com
+\texttt{kicad-cli sch export pdf}.}
+\label{fig:esquematico}
+\end{figure}
+
+A verificação de regras de projeto com \texttt{kicad-cli} 9.0.7 reportou
+11 violações: 9 erros e 2 avisos, detalhados na
+Tabela~\ref{tab:drc}. Não foram encontrados itens não conectados
+(\emph{unconnected items}) nem divergências de paridade entre placa e
+esquemático.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Violações de DRC reportadas por \texttt{kicad-cli} 9.0.7 em 10/09/2026.}
+\label{tab:drc}
+\begin{tabular}{@{}p{3.4cm}p{1.9cm}p{1.2cm}p{8.0cm}@{}}
+\toprule
+\textbf{Tipo} & \textbf{Severidade} & \textbf{Qtde.} & \textbf{Diagnóstico} \\
+\midrule
+\texttt{annular\_width} & erro & 2 & Largura anular abaixo do mínimo de 0,100\,mm (medição de $-0{,}003$\,mm). \\
+\texttt{clearance} & erro & 2 & Afastamento de 0,1812\,mm contra 0,200\,mm da classe \emph{Default}. \\
+\texttt{malformed\_courtyard} & erro & 1 & \emph{Footprint} com \emph{courtyard} autointersectante. \\
+\texttt{starved\_thermal} & erro & 4 & Conexão térmica à zona incompleta (1 de 2 raios exigidos). \\
+\texttt{padstack} & aviso & 2 & \emph{Padstack} questionável (furo PTH sem cobre remanescente). \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+O fluxo de projeto também produziu artefatos de fabricação no diretório
+\texttt{production/} (lista de materiais, designadores, netlist IPC, arquivo de
+posições e pacote compactado da placa), demonstrando a integração entre a
+edição do projeto e a preparação para manufatura.
+
+\subsection{Integrações com o ecossistema de fabricação}
+
+O servidor integra três fontes de dados de componentes: a base local e a API
+da JLCPCB~\citep{jlcpcb} (mais de 2,5 milhões de registros catalogados), o
+enriquecimento de \emph{datasheets} via LCSC~\citep{lcsc} e a API
+\emph{Product Information V4} da DigiKey~\citep{digikey}, utilizada tanto para
+busca pontual de componentes quanto para varredura de bibliotecas de símbolos
+em busca de itens obsoletos ou fora de estoque. O roteador automático
+Freerouting~\citep{freerouting} é suportado via Java, Docker ou Podman. As
+integrações com APIs externas dependem de credenciais opcionais definidas no
+ambiente e degradam de forma controlada quando ausentes.
