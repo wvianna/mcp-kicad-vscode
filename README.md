@@ -7,7 +7,7 @@ Workspace que combina um **servidor MCP para automação de design de PCB com Ki
 
 ## Visão geral
 
-O objetivo deste workspace é usar IA assistida para projetar, validar e fabricar placas. O servidor expõe as operações do KiCad como *tools* MCP (233 registradas), permitindo que um agente abra projetos, posicione componentes, roteie trilhas, crie zonas, rode DRC e exporte arquivos de fabricação — com o [Model Context Protocol](https://modelcontextprotocol.io/) (spec 2025-06-18).
+O objetivo deste workspace é usar IA assistida para projetar, validar e preparar o projeto da PCB para fabricação. O servidor expõe as operações do KiCad como *tools* MCP (233 registradas), permitindo que um agente abra projetos, posicione componentes, roteie trilhas, crie zonas, rode DRC e exporte arquivos de fabricação — com o [Model Context Protocol](https://modelcontextprotocol.io/) (spec 2025-06-18).
 
 Principais características:
 
