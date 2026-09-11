@@ -1,29 +1,34 @@
 \chapter{Conclusão}\label{cap:conclusao}
 
-Este trabalho especificou, implementou e avaliou o \texttt{mcp-kicad-vscode},
-um servidor \emph{Model Context Protocol} para automação do fluxo de projeto
-de placas de circuito impresso no KiCad. A solução final expõe 233
+Este trabalho analisou e avaliou o \texttt{mcp-kicad-vscode}, o servidor
+\emph{Model Context Protocol} de código aberto do projeto
+\texttt{KiCAD-MCP-Server}, criado por \emph{mixelpixx}~\citep{kicadmcpserver},
+voltado à automação do fluxo de projeto de placas de circuito impresso no
+KiCad. O servidor expõe 233
 ferramentas em 24 módulos funcionais, 173 delas descobríveis por busca em 16
 categorias, além de 23 recursos dinâmicos de estado do projeto e quatro
 \emph{prompts} de tarefas recorrentes. Integrações com JLCPCB, LCSC e DigiKey
 e suporte ao autorouter Freerouting completam o ciclo de projeto até a
 preparação de fabricação.
 
-O objetivo geral foi atingido na medida em que o sistema foi construído,
-documentado e verificado de forma reprodutível. A avaliação combinou métricas
+O objetivo geral foi atingido na medida em que o servidor foi analisado,
+documentado e verificado de forma reprodutível, e o estudo de caso produziu
+evidências de uso real. A avaliação combinou métricas
 de implementação (68.819 linhas de código somando as duas camadas), execução
 das suítes de teste (2.412 de 2.451 casos aprovados, com a suíte TypeScript
-integralmente aprovada) e um estudo de caso com uma placa seguidora de linhas
-de quatro camadas, com 97 \emph{footprints} e 83 redes, cuja verificação de
-regras reportou 11 violações residuais e zero itens não conectados.
+integralmente aprovada) e um estudo de caso, conduzido pelo autor, com uma
+placa seguidora
+de linhas de quatro camadas, com 97 \emph{footprints} e 83 redes, cuja
+verificação de regras reportou 11 violações residuais e zero itens não
+conectados.
 
 Os objetivos específicos também foram cumpridos: a arquitetura e o protocolo
-interno foram definidos e documentados (Capítulo~\ref{cap:arquitetura}); o
-catálogo de ferramentas foi implementado e descrito
+interno foram analisados e documentados (Capítulo~\ref{cap:arquitetura}); o
+catálogo de ferramentas foi caracterizado e descrito
 (Capítulo~\ref{cap:catalogo}); os mecanismos de descoberta e recursos foram
-construídos e medidos (Capítulo~\ref{cap:resultados}); as suítes de teste e a
-integração contínua foram executadas; o estudo de caso produziu evidências
-concretas; e limitações e pendências foram registradas
+avaliados e medidos (Capítulo~\ref{cap:resultados}); as suítes de teste e a
+integração contínua foram executadas; o estudo de caso, conduzido pelo autor,
+produziu evidências concretas; e limitações e pendências foram registradas
 (Capítulo~\ref{cap:discussao}).
 
 As limitações do trabalho delimitam seu alcance com honestidade: a integração

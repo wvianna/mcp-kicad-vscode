@@ -43,9 +43,10 @@ engenharia de software, que a interface agente--computador (ACI) tem impacto
 direto no desempenho: nomes de comandos claros, saídas concisas e
 descobribilidade de ferramentas importam tanto quanto o modelo utilizado.
 
-Esses resultados motivam decisões de projeto adotadas neste trabalho: exposição
-individual de cada ferramenta (sem roteador oculto), descrições objetivas,
-mecanismos explícitos de descoberta e respostas padronizadas e testáveis.
+Esses resultados motivam decisões de projeto adotadas no servidor estudado:
+exposição individual de cada ferramenta (sem roteador oculto), descrições
+objetivas, mecanismos explícitos de descoberta e respostas padronizadas e
+testáveis.
 
 \subsection{Automação de EDA e o KiCad}
 
@@ -78,10 +79,12 @@ Do lado das ferramentas, a automação do KiCad por \emph{scripts} Python é
 consolidada, porém cada integração reproduz decisões de sessão, tratamento de
 erros e descoberta de operações. O MCP altera esse cenário ao oferecer um
 contrato único entre assistentes e ferramentas \citep{mcp2025spec}. Neste
-contexto, o \texttt{mcp-kicad-vscode} se posiciona como um servidor MCP de
-propósito geral para o fluxo de PCB no KiCad, com cobertura ampla,
-integrações de fabricação e suíte de testes própria --- combinação ainda
-escassa na literatura e no ecossistema de código aberto.
+contexto, o \texttt{mcp-kicad-vscode} --- o servidor MCP de código aberto do
+projeto \texttt{KiCAD-MCP-Server}, criado por
+\emph{mixelpixx}~\citep{kicadmcpserver} --- posiciona-se como uma solução de
+propósito geral para o fluxo de PCB no KiCad, com cobertura ampla, integrações
+de fabricação e suíte de testes abrangente --- combinação ainda escassa na
+literatura e no ecossistema de código aberto.
 
 A lacuna endereçada é, portanto, dupla: (i) ausência de uma camada padronizada
 e descobrível que cubra o ciclo de projeto de PCB de ponta a ponta

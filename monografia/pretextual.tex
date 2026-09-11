@@ -51,9 +51,10 @@
 \noindent
 O \emph{Model Context Protocol} (MCP) surgiu como um padrão aberto para
 conectar assistentes baseados em grandes modelos de linguagem (LLMs) a
-ferramentas e fontes de dados externas. Este trabalho especifica, implementa e
-avalia o \texttt{mcp-kicad-vscode}, um servidor MCP dedicado à automação do
-fluxo de projeto de placas de circuito impresso (PCB) no KiCad. A solução
+ferramentas e fontes de dados externas. Este trabalho analisa e avalia o
+\texttt{mcp-kicad-vscode}, o servidor MCP de código aberto do projeto
+\texttt{KiCAD-MCP-Server}, criado por \emph{mixelpixx}, dedicado à automação
+do fluxo de projeto de placas de circuito impresso (PCB) no KiCad. O servidor
 adota arquitetura em duas camadas --- TypeScript para o protocolo e Python
 para a interface com o KiCad --- e expõe 233 ferramentas em 24 módulos
 funcionais, 173 delas indexadas para descoberta por palavra-chave em 16
@@ -63,11 +64,11 @@ ERC), exportação de fabricação e integrações com os catálogos JLCPCB, LCS
 DigiKey, com suporte ao roteador automático Freerouting. A avaliação combinou
 métricas de implementação, execução das suítes de teste --- 84 casos
 TypeScript e 2.367 casos Python coletados, com 2.328 aprovados, 8 falhas e 31
-ignorados na execução local de setembro de 2026 --- e um estudo de caso com
-uma placa seguidora de linhas de quatro camadas (97 \emph{footprints}, 83
-redes, aproximadamente 82,1\,mm $\times$ 80,2\,mm), cuja verificação de regras
-reportou 11 violações residuais (9 erros e 2 avisos) e nenhum item não
-conectado. Discutem-se as limitações --- integração IPC não exercitada no
+ignorados na execução local de setembro de 2026 --- e um estudo de caso,
+conduzido pelo autor, com uma placa seguidora de linhas de quatro camadas (97
+\emph{footprints}, 83 redes, aproximadamente 82,1\,mm $\times$ 80,2\,mm), cuja
+verificação de regras reportou 11 violações residuais (9 erros e 2 avisos) e
+nenhum item não conectado. Discutem-se as limitações --- integração IPC não exercitada no
 ambiente de validação, cobertura parcial de descoberta e avaliação restrita a
 um único projeto --- e propõem-se trabalhos futuros.
 
@@ -83,9 +84,10 @@ artificial.
 \noindent
 The \emph{Model Context Protocol} (MCP) has emerged as an open standard for
 connecting assistants based on large language models (LLMs) to external tools
-and data sources. This work specifies, implements and evaluates
-\texttt{mcp-kicad-vscode}, an MCP server dedicated to automating the printed
-circuit board (PCB) design workflow in KiCad. The solution adopts a two-layer
+and data sources. This work analyzes and evaluates \texttt{mcp-kicad-vscode},
+the open-source MCP server from the \texttt{KiCAD-MCP-Server} project, created
+by \emph{mixelpixx}, dedicated to automating the printed
+circuit board (PCB) design workflow in KiCad. The server adopts a two-layer
 architecture --- TypeScript for the protocol and Python for the KiCad
 interface --- and exposes 233 tools across 24 functional modules, 173 of which
 are indexed for keyword discovery in 16 categories, plus 23 dynamic project
@@ -95,8 +97,8 @@ JLCPCB, LCSC and DigiKey catalogs, with support for the Freerouting
 autorouter. The evaluation combined implementation metrics, test suite
 execution --- 84 TypeScript cases and 2,367 collected Python cases, with 2,328
 passed, 8 failed and 31 skipped in the local run of September 2026 --- and a
-case study with a four-layer line-follower board (97 footprints, 83 nets,
-approximately 82.1\,mm $\times$ 80.2\,mm), whose design rule check reported 11
+case study, conducted by the author, with a four-layer line-follower board
+(97 footprints, 83 nets, approximately 82.1\,mm $\times$ 80.2\,mm), whose design rule check reported 11
 residual violations (9 errors and 2 warnings) and no unconnected items.
 Limitations are discussed --- the IPC integration was not exercised in the
 validation environment, discovery coverage is partial, and the evaluation is

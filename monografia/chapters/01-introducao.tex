@@ -53,8 +53,8 @@ O problema endereçado neste trabalho é, portanto: \emph{como expor o fluxo de
 projeto de PCBs do KiCad a assistentes de IA de forma ampla, descobrível,
 robusta e verificável?} A motivação é dupla: de um lado, reduzir o esforço de
 integração e o risco de operações destrutivas inconsistentes sobre arquivos de
-projeto; de outro, criar uma base de integração que possa ser avaliada,
-testada e estendida pela comunidade.
+projeto; de outro, avaliar uma base de integração aberta que possa ser
+inspecionada, testada e estendida pela comunidade.
 
 \section{Questões de pesquisa}
 
@@ -77,25 +77,29 @@ O trabalho busca responder às seguintes questões:
 
 \subsection{Objetivo geral}
 
-Especificar, implementar e avaliar um servidor \emph{Model Context Protocol}
-que exponha o fluxo de projeto de placas de circuito impresso do KiCad a
-assistentes de inteligência artificial, com cobertura funcional ampla,
+Analisar e avaliar o \texttt{mcp-kicad-vscode} --- o servidor \emph{Model
+Context Protocol} de código aberto do projeto \texttt{KiCAD-MCP-Server}, criado
+por \emph{mixelpixx}~\citep{kicadmcpserver} ---, que expõe o fluxo de projeto
+de placas de circuito impresso do KiCad a assistentes de inteligência
+artificial, e conduzir um estudo de caso com uma placa de quatro camadas
+projetada com o auxílio do servidor, com ênfase em cobertura funcional,
 mecanismos de descoberta, integrações de fabricação e verificação automatizada.
 
 \subsection{Objetivos específicos}
 
 \begin{enumerate}[leftmargin=1.4em,itemsep=0.2em]
-  \item definir a arquitetura do servidor e o protocolo interno entre as
+  \item analisar a arquitetura do servidor e o protocolo interno entre as
         camadas de integração;
-  \item implementar o catálogo de ferramentas MCP cobrindo esquemático,
+  \item caracterizar o catálogo de ferramentas MCP cobrindo esquemático,
         layout, roteamento, regras de projeto, bibliotecas, exportação e
         cadeia de suprimentos;
-  \item implementar mecanismos de descoberta de ferramentas e de exposição de
+  \item avaliar os mecanismos de descoberta de ferramentas e de exposição de
         estado do projeto como recursos MCP;
-  \item construir e executar suítes de teste e integração contínua que
-        verifiquem o comportamento do servidor;
-  \item avaliar a solução por meio de métricas de implementação e de um estudo
-        de caso com uma placa real de quatro camadas;
+  \item executar e analisar as suítes de teste e a integração contínua do
+        projeto, verificando o comportamento do servidor;
+  \item avaliar o servidor por meio de métricas de implementação e de um
+        estudo de caso com uma placa real de quatro camadas projetada com o
+        auxílio do servidor;
   \item registrar limitações, pendências e direções de continuidade.
 \end{enumerate}
 
@@ -121,12 +125,13 @@ trabalhos futuros.
 
 \section{Metodologia em síntese}
 
-A pesquisa é aplicada, de natureza tecnológica, com desenvolvimento de sistema
-e avaliação por estudo de caso instrumental. As etapas compreendem auditoria do
-domínio e do código, definição de requisitos, implementação em duas camadas,
-verificação por testes e integração contínua, e estudo de caso com uma placa
-seguidora de linhas. O Capítulo~\ref{cap:metodologia} detalha o percurso e as
-métricas adotadas.
+A pesquisa é aplicada, de natureza tecnológica, com análise de um artefato de
+\emph{software} existente e avaliação por estudo de caso instrumental. As
+etapas compreendem auditoria do domínio e do código, definição de requisitos
+de avaliação, análise da arquitetura em duas camadas, verificação por testes e
+integração contínua, e estudo de caso com uma placa seguidora de linhas
+projetada com o auxílio do servidor. O Capítulo~\ref{cap:metodologia} detalha
+o percurso e as métricas adotadas.
 
 \section{Organização do trabalho}
 

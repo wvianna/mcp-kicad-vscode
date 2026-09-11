@@ -3,14 +3,15 @@
 \subsection{Delineamento da pesquisa}
 
 Este trabalho caracteriza-se como pesquisa aplicada de natureza tecnológica,
-conduzida por meio de desenvolvimento de sistema e avaliação por estudo de caso
-instrumental. O percurso metodológico compreendeu cinco etapas:
+conduzida por meio da análise de um artefato de \emph{software} existente e de
+avaliação por estudo de caso instrumental. O percurso metodológico compreendeu
+cinco etapas:
 (i) auditoria do domínio e do código-fonte do servidor;
-(ii) definição de requisitos do sistema e da API MCP exposta;
-(iii) implementação e evolução da arquitetura em duas camadas;
+(ii) definição de requisitos de avaliação do sistema e da API MCP exposta;
+(iii) análise da arquitetura em duas camadas e do protocolo interno;
 (iv) verificação automatizada por suítes de teste e integração contínua;
-(v) estudo de caso com uma placa de quatro camadas projetada no mesmo
-\emph{workspace}.
+(v) estudo de caso com uma placa de quatro camadas projetada pelo autor, com o
+auxílio do servidor, no mesmo \emph{workspace}.
 
 Não se trata de experimento controlado com grupo de comparação: a avaliação
 adota métricas descritivas de implementação (contagem de ferramentas, recursos,
@@ -21,9 +22,9 @@ Seção~\ref{sec:discussao}.
 
 \subsection{Requisitos do sistema}
 
-Os requisitos que orientaram a implementação estão sintetizados na
-Tabela~\ref{tab:requisitos}, com a forma de atendimento e a evidência
-correspondente.
+Os requisitos que orientaram a avaliação estão sintetizados na
+Tabela~\ref{tab:requisitos}, com a forma de atendimento observada e a
+evidência correspondente.
 
 \begin{table}[htbp]
 \centering
@@ -32,7 +33,7 @@ correspondente.
 \label{tab:requisitos}
 \begin{tabular}{@{}p{0.8cm}p{4.0cm}p{5.4cm}p{4.2cm}@{}}
 \toprule
-\textbf{ID} & \textbf{Requisito} & \textbf{Implementação} & \textbf{Evidência} \\
+\textbf{ID} & \textbf{Requisito} & \textbf{Atendimento} & \textbf{Evidência} \\
 \midrule
 R1 & Cobrir o fluxo de PCB de ponta a ponta & 233 ferramentas em 24 módulos (projeto, esquemático, roteamento, regras, exportação) & Inventário gerado (\texttt{docs/TOOL\_INVENTORY.md}) e Seção~\ref{sec:resultados} \\
 R2 & Permitir descoberta de operações pelo agente & Registro com categorias, lista de essenciais e \texttt{search\_tools} / \texttt{get\_category\_tools} & 173 ferramentas indexadas em 16 categorias \\
@@ -100,8 +101,9 @@ projeto em memória quando o \emph{backend} permite.
 
 \subsection{Estratégia de qualidade}
 
-A verificação adota três mecanismos complementares: (i) suítes de teste em
-TypeScript (Vitest~\citep{vitest}) e Python (pytest~\citep{pytest}), incluindo
+A estratégia de qualidade do servidor adota três mecanismos complementares:
+(i) suítes de teste em TypeScript (Vitest~\citep{vitest}) e Python
+(pytest~\citep{pytest}), incluindo
 testes de correlação de requisições, completude do registro de ferramentas e
 validação sintática; (ii) integração contínua~\citep{githubactions} com matriz
 de sistemas operacionais e versões de \emph{runtime}; e (iii) geração
@@ -122,8 +124,9 @@ exportações fora da interface gráfica \citep{kicadcli}.
 \subsection{Estudo de caso}
 
 O estudo de caso utiliza a placa \texttt{seguidor\_de\_linhas\_4camada2-2026-1},
-um projeto de quatro camadas para um robô seguidor de linhas, contendo
-subsistemas de sensoriamento óptico reflexivo, conversão de energia
+um projeto de quatro camadas para um robô seguidor de linhas, projetado pelo
+autor com o auxílio do servidor, contendo subsistemas de sensoriamento óptico
+reflexivo, conversão de energia
 (\emph{MPPT}), acionamento de motores em ponte H, interface USB-C, regulação
 de tensão e sinalização. O projeto foi analisado por meio de:
 (i) contagem de \emph{footprints}, redes e folhas do esquemático;

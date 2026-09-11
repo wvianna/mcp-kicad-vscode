@@ -3,7 +3,7 @@
 \section{Natureza e abordagem da pesquisa}
 
 Este trabalho caracteriza-se como pesquisa aplicada, de natureza tecnológica,
-orientada ao desenvolvimento de um artefato de \emph{software} e à sua
+orientada à análise de um artefato de \emph{software} de código aberto e à sua
 avaliação em contexto de uso real. A abordagem combina elementos
 quantitativos (contagens, taxas, resultados de verificação) e qualitativos
 (análise de decisões de projeto, limitações e implicações). A avaliação adota
@@ -26,10 +26,10 @@ O percurso foi organizado em cinco etapas:
   \item \textbf{E2 --- Definição de requisitos}: consolidação dos requisitos
         R1 a R6 (Seção~\ref{sec:req-monografia}) a partir das lacunas
         identificadas na fundamentação.
-  \item \textbf{E3 --- Implementação}: análise da implementação existente no
-        workspace, incluindo a arquitetura em duas camadas, o protocolo
-        interno e os mecanismos de robustez documentados no código e no
-        histórico do projeto.
+  \item \textbf{E3 --- Análise da implementação}: leitura do código existente
+        no \emph{workspace}, incluindo a arquitetura em duas camadas, o
+        protocolo interno e os mecanismos de robustez documentados no código
+        e no histórico do projeto.
   \item \textbf{E4 --- Verificação automatizada}: execução das suítes
         TypeScript e Python com o ambiente completo do projeto, em
         10/09/2026, com registro de resultados em arquivo de evidência.
@@ -109,8 +109,8 @@ e \texttt{drc-seguidor-de-linhas-2026-09-10.json}.
 \section{Estudo de caso e procedimentos}
 
 A placa utilizada como estudo de caso é o projeto
-\texttt{seguidor\_de\_linhas\_4camada2-2026-1}, desenvolvido no mesmo
-\emph{workspace} do servidor. O projeto destina-se a um robô seguidor de
+\texttt{seguidor\_de\_linhas\_4camada2-2026-1}, projetado pelo autor com o
+auxílio do servidor no mesmo \emph{workspace}. O projeto destina-se a um robô seguidor de
 linhas, com os seguintes blocos funcionais identificados no esquemático e na
 lista de materiais: sensoriamento óptico reflexivo; conversão de energia com
 rastreamento de ponto de máxima potência (MPPT); acionamento de motores por
@@ -154,8 +154,8 @@ metodológica.
 \toprule
 \textbf{Objetivo específico} & \textbf{Método} & \textbf{Evidência} & \textbf{Seção} \\
 \midrule
-Arquitetura definida & E1/E3 & Capítulo~\ref{cap:arquitetura} & 5 \\
-Catálogo implementado & E1/E3 & Inventário; Capítulo~\ref{cap:catalogo} & 6 \\
+Arquitetura analisada & E1/E3 & Capítulo~\ref{cap:arquitetura} & 5 \\
+Catálogo caracterizado & E1/E3 & Inventário; Capítulo~\ref{cap:catalogo} & 6 \\
 Descoberta e recursos & E4 & Métricas do Capítulo~\ref{cap:resultados} & 8 \\
 Testes e integração contínua & E4 & Logs; matriz de CI & 8 \\
 Estudo de caso & E5 & DRC; figuras; artefatos & 7 \\

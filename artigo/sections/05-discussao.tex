@@ -17,16 +17,16 @@ matriz de integração contínua e pela execução local das suítes.
 \subsection{Comparação com a literatura}
 
 A literatura de interfaces agente--computador sustenta que a forma de exposição
-das ações afeta o desempenho do agente \citep{yang2024sweagent}. O presente
-trabalho aplica esse princípio em um domínio físico: cada operação é uma
+das ações afeta o desempenho do agente \citep{yang2024sweagent}. O servidor
+estudado aplica esse princípio em um domínio físico: cada operação é uma
 ferramenta nomeada, com esquema validado, e as operações mais frequentes formam
 uma lista de essenciais que ordena a busca. Diferentemente de adaptações de
 modelo ao domínio, como o \emph{chip} assistente de \citet{liu2023chipnemo}, a
 solução aqui é ortogonal ao modelo: qualquer cliente compatível com o MCP
 2025-06-18 obtém as mesmas capacidades, sem treinamento específico.
 
-O trabalho também se distingue das automações tradicionais de KiCad ---
-\emph{scripts} Python isolados sobre \texttt{pcbnew} \citep{swig} --- ao
+O servidor estudado também se distingue das automações tradicionais de KiCad
+--- \emph{scripts} Python isolados sobre \texttt{pcbnew} \citep{swig} --- ao
 padronizar descoberta, tratamento de erros, recursos de estado e integrações de
 fabricação em um servidor único. A verificação por \texttt{kicad-cli}
 \citep{kicadcli} fecha o ciclo de qualidade fora da interface gráfica.

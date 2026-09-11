@@ -52,19 +52,21 @@ predominantes de integração em domínios de software.
 As contribuições do trabalho são:
 
 \begin{enumerate}[leftmargin=1.4em,itemsep=0.2em]
-  \item um servidor MCP de cobertura ampla para o fluxo de PCB no KiCad
-        (233 ferramentas em 24 módulos), com integrações de fabricação e
-        cadeia de suprimentos;
-  \item uma arquitetura em duas camadas documentada, com protocolo interno
-        correlacionado e abstração de \emph{backends} (SWIG/IPC/CLI);
-  \item um modelo de descoberta em três mecanismos (categorias, essenciais e
-        busca), com salvaguarda automatizada contra regressão de cobertura;
-  \item uma base de verificação com 2.451 casos de teste e integração
-        contínua multi-plataforma, servindo de referência para integrações
-        semelhantes;
-  \item um estudo de caso completo, com métricas verificáveis de um projeto
-        de quatro camadas, incluindo a análise crítica das violações
-        residuais de regras de projeto.
+  \item a análise documentada do \texttt{mcp-kicad-vscode}~\citep{kicadmcpserver},
+        servidor MCP de código aberto com cobertura ampla do fluxo de PCB no
+        KiCad (233 ferramentas em 24 módulos), incluindo integrações de
+        fabricação e cadeia de suprimentos;
+  \item a caracterização de sua arquitetura em duas camadas, com protocolo
+        interno correlacionado e abstração de \emph{backends} (SWIG/IPC/CLI);
+  \item a avaliação do modelo de descoberta em três mecanismos (categorias,
+        essenciais e busca), com salvaguarda automatizada contra regressão de
+        cobertura;
+  \item a consolidação de uma base de verificação com 2.451 casos de teste e
+        integração contínua multiplataforma, descrita como referência para
+        integrações semelhantes;
+  \item um estudo de caso completo, conduzido pelo autor, com métricas
+        verificáveis de um projeto de quatro camadas, incluindo a análise
+        crítica das violações residuais de regras de projeto.
 \end{enumerate}
 
 \section{Limitações}\label{sec:limitacoes}

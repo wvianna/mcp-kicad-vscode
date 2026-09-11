@@ -30,34 +30,38 @@ autônomos).
 Este trabalho parte da seguinte questão de pesquisa: \emph{como expor de forma
 ampla, descobrível e testável o fluxo de projeto de PCBs do KiCad a assistentes
 de IA, preservando a robustez exigida por operações destrutivas sobre arquivos
-de projeto?} Para respondê-la, foi especificado, implementado e avaliado o
-\texttt{mcp-kicad-vscode}, um servidor MCP que traduz operações do KiCad em
-ferramentas executáveis por agentes, com integração a catálogos reais de
-componentes e a roteador automático.
+de projeto?} Para respondê-la, este trabalho analisa e avalia o
+\texttt{mcp-kicad-vscode} --- o servidor MCP de código aberto do projeto
+\texttt{KiCAD-MCP-Server}, criado por \emph{mixelpixx}~\citep{kicadmcpserver}
+---, que traduz operações do KiCad em ferramentas executáveis por agentes, com
+integração a catálogos reais de componentes e a roteador automático, e conduz
+um estudo de caso em que o servidor é aplicado ao projeto de uma placa
+seguidora de linhas de quatro camadas.
 
 As principais contribuições deste trabalho são:
 
 \begin{enumerate}[leftmargin=1.4em,itemsep=0.25em]
-  \item a especificação e implementação de uma arquitetura em duas camadas
+  \item a análise documentada da arquitetura em duas camadas do servidor
         (TypeScript para o protocolo MCP; Python para a interface com a API
         \emph{pcbnew}/IPC do KiCad), com abstração de \emph{backends} e
         correlação de requisições entre os processos;
-  \item um catálogo de 233 ferramentas MCP organizadas em 24 módulos
-        funcionais, cobrindo esquemático, placa, roteamento, regras de
+  \item o mapeamento do catálogo de 233 ferramentas MCP organizadas em 24
+        módulos funcionais, cobrindo esquemático, placa, roteamento, regras de
         projeto, exportação, bibliotecas, criação de partes, datasheets e
         cadeia de suprimentos;
-  \item um mecanismo de descoberta por palavra-chave (\texttt{search\_tools},
-        \texttt{get\_category\_tools}) que indexa 173 ferramentas em 16
-        categorias, além de 23 recursos dinâmicos que expõem o estado do
-        projeto;
-  \item uma estratégia de qualidade que combina testes automatizados em duas
-        linguagens (84 casos em TypeScript e 2.367 casos coletados em Python),
-        integração contínua em múltiplos sistemas operacionais e geração
-        automática do inventário de ferramentas;
-  \item uma avaliação por estudo de caso com uma placa seguidora de linhas de
-        quatro camadas projetada no workspace, incluindo verificação de regras
-        por \texttt{kicad-cli}, quantificação de violações residuais e
-        análise crítica das limitações.
+  \item a avaliação dos mecanismos de descoberta por palavra-chave
+        (\texttt{search\_tools}, \texttt{get\_category\_tools}), que indexam
+        173 ferramentas em 16 categorias, e dos 23 recursos dinâmicos que
+        expõem o estado do projeto;
+  \item a execução e a análise da estratégia de qualidade do projeto, que
+        combina testes automatizados em duas linguagens (84 casos em
+        TypeScript e 2.367 casos coletados em Python), integração contínua em
+        múltiplos sistemas operacionais e geração automática do inventário de
+        ferramentas;
+  \item uma avaliação por estudo de caso, conduzida pelo autor, com uma placa
+        seguidora de linhas de quatro camadas projetada com o auxílio do
+        servidor, incluindo verificação de regras por \texttt{kicad-cli},
+        quantificação de violações residuais e análise crítica das limitações.
 \end{enumerate}
 
 O restante do artigo está organizado da seguinte forma: a

@@ -44,12 +44,14 @@ esse conjunto de decisões em cada projeto.
 \section{O ecossistema de servidores MCP}
 
 Desde a publicação da especificação \citep{mcp2025spec}, servidores MCP foram
-criados para domínios variados. No domínio de EDA, o repositório
-\texttt{KiCAD-MCP-Server} \citep{kicadmcpserver} consolidou uma implementação
-de referência em Python e TypeScript que serve de base ao presente trabalho:
-o servidor analisado neste texto é um \emph{fork} mantido no workspace do
-autor, que preserva a arquitetura de duas camadas e incorpora correções e
-extensões próprias, documentadas em capítulos posteriores.
+criados para domínios variados. No domínio de EDA, o projeto
+\texttt{KiCAD-MCP-Server}~\citep{kicadmcpserver}, criado por \emph{mixelpixx}
+e aberto a contribuições da comunidade, consolidou uma implementação de
+referência em Python e TypeScript. O servidor analisado neste texto é a versão
+de trabalho do projeto disponibilizada no \emph{workspace}
+\texttt{mcp-kicad-vscode}, que preserva a arquitetura de duas camadas e é
+utilizada no estudo de caso conduzido pelo autor
+(Capítulo~\ref{cap:estudo-de-caso}).
 
 A literatura acadêmica sobre servidores MCP para EDA ainda é incipiente: os
 trabalhos publicados concentram-se no protocolo e em agentes de software, e
@@ -69,7 +71,7 @@ PCB no KiCad.}
 \label{qua:comparativo}
 \begin{tabular}{@{}p{3.4cm}p{3.4cm}p{3.4cm}p{3.4cm}@{}}
 \toprule
-\textbf{Critério} & \textbf{\emph{Scripts} e plugins} & \textbf{Modelo adaptado ao domínio} & \textbf{Servidor MCP (este trabalho)} \\
+\textbf{Critério} & \textbf{\emph{Scripts} e plugins} & \textbf{Modelo adaptado ao domínio} & \textbf{Servidor MCP estudado} \\
 \midrule
 Contrato com o assistente & inexistente (integração ad hoc) & implícito no modelo & padronizado (MCP 2025-06-18) \\
 Descoberta de operações & manual (documentação) & embutida no treinamento & \texttt{search\_tools} / categorias \\
@@ -87,8 +89,8 @@ As três frentes analisadas não cobrem, simultaneamente: (i) um contrato
 padronizado entre assistentes e o fluxo completo de PCB; (ii) mecanismos de
 descoberta e de estado que sustentem uso por agentes; e (iii) evidências
 publicadas de qualidade --- testes, cobertura e verificação de regras em um
-projeto real. O presente trabalho endereça essa lacuna construindo e
-avaliando o \texttt{mcp-kicad-vscode} com esse tripé.
+projeto real. O presente trabalho endereça essa lacuna analisando e
+avaliando o \texttt{mcp-kicad-vscode} segundo esse tripé.
 
 \section{Síntese do capítulo}
 

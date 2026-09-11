@@ -37,3 +37,9 @@ validação com o autor.
 - O README do workspace afirmava “DRC limpo (0 violações)”; a verificação de
   10/09/2026 reportou 11 violações (9 erros + 2 avisos). O README foi
   corrigido para refletir a medição.
+
+## Correções de atribuição aplicadas
+
+| ID | Item | Correção |
+|---|---|---|
+| A-01 | Autoria do servidor MCP estudado | O projeto `KiCAD-MCP-Server` é de autoria de `mixelpixx` (conforme a citação sugerida no final de `KiCAD-MCP-Server/README.md`). Em 11/09/2026, o artigo e a monografia foram ajustados para: (i) creditar o autor do servidor e citar o projeto; (ii) descrever o trabalho como análise/avaliação do servidor, e não como sua especificação/implementação; (iii) explicitar que o estudo de caso com a placa seguidora de linhas é a contribuição empírica do autor do trabalho. Os PDFs finais mantêm os nomes `artigo-mcp-kicad-vscode.pdf` e `monografia-mcp-kicad-vscode.pdf`. |

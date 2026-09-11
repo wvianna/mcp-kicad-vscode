@@ -1,16 +1,17 @@
 \section{Conclusão}\label{sec:conclusao}
 
-Este trabalho apresentou o \texttt{mcp-kicad-vscode}, um servidor Model Context
-Protocol para automação do fluxo de projeto de placas de circuito impresso no
-KiCad. A solução expõe 233 ferramentas organizadas em 24 módulos, 173 delas
-descobríveis em 16 categorias, além de 23 recursos dinâmicos de estado do
-projeto, integrações com JLCPCB, LCSC e DigiKey e suporte ao roteador
-automático Freerouting. A validação combinou métricas de implementação,
-execução das suítes de teste --- 2.412 de 2.451 casos aprovados localmente, com
-a suíte TypeScript integralmente aprovada --- e um estudo de caso com uma placa
-seguidora de linhas de quatro camadas (97 \emph{footprints}, 83 redes), cuja
-verificação de regras reportou 11 violações residuais e zero itens não
-conectados.
+Este trabalho analisou e avaliou o \texttt{mcp-kicad-vscode}, o servidor Model
+Context Protocol de código aberto do projeto \texttt{KiCAD-MCP-Server}, criado
+por \emph{mixelpixx}~\citep{kicadmcpserver}, para automação do fluxo de projeto
+de placas de circuito impresso no KiCad. O servidor expõe 233 ferramentas
+organizadas em 24 módulos, 173 delas descobríveis em 16 categorias, além de 23
+recursos dinâmicos de estado do projeto, integrações com JLCPCB, LCSC e DigiKey
+e suporte ao roteador automático Freerouting. A validação combinou métricas de
+implementação, execução das suítes de teste --- 2.412 de 2.451 casos aprovados
+localmente, com a suíte TypeScript integralmente aprovada --- e um estudo de
+caso, conduzido pelo autor, com uma placa seguidora de linhas de quatro camadas
+(97 \emph{footprints}, 83 redes), cuja verificação de regras reportou 11
+violações residuais e zero itens não conectados.
 
 Os resultados respondem à questão de pesquisa na medida em que demonstram ser
 viável, com uma arquitetura em duas camadas e disciplina de testes, expor um
